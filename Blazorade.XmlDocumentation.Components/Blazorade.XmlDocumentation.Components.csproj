@@ -9,10 +9,13 @@
     <Product>Blazorade XML Docs Components</Product>
     <Description>A Razor component library that defines components for easily creating documentation out of .NET XML Documentation files. The library uses Blazorade Bootstrap.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://www.blazorade.com/XmlDocsComponents</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Blazorade/Blazorade-XmlDocumentation</PackageProjectUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>XML, Documentation, XML Documentation, Comments, Blazor, Bootstrap, Razor</PackageTags>
     <PackageReleaseNotes>This is a preview release.</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Blazorade/Blazorade-XmlDocumentation</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>icon-128.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,6 +28,10 @@
 
   <ItemGroup>
     <None Remove="Blazorade.XmlDocumentation.Components.xml" />
+    <None Include="wwwroot\icon-128.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
