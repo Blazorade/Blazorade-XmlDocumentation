@@ -52,6 +52,12 @@
             <param name="parameter">The parameter to return the display name for.</param>
             <returns></returns>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Reflection.PropertyInfo)">
+            <summary>
+            Returns the display name for the given <paramref name="property"/>.
+            </summary>
+            <param name="property">The property whose display name to return.</param>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Type)">
             <summary>
             Returns the display name for the given type.

@@ -100,6 +100,10 @@ namespace Blazorade.XmlDocumentation
             return $"{extensionPrefix}{parameter.ParameterType.ToDisplayName()} {parameter.Name}";
         }
 
+        /// <summary>
+        /// Returns the display name for the given <paramref name="property"/>.
+        /// </summary>
+        /// <param name="property">The property whose display name to return.</param>
         public static string ToDisplayName(this PropertyInfo property)
         {
             var sb = new StringBuilder();

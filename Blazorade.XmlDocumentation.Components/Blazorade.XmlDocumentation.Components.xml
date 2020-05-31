@@ -248,41 +248,6 @@
             <summary>
             </summary>
         </member>
-        <member name="T:Blazorade.XmlDocumentation.Components.Reflection.ComponentExtensions">
-            <summary>
-            Extension methods for components.
-            </summary>
-        </member>
-        <member name="M:Blazorade.XmlDocumentation.Components.Reflection.ComponentExtensions.IsComponent(System.Type)">
-            <summary>
-            Returns <c>true</c> if the given <see cref="T:Blazorade.XmlDocumentation.TypeDocumentation"/> represents a component class.
-            </summary>
-            <param name="type">The type documentation to examine.</param>
-        </member>
-        <member name="M:Blazorade.XmlDocumentation.Components.Reflection.ComponentExtensions.IsParameter(System.Reflection.PropertyInfo)">
-            <summary>
-            Returns <c>true</c> if the given <see cref="T:Blazorade.XmlDocumentation.PropertyDocumentation"/> represents a parameter property.
-            </summary>
-            <param name="property">The property documentation to examine.</param>
-        </member>
-        <member name="T:Blazorade.XmlDocumentation.Components.Reflection.PropertyFilters">
-            <summary>
-            Filters used for filtering properties.
-            </summary>
-        </member>
-        <member name="F:Blazorade.XmlDocumentation.Components.Reflection.PropertyFilters.ParameterFilter">
-            <summary>
-            A filter that includes only parameter properties.
-            </summary>
-            <remarks>
-            A parameter property is a property that is decorated with the <see cref="T:Microsoft.AspNetCore.Components.ParameterAttribute"/> attribute.
-            </remarks>
-        </member>
-        <member name="F:Blazorade.XmlDocumentation.Components.Reflection.PropertyFilters.NonParametersFilter">
-            <summary>
-            A filter that includes properties that are not parameter properties.
-            </summary>
-        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder">
             <summary>
             An implementation that is used by components to build URIs with. URIs built with this

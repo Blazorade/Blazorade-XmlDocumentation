@@ -13,7 +13,7 @@
             var uri = this.UriBuilder.GetTypeUri(this.LibraryKey, t.DocumentedMember);
 
             <Anchor Url="@uri?.ToString()" OpenInNewTab="@(this.UriBuilder.OpenExternalsInNewTab && uri.IsAbsoluteUri)" class="list-group-item list-group-item-action">
-                <Heading Level="5"><TypeIcon Type="@t.DocumentedMember" Width="16" />@t.DocumentedMember.ToDisplayName()</Heading>
+                <Heading Level="5"><TypeIcon Type="@t.DocumentedMember" Width="24" />@t.DocumentedMember.ToDisplayName()</Heading>
                 <Paragraph>
                     <NodeList Nodes="@t.Summary.ChildNodes" />
                 </Paragraph>

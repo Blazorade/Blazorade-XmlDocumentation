@@ -94,8 +94,8 @@ namespace Blazorade.XmlDocumentation.Tests
             List<string> names = new List<string>();
             foreach(var m in p.GetMethods(doc))
             {
-                Assert.IsFalse(names.Contains(m.DisplayName));
-                names.Add(m.DisplayName);
+                Assert.IsFalse(names.Contains(m.DocumentedMember.ToDisplayName()));
+                names.Add(m.DocumentedMember.ToDisplayName());
             }
         }
 
@@ -108,8 +108,8 @@ namespace Blazorade.XmlDocumentation.Tests
             var names = new List<string>();
             foreach(var m in p.GetMethods(doc))
             {
-                Assert.IsFalse(names.Contains(m.DisplayName));
-                names.Add(m.DisplayName);
+                Assert.IsFalse(names.Contains(m.DocumentedMember.ToDisplayName()));
+                names.Add(m.DocumentedMember.ToDisplayName());
             }
         }
 
