@@ -99,6 +99,20 @@ namespace Blazorade.XmlDocumentation.Tests
             }
         }
 
+        [TestMethod]
+        public void GetMethods04()
+        {
+            var p = this.GetFactory().GetParser(ParserKeys.XmlDocs);
+            var doc = p.GetDocumentation(typeof(DocumentationExtensions));
+
+            var names = new List<string>();
+            foreach(var m in p.GetMethods(doc))
+            {
+                Assert.IsFalse(names.Contains(m.DisplayName));
+                names.Add(m.DisplayName);
+            }
+        }
+
 
 
         [TestMethod]

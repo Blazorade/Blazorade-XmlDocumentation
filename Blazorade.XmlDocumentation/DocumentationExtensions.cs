@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Blazorade.XmlDocumentation
@@ -23,11 +24,6 @@ namespace Blazorade.XmlDocumentation
         {
             var attr = asm?.GetCustomAttribute<AssemblyDescriptionAttribute>();
             return attr?.Description;
-        }
-
-        public static string GetDisplayName(this MethodBase method)
-        {
-            return null;
         }
 
         /// <summary>
@@ -54,6 +50,64 @@ namespace Blazorade.XmlDocumentation
         {
             var attr = asm?.GetCustomAttribute<AssemblyProductAttribute>();
             return attr?.Product;
+        }
+
+        /// <summary>
+        /// Returns the display name for the given <paramref name="method"/>.
+        /// </summary>
+        /// <remarks>
+        /// A method display name is unique within its declaring type.
+        /// </remarks>
+        /// <param name="method">The method for which to return the display name.</param>
+        public static string ToDisplayName(this MethodBase method)
+        {
+            var sb = new StringBuilder();
+
+            if (method is MethodInfo)
+            {
+                var rt = ((MethodInfo)method).ReturnType;
+                sb.Append(rt.ToDisplayName());
+                sb.Append(" ");
+            }
+
+            sb.Append(method.Name);
+            sb.Append("(");
+
+            var parameters = method.GetParameters();
+            var pArr = from x in parameters select x.ToDisplayName();
+
+            sb.Append(string.Join(", ", pArr.ToArray()));
+
+            sb.Append(")");
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Returns the display name for the parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter to return the display name for.</param>
+        /// <returns></returns>
+        public static string ToDisplayName(this ParameterInfo parameter)
+        {
+            string extensionPrefix = "";
+
+            if(parameter.Position == 0 && parameter.Member.IsDefined(typeof(ExtensionAttribute)))
+            {
+                extensionPrefix = "this ";
+            }
+
+            return $"{extensionPrefix}{parameter.ParameterType.ToDisplayName()} {parameter.Name}";
+        }
+
+        public static string ToDisplayName(this PropertyInfo property)
+        {
+            var sb = new StringBuilder();
+            sb.Append(property.PropertyType.ToDisplayName());
+            sb.Append(" ");
+            sb.Append(property.Name);
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -95,5 +149,6 @@ namespace Blazorade.XmlDocumentation
 
             return displayName;
         }
+
     }
 }

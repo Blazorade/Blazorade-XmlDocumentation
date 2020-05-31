@@ -20,26 +20,6 @@ namespace Blazorade.XmlDocumentation
 
 
 
-        /// <inheritdoc/>
-        public override MethodBase DocumentedMember
-        { 
-            get => base.DocumentedMember;
-            protected set
-            {
-                base.DocumentedMember = value;
-                
-            }
-        }
-
-        /// <summary>
-        /// Returns the display name for the method.
-        /// </summary>
-        /// <remarks>
-        /// The display name is unique within its declaring type, because the display name contains
-        /// also the parameter types.
-        /// </remarks>
-        public string DisplayName { get; private set; }
-
         /// <summary>
         /// Returns the <c>param</c> nodes from the documentation.
         /// </summary>

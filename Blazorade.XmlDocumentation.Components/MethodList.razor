@@ -11,9 +11,7 @@
         @foreach(var m in this.Methods)
         {
             <ListGroupItem>
-                <Div Builder="new RowBuilder().JustifyContentBetween().DisplayFlex().Width100()">
-                    <Heading Id="@($"method-{m.Name}")" IsAnchor="true" Level="5">@m.Name</Heading>
-                </Div>
+                <Heading Level="5">@m.DocumentedMember.ToDisplayName()</Heading>
 
                 <Paragraph>
                     <NodeList Nodes="@m.Summary?.ChildNodes" />

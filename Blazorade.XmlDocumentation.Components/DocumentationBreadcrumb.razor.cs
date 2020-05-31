@@ -111,7 +111,7 @@ namespace Blazorade.XmlDocumentation.Components
                 if(null != t)
                 {
                     this.Items.Add(new Link { Text = t.Namespace, Url = this.UriBuilder.GetNamespaceUri(this.LibraryKey, t.Namespace)?.ToString() });
-                    this.Items.Add(new Link { Text = t.Name, Url = this.UriBuilder.GetTypeUri(this.LibraryKey, t)?.ToString() });
+                    this.Items.Add(new Link { Text = t.ToDisplayName(), Url = this.UriBuilder.GetTypeUri(this.LibraryKey, t)?.ToString() });
                 }
             }
             else if (this.Namespace?.Length > 0)
