@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blazorade.XmlDocumentation</name>
+    </assembly>
+    <members>
+        <member name="T:Blazorade.XmlDocumentation.DocumentationExtensions">
+            <summary>
+            Extension methods for working with XML documentation files.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.GetDescription(System.Reflection.Assembly)">
+            <summary>
+            Returns the description for the assembly.
+            </summary>
+            <remarks>
+            The description is read from the <see cref="T:System.Reflection.AssemblyDescriptionAttribute"/> attribute of the assembly.
+            </remarks>
+            <param name="asm"></param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.GetInformationalVersion(System.Reflection.Assembly)">
+            <summary>
+            Returns the informational version for the assembly.
+            </summary>
+            <remarks>
+            The version info is read from the <see cref="T:System.Reflection.AssemblyInformationalVersionAttribute"/> attribute of the assembly.
+            </remarks>
+            <param name="asm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.GetProductName(System.Reflection.Assembly)">
+            <summary>
+            Returns the product name for the assembly.
+            </summary>
+            <remarks>
+            The product name is read from the <see cref="T:System.Reflection.AssemblyProductAttribute"/> attribute of the assembly.
+            </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Type)">
+            <summary>
+            Returns the display name for the given type.
+            </summary>
+            <remarks>
+            This method also supports breaking up generic types including the display names of the generic type arguments too.
+            </remarks>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.DocumentationNodeBase.DocumentationNode">
+            <summary>
+            Returns the XML node representing the documentation.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationNodeBase.ChildNodes(System.String)">
+            <summary>
+            Returns the child nodes with the given name.
+            </summary>
+            <param name="name">The name of the child nodes to return.</param>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.DocumentationParser">
+            <summary>
+            A utility class that helps you parse XML documentation files.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.#ctor(System.Xml.XmlDocument)">
+            <summary>
+            Creates an instance of the class from the given XML document object.
+            </summary>
+            <param name="document">The XML document containing the documentation to parse.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.#ctor(System.String)">
+            <summary>
+            Creates an instance of the class from the given string.
+            </summary>
+            <param name="xml">The XML string representing the XML documentation document to parse.</param>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.DocumentationParser.AssemblyName">
+            <summary>
+            Returns the name of the assembly whose XML documentation is loaded into the parser.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.DocumentationParser.AssemblyVersion">
+            <summary>
+            The informational version of the assembly.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.DocumentationParser.AssemblyProductName">
+            <summary>
+            The product name defined in the assembly.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.DocumentationParser.AssemblyDescription">
+            <summary>
+            The description of the assembly.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.DocumentationParser.Document">
+            <summary>
+            The XML document object containing the XML documentation.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetDocumentation(System.Type)">
+            <summary>
+            Returns the documentation for the given type.
+            </summary>
+            <param name="type">The type to return the documentation for.</param>
+            <returns>
+            Returns an instance of the <see cref="T:Blazorade.XmlDocumentation.TypeDocumentation"/> class representing the documentation. If
+            documentation representing the given type is not found, <c>null</c> is returned.
+            </returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetDocumentation(System.String)">
+            <summary>
+            Returns the documentation for the the type specified in <paramref name="typeName"/>.
+            </summary>
+            <param name="typeName">The full name of the type whose documentation to return.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMethods(Blazorade.XmlDocumentation.TypeDocumentation)">
+            <summary>
+            Returns the methods for the given <paramref name="type"/>.
+            </summary>
+            <param name="type">The type for which to return the methods.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetNamespaces">
+            <summary>
+            Returns a list of namespaces representing the types documented in the loaded XML documentation.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetProperties(Blazorade.XmlDocumentation.TypeDocumentation)">
+            <summary>
+            Returns the properties defined on the given type.
+            </summary>
+            <param name="type">The type for which to return the properties.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetType(System.String)">
+            <summary>
+            Returns the type represented by <paramref name="typeName"/>. The assembly that the current
+            parser instance represent is used when searching for the type.
+            </summary>
+            <param name="typeName">The full type name of the type to return.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetTypes(System.String)">
+            <summary>
+            Returns the types documented in the given namespace.
+            </summary>
+            <param name="ns">The namespace whose types to return.</param>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.DocumentationParserFactory">
+            <summary>
+            Manages multiple <see cref="T:Blazorade.XmlDocumentation.DocumentationParser"/> instances.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.#ctor">
+            <summary>
+            Creates an instance of the class.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.AddParser(System.String,System.Xml.XmlDocument)">
+            <summary>
+            Adds a parser to the factory with the given <paramref name="key"/> using the given <paramref name="xml"/> document.
+            </summary>
+            <param name="key">The key to add the parser with. If a parser with the given key exists, it will be overwritten.</param>
+            <param name="xml">The XML document to use to create a <see cref="T:Blazorade.XmlDocumentation.DocumentationParser"/> object to add.</param>
+            <returns>Returns the added parser.</returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.AddParser(System.String,System.String)">
+            <summary>
+            Adds a parser to the factory with the given <paramref name="key"/> using the given <paramref name="xml"/> string.
+            </summary>
+            <param name="key">The key to add the parser with. If a parser with the given key exists, it will be overwritten.</param>
+            <param name="xml">The XML string to use to create a <see cref="T:Blazorade.XmlDocumentation.DocumentationParser"/> object to add.</param>
+            <returns>Returns the added parser.</returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.AddParser(System.String,System.Reflection.Assembly)">
+            <summary>
+            Adds a parser representing the given assembly to the factory.
+            </summary>
+            <remarks>
+            This method tries to find an embedded resource from the assembly with the name of the assembly file name with an <c>.xml</c>
+            extension, and assumes that if such a resource is found, that resource contains the XML documentation for the assembly.
+            </remarks>
+            <param name="key">The key to add the parser with. If a parser with the given key exists, it will be overwritten.</param>
+            <param name="asm">The assembly to search for embedded XML documents in.</param>
+            <returns>Returns the added parser.</returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParserKeys">
+            <summary>
+            Returns a collection of keys representing parsers loaded into the current factory.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParser(System.String)">
+            <summary>
+            Returns the parser with the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key of the parser to return.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParser(System.String,System.String)">
+            <summary>
+            Returns the parser with the given key.
+            </summary>
+            <remarks>
+            If a parser with the given key does not exist, one will be created using the given <paramref name="xml"/> string
+            and added to the factory for further use.
+            </remarks>
+            <param name="key">The key representing the parser to return.</param>
+            <param name="xml">Optional. The XML string to create a parser from in case a parser does not exist with the specified <paramref name="key"/>.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParser(System.String,System.Xml.XmlDocument)">
+            <summary>
+            Returns the parser with the given key.
+            </summary>
+            <remarks>
+            If a parser with the given key does not exist, one will be created using the given <paramref name="xml"/> document
+            and added to the factory for further use.
+            </remarks>
+            <param name="key">The key representing the parser to return.</param>
+            <param name="xml">Optional. The XML document to create a parser from in case a parser does not exist with the specified <paramref name="key"/>.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParserByTypeName(System.String)">
+            <summary>
+            Finds the parser that can resolve the type specified in <paramref name="typeName"/>.
+            </summary>
+            <param name="typeName">The full name of the type to find a parser for.</param>
+            <returns>
+            The method returns a <see cref="T:System.Tuple`3"/> where <c>Item1</c> contains
+            the key for the parser, <c>Item2</c> contains the actual parser, and <c>Item3</c> contains the type
+            that was resolved by the parser.
+            </returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetType(System.String)">
+            <summary>
+            Returns the <see cref="T:System.Type"/> that represents the given <paramref name="typeName"/>. 
+            </summary>
+            <remarks>
+            If one is not directly resolved from that name, then each of the assemblies loaded into the current 
+            <see cref="T:System.AppDomain"/> are enumerated and used to complete the given <paramref name="typeName"/>.
+            </remarks>
+            <param name="typeName">The full name of the type to return.</param>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.MemberDocumentation`1">
+            <summary>
+            Represents the base class for all kinds of member documentation nodes.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.MemberDocumentation`1.#ctor(System.Xml.XmlNode,`0)">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+            <param name="documentation">The XML node representing the documentation for the member.</param>
+            <param name="documentedMember">The member that <paramref name="documentation"/> represents.</param>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.DocumentedMember">
+            <summary>
+            Returns the reflection member that the documenation represents.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Name">
+            <summary>
+            Returns the name of the member.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Summary">
+            <summary>
+            Returns the <c>summary</c> node from the documentation.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Remarks">
+            <summary>
+            Returns the <c>remarks</c> node from the documentation.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Exceptions">
+            <summary>
+            Returns the <c>exception</c> nodes from the documentation.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.MemberDocumentation`1.ToString">
+            <summary>
+            Returns the string representation of the documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.MethodDocumentation">
+            <summary>
+            Represents documentation for a method, encapsulating a <see cref="T:System.Reflection.MethodBase"/> type.
+            </summary>
+            <remarks>
+            This documentation type is used for both methods and constructors.
+            </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.MethodDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.MethodBase)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.DocumentedMember">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.DisplayName">
+            <summary>
+            Returns the display name for the method.
+            </summary>
+            <remarks>
+            The display name is unique within its declaring type, because the display name contains
+            also the parameter types.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.Parameters">
+            <summary>
+            Returns the <c>param</c> nodes from the documentation.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.Returns">
+            <summary>
+            The <c>returns</c> node from the documentation.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.MethodDocumentation.GetParameters">
+            <summary>
+            Returns the parameters for the current method.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.ParameterDocumentation">
+            <summary>
+            Represents documentation for a method parameter.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.ParameterDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.ParameterInfo)">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+            <param name="documentation">The XML documentation node for the parameter.</param>
+            <param name="parameterInfo">Information about the reflected parameter.</param>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.ParameterDocumentation.DocumentedParameter">
+            <summary>
+            Returns the parameteter info for the parameter.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.ParameterDocumentation.Name">
+            <summary>
+            Returns the name of the parameter.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.ParameterDocumentation.ToString">
+            <summary>
+            Returns the string representation of the parameter.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.PropertyDocumentation">
+            <summary>
+            Represents documentation for a property, encapsulating a <see cref="T:System.Reflection.PropertyInfo"/> type.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.PropertyDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.PropertyInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.PropertyDocumentation.Value">
+            <summary>
+            Returns the <c>value</c> node from the documentation.
+            </summary>
+            <remarks>
+            For details on the <c>value</c> node, see https://docs.microsoft.com/dotnet/csharp/programming-guide/xmldoc/value.
+            </remarks>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.TypeDocumentation">
+            <summary>
+            Represents the documentation for a <see cref="T:System.Type"/> object.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.TypeDocumentation.#ctor(System.Xml.XmlNode,System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.TypeDocumentation.DocumentedMember">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.TypeDocumentation.Namespace">
+            <summary>
+            Returns the namespace of the type.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.TypeDocumentation.ToString">
+            <summary>
+            Returns the string representation of the object.
+            </summary>
+        </member>
+    </members>
+</doc>

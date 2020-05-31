@@ -1,0 +1,16 @@
+﻿@inherits NodeComponentBase
+@if(this.Node?.Name?.Length > 0)
+{
+    switch(this.Node?.Name?.ToLower())
+    {
+        case "c":<CNode Node="this.Node" />break;
+        case "see":<SeeNode Node="this.Node" />break;
+        case "para":<ParaNode Node="this.Node" />break;
+        case "summary":<SummaryNode Node="this.Node" />break;
+        case "remarks":<RemarksNode Node="this.Node" />break;
+        case "seealso":break;
+        case "exception":break;
+        case "list":break;
+        default:<NodeList Nodes="this.Node.ChildNodes" />break;
+    }
+}

@@ -1,0 +1,4 @@
+﻿@inherits CRefParentBase
+@if (null != this.LinkUrl) {<Anchor Url="@this.LinkUrl.ToString()" OpenInNewTab="@this.LinkUrl.IsAbsoluteUri">@this.LinkText</Anchor>}
+else if (this.LinkText?.Length > 0) {<Span>[@this.LinkText]</Span>}
+else {<Span>[unresolved cref]</Span>}

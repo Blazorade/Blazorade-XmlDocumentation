@@ -1,0 +1,10 @@
+﻿@page "/{LibraryKey}/ns/{Namespace}"
+@inherits NamespaceDocumentationBase
+
+<DocumentationBreadcrumb LibraryKey="@this.LibraryKey" Namespace="@this.Namespace" />
+
+<Heading>@this.Namespace Namespace</Heading>
+
+<Card Title="Defined Types">
+    <TypeList LibraryKey="@this.LibraryKey" Namespace="@this.Namespace" />
+</Card>

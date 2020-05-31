@@ -1,0 +1,14 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+@code {
+    IComponentBuilder builder = new ColumnBuilder().Col(12).OnAll().Col(6).OnMd().Col(4).OnLg().Col(3).OnXl().MarginTop(4);
+}
+
+<Row>
+    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Bootstrap" ImageUrl="/img/Bootstrap-Logo.svg" Height="1" /></Column>
+    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Core" ImageUrl="/img/Blazorade-Logo.svg" Height="1" /></Column>
+    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocs" Height="1" /></Column>
+    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocsComponents" Height="1" /></Column>
+</Row>

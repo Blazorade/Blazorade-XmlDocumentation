@@ -1,0 +1,34 @@
+﻿@inherits NodeComponentBase
+@using System.Text.RegularExpressions
+@code {
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        this.Text = this.Node?.OuterXml ?? this.Node?.InnerText;
+    }
+
+    private string Text;
+
+    private RenderFragment RenderText()
+    {
+        if (!string.IsNullOrEmpty(this.Text))
+        {
+            var rx = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)");
+            this.Text = rx.Replace(this.Text, (m) =>
+            {
+                return $"<a href=\"{m.Value}\" target=\"_blank\">{m.Value}</a>";
+            });
+        }
+
+        return b =>
+        {
+            if(this.Text?.Length > 0)
+            {
+                b.AddMarkupContent(0, this.Text);
+            }
+        };
+    }
+
+}@this.RenderText()

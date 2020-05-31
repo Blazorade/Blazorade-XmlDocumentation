@@ -1,0 +1,5 @@
+﻿@inherits BootstrapComponentBase
+@if (null != this.ReadMoreUrl)
+{
+    <Anchor class="btn btn-primary" Url="@this.ReadMoreUrl.ToString()" OpenInNewTab="@this.ReadMoreUrl.IsAbsoluteUri" IsStretched="true" MarginLeft="Spacing.Auto" MarginRight="3" MarginBottom="3">@(this.ReadMoreLabel ?? "Read more...")</Anchor>
+}

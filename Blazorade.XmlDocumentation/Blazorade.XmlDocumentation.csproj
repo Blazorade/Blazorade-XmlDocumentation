@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>Mika Berglund</Authors>
+    <Company>Blazorade</Company>
+    <Product>Blazorade XML Docs Core</Product>
+    <Description>A .NET Standard library that is designed to help you parse XML Documentation files in order to build applicaitons that produce documentation for your libraries.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://www.blazorade.com/XmlDocs</PackageProjectUrl>
+    <PackageTags>XML, Documentation, XML Documentation, Comments</PackageTags>
+    <PackageReleaseNotes>This is a preview release.</PackageReleaseNotes>
+    <Version>1.0.0-preview1</Version>
+    <RepositoryType>GitHub</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Blazorade.XmlDocumentation.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>Blazorade.XmlDocumentation.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Blazorade.XmlDocumentation.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Blazorade.XmlDocumentation.xml" />
+  </ItemGroup>
+
+</Project>

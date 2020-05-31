@@ -1,0 +1,18 @@
+﻿@inherits TypeDocumentationBase
+
+<Heading Level="1">@this.Documentation.Name <TypeDeclaration Type="@this.Documentation.DocumentedMember" /></Heading>
+
+<Paragraph IsLead="true"><NodeList Nodes="@this.Documentation.Summary.ChildNodes" /></Paragraph>
+<RemarksNode Node="@this.Documentation.Remarks" />
+
+<PropertyList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
+    <HeadingTemplate>
+        <Heading Id="properties" IsAnchor="true" Level="2">Properties</Heading>
+    </HeadingTemplate>
+</PropertyList>
+
+<MethodList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
+    <HeadingTemplate>
+        <Heading Id="methods" IsAnchor="true" Level="2">Methods</Heading>
+    </HeadingTemplate>
+</MethodList>

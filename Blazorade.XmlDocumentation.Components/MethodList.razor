@@ -1,0 +1,24 @@
+﻿@inherits TypeDocumentationBase
+
+@if(this.Methods?.Count() > 0)
+{
+    if(null != this.HeadingTemplate)
+    {
+        @this.HeadingTemplate
+    }
+
+    <ListGroup IsFlush="true">
+        @foreach(var m in this.Methods)
+        {
+            <ListGroupItem>
+                <Div Builder="new RowBuilder().JustifyContentBetween().DisplayFlex().Width100()">
+                    <Heading Id="@($"method-{m.Name}")" IsAnchor="true" Level="5">@m.Name</Heading>
+                </Div>
+
+                <Paragraph>
+                    <NodeList Nodes="@m.Summary?.ChildNodes" />
+                </Paragraph>
+            </ListGroupItem>
+        }
+    </ListGroup>
+}

@@ -1,0 +1,25 @@
+﻿@inherits TypeDocumentationBase
+
+@if(this.Properties?.Count() > 0)
+{
+    @if (null != this.HeadingTemplate)
+    {
+        @this.HeadingTemplate
+    }
+
+    <ListGroup IsFlush="true">
+        @foreach (var prop in this.Properties)
+        {
+            <ListGroupItem>
+                <Div Builder="new RowBuilder().JustifyContentBetween().DisplayFlex().Width100()">
+                    <Heading Id="@($"property-{prop.Name}")" IsAnchor="true" Level="5">@prop.Name</Heading>
+                    <small><code><TypeLink Type="@prop.DocumentedMember.PropertyType" /></code></small>
+                </Div>
+                
+                <Paragraph>
+                    <NodeList Nodes="@prop.Summary?.ChildNodes" />
+                </Paragraph>
+            </ListGroupItem>
+        }
+    </ListGroup>
+}

@@ -1,0 +1,14 @@
+﻿@inherits BootstrapComponentBase
+@using System.Xml;
+
+@if (null != this.Nodes)
+{
+    foreach (XmlNode node in this.Nodes)
+    {
+        switch (node.NodeType)
+        {
+            case XmlNodeType.Text:<TextNode Node="@node" />break;
+            case XmlNodeType.Element:<ElementNode Node="@node" />break;
+        }
+    }
+}

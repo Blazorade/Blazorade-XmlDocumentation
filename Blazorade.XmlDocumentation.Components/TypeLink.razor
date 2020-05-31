@@ -1,0 +1,11 @@
+﻿@inherits DocumentationComponentBase
+@if (null != this.Type)
+{
+    <Anchor Url="@this.Url?.ToString()" OpenInNewTab="@this.Url.IsAbsoluteUri">@this.Text</Anchor>
+    if (this.Type.GenericTypeArguments?.Length > 0)
+    {
+        <span>&lt;</span>
+        foreach(var t in this.Type.GenericTypeArguments) {<TypeLink Type="@t" />}
+        <span>&gt;</span>
+    }
+}

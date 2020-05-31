@@ -1,0 +1,11 @@
+﻿@inherits DocumentationComponentBase
+
+<ListGroup IsFlush="true">
+    @foreach (var ns in this.Namespaces)
+    {
+        var uri = this.UriBuilder.GetNamespaceUri(this.LibraryKey, ns);
+        <Anchor Url="@uri?.ToString()" OpenInNewTab="@(this.UriBuilder.OpenExternalsInNewTab && uri.IsAbsoluteUri)" class="list-group-item list-group-item-action">
+            <Heading Level="5">@ns</Heading>
+        </Anchor>
+    }
+</ListGroup>

@@ -1,0 +1,30 @@
+﻿@inherits DocumentationComponentBase
+
+@if(this.ImageUrl?.Length > 0)
+{
+    <Card @attributes="this.Attributes">
+        <ChildContent>
+            <Media Heading="@this.Parser?.AssemblyProductName" ImageUrl="@this.ImageUrl" ImageCssStyle="width: 128px">
+                @if (null != this.ChildContent)
+                {
+                    @this.ChildContent
+                }
+                else
+                {
+                    @this.Parser?.AssemblyDescription
+                }
+            </Media>
+        </ChildContent>
+        <FooterTemplate>
+            <LibraryCardFooter ReadMoreUrl="@this.ReadMoreUrl" ReadMoreLabel="@this.ReadMoreLabel" />
+        </FooterTemplate>
+    </Card>
+}
+else
+{
+    <Card Title="@this.Parser?.AssemblyProductName" Text="@this.Parser?.AssemblyDescription" @attributes="this.Attributes">
+        <FooterTemplate>
+            <LibraryCardFooter ReadMoreUrl="@this.ReadMoreUrl" ReadMoreLabel="@this.ReadMoreLabel" />
+        </FooterTemplate>
+    </Card>
+}

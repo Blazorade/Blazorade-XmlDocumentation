@@ -1,0 +1,10 @@
+﻿@page "/{LibraryKey}"
+@inherits DocumentationComponentBase
+
+<DocumentationBreadcrumb LibraryKey="@this.LibraryKey" />
+
+<Heading Level="1">@this.Parser?.AssemblyProductName</Heading>
+
+<Card Title="@($"{this.Parser.AssemblyProductName} Namespaces")">
+    <NamespaceList LibraryKey="@this.LibraryKey" />
+</Card>

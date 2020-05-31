@@ -1,0 +1,614 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blazorade.XmlDocumentation.Components</name>
+    </assembly>
+    <members>
+        <member name="T:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb">
+            <summary>
+            A breadcrumb that helps navigating between documentation pages.
+            </summary>
+            <remarks>
+            <para>
+            This breadcrumb component shows the following structure based on the parameters set on the component.
+            </para>
+            <para>
+            Home / Library (assembly) / Namespace / Type
+            </para>
+            <list type="bullet">
+            <item>
+            <term>Home</term>
+            <description>The link to the home page. If <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.HomeUrl"/> is set to <c>null</c>, the home link is not shown in the breadcrumb.</description>
+            </item>
+            <item>
+            <term>Library</term>
+            <description>
+            The assembly or library being documented. Points to the URI returned by the <see cref="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetAssemblyUri(System.String)"/> 
+            where the parameter is the key set on the <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.LibraryKey"/> on this breadcrumb.
+            </description>
+            </item>
+            <item>
+            <term>Namespace</term>
+            <description>
+            The <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.Namespace"/> or the namespace of the type specified in <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.TypeName"/>.
+            </description>
+            </item>
+            <item>
+            <term>Type</term>
+            <description>
+            The type specified in <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.TypeName"/>.
+            </description>
+            </item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.HomeLabel">
+            <summary>
+            The label that is used to point to the home page.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.HomeUrl">
+            <summary>
+            The URL to the home page. If set to <c>null</c>, the home link is not shown.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.Namespace">
+            <summary>
+            The namespace to use when building the breadcrumb.
+            </summary>
+            <remarks>
+            This parameter is ignored if <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.TypeName"/> is specified. The namespace shown is defined by that type name.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.TypeName">
+            <summary>
+            The type name of the type to use when building the breadcrumb.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.DocumentationComponentBase">
+            <summary>
+            The base class for all components used to generate documentation from .NET XML documentation.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.LibraryKey">
+            <summary>
+            The key that will be used to get the current documentation parser from
+            <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.Factory"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.Factory">
+            <summary>
+            The documentation parser factory that will be used to get documentation parsers with.
+            </summary>
+            <remarks>
+            An instance of the <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/> must be added as a service
+            to the services collection at startup. It will then be injected to this property
+            automatically whenever needed.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.Parser">
+            <summary>
+            Returns the documentation parser to use in the component.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.UriBuilder">
+            <summary>
+            The URI builder that is used by components to build URIs to various sections within the documentation.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.LibraryCard">
+            <summary>
+            A card component that displays basic information about a library represented by an <see cref="T:Blazorade.XmlDocumentation.DocumentationParser"/> instance
+            loaded into a <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/> service.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.LibraryCard.ImageUrl">
+            <summary>
+            The URL to an image to show in the card.
+            </summary>
+            <remarks>
+            If this parameter is not set, no image is shown in the card.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.LibraryCard.ReadMoreLabel">
+            <summary>
+            The label for the <c>Read more</c> link.
+            </summary>
+            <remarks>
+            <para>
+            If this parameter is not set, the default <c>Read more...</c> is used.
+            </para>
+            <para>
+            The URL for the <c>Read more</c> link is resolved by using the <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.UriBuilder"/> instance
+            using the <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.LibraryKey"/> when calling the <see cref="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetAssemblyUri(System.String)"/> method.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.LibraryCard.ReadMoreUrl">
+            <summary>
+            The URL for the read more link.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.LibraryCard.OnParametersSetAsync">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.LibraryCardFooter">
+            <summary>
+            Represents the footer of a <see cref="T:Blazorade.XmlDocumentation.Components.LibraryCard"/> component.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.LibraryCardFooter.ReadMoreUrl">
+            <summary>
+            The URL for the <c>Read more</c> link.
+            </summary>
+            <remarks>
+            <para>If the URL is not specified, no link is rendered.</para>
+            <para>Absolute URLs are considered as external links and are opened in a new browser tab. Relative URLs are opened in the same browser tab.</para>
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.LibraryCardFooter.ReadMoreLabel">
+            <summary>
+            The label for the <c>Read more</c> link.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.MethodList">
+            <summary>
+            A component that lists methods from the type specified in the <see cref="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.TypeName"/> parameter.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MethodList.HeadingTemplate">
+            <summary>
+            Allows you to provide a heading for the list.
+            </summary>
+            <remarks>
+            This template is rendered only if the list has methods to show.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MethodList.MethodFilter">
+            <summary>
+            A filter that is used to filter the properties shown in the list.
+            </summary>
+            <remarks>
+            If set to <c>null</c>, all properties are shown.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MethodList.Methods">
+            <summary>
+            A collection of methods to list.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.MethodList.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.NamespaceDocumentationBase">
+            <summary>
+            A base class for components that handle a given namespace.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.NamespaceDocumentationBase.Namespace">
+            <summary>
+            The namespace to process in the derived component.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.NamespaceList">
+            <summary>
+            Lists all namespaces from the underlying <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.Parser"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.NamespaceList.Namespaces">
+            <summary>
+            The namespaces to show in the list.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.NamespaceList.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.PropertyList">
+            <summary>
+            A component that lists properties.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.PropertyList.HeadingTemplate">
+            <summary>
+            Allows you to provide a heading for the list.
+            </summary>
+            <remarks>
+            This template is rendered only if the list has properties to show.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.PropertyList.PropertyFilter">
+            <summary>
+            A filter that is used to filter the properties shown in the list.
+            </summary>
+            <remarks>
+            If set to <c>null</c>, all properties are shown.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.PropertyList.Properties">
+            <summary>
+            A collection of properties to list.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.PropertyList.OnParametersSetAsync">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Reflection.ComponentExtensions">
+            <summary>
+            Extension methods for components.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Reflection.ComponentExtensions.IsComponent(System.Type)">
+            <summary>
+            Returns <c>true</c> if the given <see cref="T:Blazorade.XmlDocumentation.TypeDocumentation"/> represents a component class.
+            </summary>
+            <param name="type">The type documentation to examine.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Reflection.ComponentExtensions.IsParameter(System.Reflection.PropertyInfo)">
+            <summary>
+            Returns <c>true</c> if the given <see cref="T:Blazorade.XmlDocumentation.PropertyDocumentation"/> represents a parameter property.
+            </summary>
+            <param name="property">The property documentation to examine.</param>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Reflection.PropertyFilters">
+            <summary>
+            Filters used for filtering properties.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.Components.Reflection.PropertyFilters.ParameterFilter">
+            <summary>
+            A filter that includes only parameter properties.
+            </summary>
+            <remarks>
+            A parameter property is a property that is decorated with the <see cref="T:Microsoft.AspNetCore.Components.ParameterAttribute"/> attribute.
+            </remarks>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.Components.Reflection.PropertyFilters.NonParametersFilter">
+            <summary>
+            A filter that includes properties that are not parameter properties.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder">
+            <summary>
+            An implementation that is used by components to build URIs with. URIs built with this
+            implementation are used to point to various sections within the documentation.
+            </summary>
+            <remarks>
+            <para>
+            The URIs produced can be anything, both relative or absolute. By convention, components that
+            use URIs produced by an implementation will treat absolute URIs as external links that are
+            opened by default in a new browser tab.
+            </para>
+            <para>
+            This can be configured by setting the <see cref="P:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.OpenExternalsInNewTab"/> property to <c>false</c>,
+            which will result in external links being opened in the same browser tab.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.#ctor">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.OpenExternalsInNewTab">
+            <summary>
+            Specifies whether external links should be opened in a new browser tab.
+            </summary>
+            <remarks>
+            Absolute URIs are considered as external links are are opened in a new browser tab by default.
+            </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetAssemblyUri(System.String)">
+            <summary>
+            Returns the URI that points to the page that documents the assembly represented by the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key that represents the documentation for an assembly that is loaded into the current <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/>.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetNamespaceUri(System.String,System.String)">
+            <summary>
+            Returns the URI for the given namespace.
+            </summary>
+            <remarks>
+            If <paramref name="key"/> is <c>null</c>, it means that the given <paramref name="namespace"/> is not from any of the parsers loaded into
+            <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/>, which indicates that the <paramref name="namespace"/> is not documented by the running application.
+            </remarks>
+            <param name="key">The key that specifies the parser in <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/> that produced the given <paramref name="namespace"/>.</param>
+            <param name="namespace">The namespace to create the URI for.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetTypeUri(System.String,System.Type)">
+            <summary>
+            Returns the URI for the given type.
+            </summary>
+            <remarks>
+            If <paramref name="key"/> is <c>null</c>, it means that the given <paramref name="type"/> is not from any of the parsers loaded into
+            <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/>, which indicates that the <paramref name="type"/> is not documented by the running application.
+            </remarks>
+            <param name="key">The key that specifies the parser in <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/> that produced the given <paramref name="type"/>.</param>
+            <param name="type">The type for which to return the URI.</param>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.TypeDeclaration">
+            <summary>
+            This component outputs just the declaration of the type specified in the <see cref="P:Blazorade.XmlDocumentation.Components.TypeDeclaration.Type"/> parameter.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeDeclaration.LowerCase">
+            <summary>
+            Outputs everything in lower case if set to <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeDeclaration.Type">
+            <summary>
+            The type for which to produce the declaration.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeDeclaration.Declaration">
+            <summary>
+            The type declaration to output in the component.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.TypeDeclaration.OnParametersSetAsync">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.TypeDocumentationBase">
+            <summary>
+            A base class for all components handling the type specified in <see cref="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.TypeName"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.TypeName">
+            <summary>
+            The full name of the type handled in the current component.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.Documentation">
+            <summary>
+            The documentation for the type specified in <see cref="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.TypeName"/>.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeIcon.Type">
+            <summary>
+            The type for which to show the icon.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeIcon.IconUrl">
+            <summary>
+            The URL of the icon.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.TypeIcon.OnParametersSetAsync">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.TypeLink">
+            <summary>
+            Creates a link that points to the type specified in <see cref="P:Blazorade.XmlDocumentation.Components.TypeLink.Type"/>.
+            </summary>
+            <remarks>
+            <para>
+            This component requires that the <see cref="T:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder"/> (or a derived implementation) has been
+            added to the services collection of your application.
+            </para>
+            <para>
+            By convention, links to relative URIs are opened in the same browser tag. Absolute URIs are considered as external links and opened in a new browser tab.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeLink.Type">
+            <summary>
+            The type to create a link to.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeLink.Url">
+            <summary>
+            The URL to show in the link.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeLink.Text">
+            <summary>
+            The text to show in the link.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.TypeLink.OnParametersSetAsync">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.TypeList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeList.HeadingTemplate">
+            <summary>
+            Allows you to provide a heading for the list.
+            </summary>
+            <remarks>
+            This template is rendered only if the list has types to show.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeList.TypeFilter">
+            <summary>
+            Specifies a filter to apply to the types shown in the list.
+            </summary>
+            <remarks>
+            <see cref="P:Blazorade.XmlDocumentation.Components.TypeList.Namespace"/> is always used as filter, regardless of the other properties.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeList.Namespace">
+            <summary>
+            The namespace whose types to show in the list.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeList.Types">
+            <summary>
+            The types to show in the list.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.TypeList.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.TypeView">
+            <summary>
+            Shows the contents of type specified in the <see cref="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.TypeName"/> parameter.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.CNode">
+            <summary>
+            Represents a <c>&lt;c&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.CodeNode">
+            <summary>
+            Represents a <c>&lt;code&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.CrefAnchorNode">
+            <summary>
+            Use this component with any XML documentation node that contains a <c>cref</c> attribute. This component will make the member reference
+            in that <c>cref</c> attribute into a link that points to the documentation for the specified member.
+            </summary>
+            <remarks>
+            If the <c>cref</c> attribute points to a type or member that is not handled by any of the <see cref="T:Blazorade.XmlDocumentation.DocumentationParser"/> instances
+            loaded into the current <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/> service, then the link will point to Google to search for the member.
+            </remarks>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.CRefParentBase">
+            <summary>
+            Base class for nodes that contain a <c>cref</c> attribute.
+            </summary>
+            <remarks>
+            <code></code>
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.CRefParentBase.UriBuilder">
+            <summary>
+            The URI builder used by the component.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.CRefParentBase.Factory">
+            <summary>
+            A documentation parser factory that the component uses.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.CRefParentBase.LinkUrl">
+            <summary>
+            The URI that the <c>cref</c> attribute points to.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.CRefParentBase.LinkText">
+            <summary>
+            The text to show in the link.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Xml.CRefParentBase.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.ElementNode">
+            <summary>
+            Represents an XML element in XML documentation. This element will select the actual rendering based on the name of the
+            node specified in <see cref="P:Blazorade.XmlDocumentation.Components.Xml.NodeComponentBase.Node"/>.
+            </summary>
+            <remarks>
+            For a list of elements that this component supports, see https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments#tags
+            </remarks>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList">
+            <summary>
+            Builds a list of exception documentation from the <see cref="P:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList.SourceNodes"/> node list.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList.SourceNodes">
+            <summary>
+            A collection of nodes to search for <c>&lt;exception /&gt;</c> nodes in.
+            </summary>
+            <remarks>
+            The list specified does not have to be filtered to include only <c>exception</c> elements. The rendering logic will take care of that filtering.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList.ExceptionNodes">
+            <summary>
+            The exception nodes to display in the list.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.ListNode">
+            <summary>
+            Represents a <c>&lt;list&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.NodeComponentBase">
+            <summary>
+            The base class for components that render XML documentation nodes.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.NodeComponentBase.Node">
+            <summary>
+            The node to render in the component.
+            </summary>
+            <remarks>
+            Derived components must handle <c>null</c> values for this parameter.
+            </remarks>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.NodeList">
+            <summary>
+            Represents a set of XML nodes in XML documentation. Renders each node appropriately.
+            </summary>
+            <remarks>
+            Rendering is implemented based on the <see cref="P:System.Xml.XmlNode.NodeType"/> of each node loaded into the <see cref="P:Blazorade.XmlDocumentation.Components.Xml.NodeList.Nodes"/> property.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.Xml.NodeList.Nodes">
+            <summary>
+            The collection of nodes to render.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.ParaNode">
+            <summary>
+            Represents a <c>&lt;para&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.RemarksNode">
+            <summary>
+            Represents a <c>&lt;remarks&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.SeeNode">
+            <summary>
+            Represents the <c>&lt;see cref="..." /&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.SummaryNode">
+            <summary>
+            Represents a <c>&lt;summary&gt;</c> element in XML documentation.
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.TextNode">
+            <summary>
+            Represents a text node in XML documentation.
+            </summary>
+        </member>
+    </members>
+</doc>

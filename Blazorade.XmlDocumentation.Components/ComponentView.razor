@@ -1,0 +1,18 @@
+﻿@inherits TypeDocumentationBase
+
+<Heading Level="1">@this.Documentation.Name Component</Heading>
+
+<Paragraph IsLead="true"><NodeList Nodes="@this.Documentation.Summary.ChildNodes" /></Paragraph>
+<ElementNode Node="@this.Documentation.Remarks" />
+
+<PropertyList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName" PropertyFilter="PropertyFilters.ParameterFilter">
+    <HeadingTemplate>
+        <Heading Id="parameters" IsAnchor="true" Level="2">Parameters</Heading>
+    </HeadingTemplate>
+</PropertyList>
+
+<PropertyList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName" PropertyFilter="PropertyFilters.NonParametersFilter">
+    <HeadingTemplate>
+        <Heading Id="properties" IsAnchor="true" Level="2">Properties</Heading>
+    </HeadingTemplate>
+</PropertyList>

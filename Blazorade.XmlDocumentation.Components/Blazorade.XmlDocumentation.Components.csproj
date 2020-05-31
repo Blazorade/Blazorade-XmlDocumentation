@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <Authors>Mika Berglund</Authors>
+    <Version>1.0.0-preview1</Version>
+    <Company>Blazorade</Company>
+    <Product>Blazorade XML Docs Components</Product>
+    <Description>A Razor component library that defines components for easily creating documentation out of .NET XML Documentation files. The library uses Blazorade Bootstrap.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://www.blazorade.com/XmlDocsComponents</PackageProjectUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>XML, Documentation, XML Documentation, Comments, Blazor, Bootstrap, Razor</PackageTags>
+    <PackageReleaseNotes>This is a preview release.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Blazorade.XmlDocumentation.Components.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>Blazorade.XmlDocumentation.Components.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Blazorade.XmlDocumentation.Components.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Blazorade.XmlDocumentation.Components.xml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Blazorade.Bootstrap.Components" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.4" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazorade.XmlDocumentation\Blazorade.XmlDocumentation.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+</Project>
