@@ -154,5 +154,14 @@ namespace Blazorade.XmlDocumentation
             return displayName;
         }
 
+        /// <summary>
+        /// Returns the display name for <paramref name="field"/>.
+        /// </summary>
+        /// <param name="field">The field to return the display name for.</param>
+        public static string ToDisplayName(this FieldInfo field)
+        {
+            return field?.Name;
+        }
+
     }
 }

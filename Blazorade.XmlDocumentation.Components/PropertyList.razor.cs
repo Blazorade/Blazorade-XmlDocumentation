@@ -29,7 +29,7 @@ namespace Blazorade.XmlDocumentation.Components
         /// If set to <c>null</c>, all properties are shown.
         /// </remarks>
         [Parameter]
-        public Func<PropertyDocumentation, bool> PropertyFilter { get; set; }
+        public Func<PropertyDocumentation, bool> Filter { get; set; }
 
 
 
@@ -47,9 +47,7 @@ namespace Blazorade.XmlDocumentation.Components
 
 
             this.Properties = from x in this.Parser.GetProperties(this.Documentation)
-                              where
-                                    null == this.PropertyFilter
-                                    || this.PropertyFilter(x)
+                              where (null == this.Filter || this.Filter(x))
                               orderby x.Name
                               select x;
 

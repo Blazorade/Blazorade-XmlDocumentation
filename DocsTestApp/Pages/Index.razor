@@ -7,8 +7,9 @@
 }
 
 <Row>
+    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.TestLib" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Bootstrap" ImageUrl="/img/Bootstrap-Logo.svg" Height="1" /></Column>
-    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Core" ImageUrl="/img/Blazorade-Logo.svg" Height="1" /></Column>
+    @*<Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Core" ImageUrl="/img/Blazorade-Logo.svg" Height="1" /></Column>*@
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocs" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocsComponents" Height="1" /></Column>
 </Row>

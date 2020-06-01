@@ -3,8 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FD1CA397-FCA7-49E1-98B8-2DF3C1038793}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc-files", "Misc-files", "{FD1CA397-FCA7-49E1-98B8-2DF3C1038793}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -16,6 +17,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorade.XmlDocumentation.Tests", "Blazorade.XmlDocumentation.Tests\Blazorade.XmlDocumentation.Tests.csproj", "{254E4C25-282F-40EF-B893-70A77A31692A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocsTestApp", "DocsTestApp\DocsTestApp.csproj", "{65061B4B-E494-4C15-98B6-579D22165F90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3AFA6F31-E2CC-4830-9E83-FA5D90F46A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +81,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{254E4C25-282F-40EF-B893-70A77A31692A} = {3AFA6F31-E2CC-4830-9E83-FA5D90F46A87}
+		{65061B4B-E494-4C15-98B6-579D22165F90} = {3AFA6F31-E2CC-4830-9E83-FA5D90F46A87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07BB52A0-7B85-4B66-8C70-69E21ECC9203}

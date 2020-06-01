@@ -28,7 +28,7 @@ namespace Blazorade.XmlDocumentation.Components
         /// <see cref="Namespace"/> is always used as filter, regardless of the other properties.
         /// </remarks>
         [Parameter]
-        public Func<TypeDocumentation, bool> TypeFilter { get; set; }
+        public Func<TypeDocumentation, bool> Filter { get; set; }
 
         /// <summary>
         /// The namespace whose types to show in the list.
@@ -49,9 +49,7 @@ namespace Blazorade.XmlDocumentation.Components
             base.OnParametersSet();
 
             this.Types = from x in this.Parser.GetTypes(this.Namespace)
-                         where
-                                null == this.TypeFilter
-                                || this.TypeFilter(x)
+                         where (null == this.Filter || this.Filter(x))
                          orderby x.DocumentedMember.FullName
                          select x;
         }

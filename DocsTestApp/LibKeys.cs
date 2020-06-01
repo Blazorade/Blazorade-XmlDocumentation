@@ -16,5 +16,7 @@ namespace DocsTestApp
 
         public const string XmlDocsComponents = nameof(XmlDocsComponents);
 
+        public const string TestLib = nameof(TestLib);
+
     }
 }

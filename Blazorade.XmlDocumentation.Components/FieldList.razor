@@ -1,21 +1,20 @@
 ﻿@inherits TypeDocumentationBase
 
 <Div @attributes="this.Attributes">
-    @if (this.Properties?.Count() > 0)
+    @if (this.Fields?.Count() > 0)
     {
-        @if (null != this.HeadingTemplate)
+        if (null != this.HeadingTemplate)
         {
             @this.HeadingTemplate
         }
 
         <ListGroup IsFlush="true">
-            @foreach (var prop in this.Properties)
+            @foreach (var f in this.Fields)
             {
                 <ListGroupItem>
-                    <Heading Level="5">@prop.DocumentedMember.ToDisplayName()</Heading>
-
+                    <Heading Level="5">@f.DocumentedMember.ToDisplayName()</Heading>
                     <Paragraph>
-                        <NodeList Nodes="@prop.Summary?.ChildNodes" />
+                        <NodeList Nodes="@f.Summary?.ChildNodes" />
                     </Paragraph>
                 </ListGroupItem>
             }

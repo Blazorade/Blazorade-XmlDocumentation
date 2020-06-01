@@ -67,6 +67,14 @@ namespace Blazorade.XmlDocumentation
             get { return this.ChildNodes("exception"); }
         }
 
+        /// <summary>
+        /// Returns the <c>example</c> nodes from the documentation.
+        /// </summary>
+        public IEnumerable<XmlNode> Examples
+        {
+            get { return this.ChildNodes("example"); }
+        }
+
 
 
         /// <summary>

@@ -108,6 +108,48 @@
             <summary>
             </summary>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.FieldList">
+            <summary>
+            
+            </summary>
+            <example>
+            <para>
+            This example shows you a simple way of using the <c>FieldList</c> component.
+            </para>
+            <code>
+            <FieldList LibraryKey="..." TypeName="...">
+                <HeadingTemplate>
+                    <Heading Level="2">Fields</Heading>
+                </HeadingTemplate>
+            </FieldList>
+            </code>
+            </example>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.FieldList.HeadingTemplate">
+            <summary>
+            Allows you to specify how the heading for the list is rendered.
+            </summary>
+            <remarks>
+            This tempate is only rendered if there are any fields to show in the list.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.FieldList.Filter">
+            <summary>
+            A filter expression that is used to filter the fields shown in the list.
+            </summary>
+            <remarks>
+            If not specified, all fields are listed.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.FieldList.Fields">
+            <summary>
+            The filtered list of fields to show in the component.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.FieldList.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.LibraryCard">
             <summary>
             A card component that displays basic information about a library represented by an <see cref="T:Blazorade.XmlDocumentation.DocumentationParser"/> instance
@@ -164,9 +206,31 @@
             The label for the <c>Read more</c> link.
             </summary>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.MemberDocumentationBase">
+            <summary>
+            A base class for creating documentation for different types of members, such as:
+            <list type="bullet">
+            <item><c>Class</c></item>
+            <item><c>Struct</c></item>
+            <item><c>Interface</c></item>
+            <item><c>Enum</c></item>
+            <item><c>Delegate</c></item>
+            </list>
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.MethodList">
             <summary>
             A component that lists methods from the type specified in the <see cref="P:Blazorade.XmlDocumentation.Components.TypeDocumentationBase.TypeName"/> parameter.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.Components.MethodList.ConstructorFilter">
+            <summary>
+            A filter expression that includes only constructor methods.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.Components.MethodList.NonConstructorFilter">
+            <summary>
+            A filter expression that includes all other methods except for constructors.
             </summary>
         </member>
         <member name="P:Blazorade.XmlDocumentation.Components.MethodList.HeadingTemplate">
@@ -177,12 +241,12 @@
             This template is rendered only if the list has methods to show.
             </remarks>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.Components.MethodList.MethodFilter">
+        <member name="P:Blazorade.XmlDocumentation.Components.MethodList.Filter">
             <summary>
             A filter that is used to filter the properties shown in the list.
             </summary>
             <remarks>
-            If set to <c>null</c>, all properties are shown.
+            If set to <c>null</c>, all methods are shown.
             </remarks>
         </member>
         <member name="P:Blazorade.XmlDocumentation.Components.MethodList.Methods">
@@ -209,6 +273,14 @@
             Lists all namespaces from the underlying <see cref="P:Blazorade.XmlDocumentation.Components.DocumentationComponentBase.Parser"/>.
             </summary>
         </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.NamespaceList.Filter">
+            <summary>
+            A filter expression that is used to filter the namespaces shown in the list.
+            </summary>
+            <remarks>
+            By default, all namespaces are shown.
+            </remarks>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.Components.NamespaceList.Namespaces">
             <summary>
             The namespaces to show in the list.
@@ -231,7 +303,7 @@
             This template is rendered only if the list has properties to show.
             </remarks>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.Components.PropertyList.PropertyFilter">
+        <member name="P:Blazorade.XmlDocumentation.Components.PropertyList.Filter">
             <summary>
             A filter that is used to filter the properties shown in the list.
             </summary>
@@ -409,7 +481,7 @@
             This template is rendered only if the list has types to show.
             </remarks>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.Components.TypeList.TypeFilter">
+        <member name="P:Blazorade.XmlDocumentation.Components.TypeList.Filter">
             <summary>
             Specifies a filter to apply to the types shown in the list.
             </summary>

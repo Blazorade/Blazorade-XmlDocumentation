@@ -1,8 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Description>This is a test application that is used to develop XML documentation components.</Description>
+    <Version>1.0.0-alpha1</Version>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>DocsTestApp.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>DocsTestApp.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DocsTestApp.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DocsTestApp.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Blazorade.Bootstrap.Components" Version="1.0.1" />
@@ -12,6 +30,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Blazorade.XmlDocumentation.Components\Blazorade.XmlDocumentation.Components.csproj" />
     <ProjectReference Include="..\Blazorade.XmlDocumentation\Blazorade.XmlDocumentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Test\Components\" />
   </ItemGroup>
 
 </Project>

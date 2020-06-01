@@ -3,7 +3,16 @@
 <Heading Level="1">@this.Documentation.DocumentedMember.ToDisplayName() <TypeDeclaration Type="@this.Documentation.DocumentedMember" /></Heading>
 
 <Paragraph IsLead="true"><NodeList Nodes="@this.Documentation.Summary.ChildNodes" /></Paragraph>
+
 <RemarksNode Node="@this.Documentation.Remarks" />
+
+@* Examples *@
+
+<FieldList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
+    <HeadingTemplate>
+        <Heading Id="fields" IsAnchor="true" Level="2">Fields</Heading>
+    </HeadingTemplate>
+</FieldList>
 
 <PropertyList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
     <HeadingTemplate>
@@ -11,8 +20,17 @@
     </HeadingTemplate>
 </PropertyList>
 
-<MethodList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
+<MethodList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName" Filter="MethodList.ConstructorFilter">
+    <HeadingTemplate>
+        <Heading Id="constructors" IsAnchor="true" Level="2">Constructors</Heading>
+    </HeadingTemplate>
+</MethodList>
+<MethodList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName" Filter="MethodList.NonConstructorFilter">
     <HeadingTemplate>
         <Heading Id="methods" IsAnchor="true" Level="2">Methods</Heading>
     </HeadingTemplate>
 </MethodList>
+
+@* Operators *@
+
+@* See also *@

@@ -68,6 +68,12 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Reflection.FieldInfo)">
+            <summary>
+            Returns the display name for <paramref name="field"/>.
+            </summary>
+            <param name="field">The field to return the display name for.</param>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.DocumentationNodeBase.DocumentationNode">
             <summary>
             Returns the XML node representing the documentation.
@@ -260,6 +266,19 @@
             </remarks>
             <param name="typeName">The full name of the type to return.</param>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.FieldDocumentation">
+            <summary>
+            Represents documentation for a field.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.FieldDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.FieldInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.FieldDocumentation.ToString">
+            <summary>
+            Returns the string representation of the object.
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.MemberDocumentation`1">
             <summary>
             Represents the base class for all kinds of member documentation nodes.
@@ -295,6 +314,11 @@
         <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Exceptions">
             <summary>
             Returns the <c>exception</c> nodes from the documentation.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Examples">
+            <summary>
+            Returns the <c>example</c> nodes from the documentation.
             </summary>
         </member>
         <member name="M:Blazorade.XmlDocumentation.MemberDocumentation`1.ToString">

@@ -1,23 +1,33 @@
 ﻿@inherits DocumentationComponentBase
 
-@if (this.Types?.Count() > 0)
-{
-    if (null != this.HeadingTemplate)
+<Div @attributes="this.Attributes">
+    @if (this.Types?.Count() > 0)
     {
-        @this.HeadingTemplate
-    }
-
-    <ListGroup IsFlush="true">
-        @foreach (var t in this.Types)
+        if (null != this.HeadingTemplate)
         {
-            var uri = this.UriBuilder.GetTypeUri(this.LibraryKey, t.DocumentedMember);
-
-            <Anchor Url="@uri?.ToString()" OpenInNewTab="@(this.UriBuilder.OpenExternalsInNewTab && uri.IsAbsoluteUri)" class="list-group-item list-group-item-action">
-                <Heading Level="5"><TypeIcon Type="@t.DocumentedMember" Width="24" />@t.DocumentedMember.ToDisplayName()</Heading>
-                <Paragraph>
-                    <NodeList Nodes="@t.Summary.ChildNodes" />
-                </Paragraph>
-            </Anchor>
+            @this.HeadingTemplate
         }
-    </ListGroup>
-}
+
+        @*<Nav class="nav-pills">
+            <NavItem IsActive="true">All</NavItem>
+            <NavItem>Classes</NavItem>
+            <NavItem>Struct</NavItem>
+            <NavItem>Interfaces</NavItem>
+            <NavItem>Enums</NavItem>
+            <NavItem>Delegates</NavItem>
+        </Nav>*@
+        <ListGroup IsFlush="true">
+            @foreach (var t in this.Types)
+            {
+                var uri = this.UriBuilder.GetTypeUri(this.LibraryKey, t.DocumentedMember);
+
+                <ListGroupAnchor Url="@uri?.ToString()" OpenInNewTab="@(this.UriBuilder.OpenExternalsInNewTab && uri.IsAbsoluteUri)">
+                    <Heading Level="5"><TypeIcon Type="@t.DocumentedMember" Width="24" />@t.DocumentedMember.ToDisplayName()</Heading>
+                    <Paragraph>
+                        <NodeList Nodes="@t.Summary.ChildNodes" />
+                    </Paragraph>
+                </ListGroupAnchor>
+            }
+        </ListGroup>
+    }
+</Div>

@@ -59,6 +59,27 @@ namespace Blazorade.XmlDocumentation.Tests
 
 
         [TestMethod]
+        public void GetFields01()
+        {
+            var p = this.GetFactory().GetParser(ParserKeys.Bootstrap);
+            var doc = p.GetDocumentation(typeof(Backdrop));
+            var fields = p.GetFields(doc);
+
+            Assert.AreNotEqual(0, fields.Count());
+            Assert.IsNotNull(fields.FirstOrDefault(x => x.Name == nameof(Backdrop.Default)));
+            Assert.IsNotNull(fields.FirstOrDefault(x => x.Name == nameof(Backdrop.Hidden)));
+            Assert.IsNotNull(fields.FirstOrDefault(x => x.Name == nameof(Backdrop.Static)));
+        }
+
+        [TestMethod]
+        public void GetFields02()
+        {
+
+        }
+
+
+        
+        [TestMethod]
         public void GetMethods01()
         {
             var p = this.GetFactory().GetParser(ParserKeys.Bootstrap);

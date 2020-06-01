@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Blazorade.XmlDocumentation.Components
 {
@@ -10,6 +11,18 @@ namespace Blazorade.XmlDocumentation.Components
     /// </summary>
     partial class MethodList
     {
+
+        /// <summary>
+        /// A filter expression that includes only constructor methods.
+        /// </summary>
+        public static readonly Func<MethodDocumentation, bool> ConstructorFilter = (m) => m.DocumentedMember.IsConstructor;
+
+        /// <summary>
+        /// A filter expression that includes all other methods except for constructors.
+        /// </summary>
+        public static readonly Func<MethodDocumentation, bool> NonConstructorFilter = (m) => !ConstructorFilter(m);
+
+
 
         /// <summary>
         /// Allows you to provide a heading for the list.
@@ -24,10 +37,10 @@ namespace Blazorade.XmlDocumentation.Components
         /// A filter that is used to filter the properties shown in the list.
         /// </summary>
         /// <remarks>
-        /// If set to <c>null</c>, all properties are shown.
+        /// If set to <c>null</c>, all methods are shown.
         /// </remarks>
         [Parameter]
-        public Func<MethodDocumentation, bool> MethodFilter { get; set; }
+        public Func<MethodDocumentation, bool> Filter { get; set; }
 
 
 
@@ -42,7 +55,9 @@ namespace Blazorade.XmlDocumentation.Components
         {
             base.OnParametersSet();
 
-            this.Methods = this.Parser.GetMethods(this.Documentation);
+            this.Methods = from x in this.Parser.GetMethods(this.Documentation)
+                           where (null == this.Filter || this.Filter(x))
+                           select x;
         }
     }
 }

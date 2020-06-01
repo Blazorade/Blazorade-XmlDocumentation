@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocsTestApp</name>
+    </assembly>
+    <members>
+        <member name="T:DocsTestApp.Test.Reflection.ExtensionMethods">
+            <summary>
+            Extension methods, for your convenience.
+            </summary>
+            <remarks>
+            These methods lack actual implementation, and have been added purely in order to have something to write <c>XML</c> documentation against.
+            </remarks>
+        </member>
+        <member name="M:DocsTestApp.Test.Reflection.ExtensionMethods.LoadEmbeddedXmlDocs(System.Reflection.Assembly)">
+            <summary>
+            Loads the embedded XML documentation file from the given assembly and returns it as an XML document.
+            </summary>
+            <param name="assembly">The assembly to load the XML documentation from.</param>
+            <remarks>
+            Using this method requires that the XML documentation file hsa been embedded into the assembly when it was complied.
+            </remarks>
+        </member>
+        <member name="T:DocsTestApp.Test.Reflection.Options">
+            <summary>
+            Just an enumeration for testing purposes.
+            </summary>
+        </member>
+        <member name="F:DocsTestApp.Test.Reflection.Options.Option1">
+            <summary>
+            First option.
+            </summary>
+        </member>
+        <member name="F:DocsTestApp.Test.Reflection.Options.Option2">
+            <summary>
+            Second option.
+            </summary>
+        </member>
+        <member name="F:DocsTestApp.Test.Reflection.Options.Option3">
+            <summary>
+            Third option.
+            </summary>
+        </member>
+    </members>
+</doc>

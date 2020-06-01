@@ -111,6 +111,23 @@ namespace Blazorade.XmlDocumentation
             return this.GetDocumentation(this.GetType(typeName));
         }
 
+        public IEnumerable<FieldDocumentation> GetFields(TypeDocumentation type)
+        {
+            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'F:{type.DocumentedMember.FullName}.')]");
+            foreach(XmlNode node in nodes)
+            {
+                var nameAttribute = node.Attributes["name"].Value;
+                var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
+                var fld = type.DocumentedMember.GetField(name);
+                if(null != fld)
+                {
+                    yield return new FieldDocumentation(node, fld);
+                }
+            }
+
+            yield break;
+        }
+
         /// <summary>
         /// Returns the methods for the given <paramref name="type"/>.
         /// </summary>
