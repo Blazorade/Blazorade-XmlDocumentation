@@ -70,6 +70,12 @@ namespace Blazorade.XmlDocumentation.Components
         public string HomeUrl { get; set; }
 
         /// <summary>
+        /// The member name of the member to use when building the breadcrumb.
+        /// </summary>
+        [Parameter]
+        public string MemberName { get; set; }
+
+        /// <summary>
         /// The namespace to use when building the breadcrumb.
         /// </summary>
         /// <remarks>
@@ -105,7 +111,11 @@ namespace Blazorade.XmlDocumentation.Components
                 this.Items.Add(new Link { Text = this.Parser.AssemblyProductName, Url = this.UriBuilder.GetAssemblyUri(this.LibraryKey)?.ToString() });
             }
 
-            if (this.TypeName?.Length > 0)
+            if(this.MemberName?.Length > 0)
+            {
+                
+            }
+            else if (this.TypeName?.Length > 0)
             {
                 var t = this.Parser.GetType(this.TypeName);
                 if(null != t)

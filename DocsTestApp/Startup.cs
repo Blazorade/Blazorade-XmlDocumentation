@@ -33,7 +33,8 @@ namespace DocsTestApp
             services.AddServerSideBlazor();
 
             var f = new DocumentationParserFactory();
-            f.AddParser(LibKeys.TestLib, this.GetType().Assembly);
+            f.AddParser(LibKeys.LocalLib, this.GetType().Assembly);
+            f.AddParser(LibKeys.TestLib, typeof(TestLibrary.Class1).Assembly);
             f.AddParser(LibKeys.Bootstrap, typeof(Blazorade.Bootstrap.Components._Imports).Assembly);
             f.AddParser(LibKeys.Core, typeof(Blazorade.Core._Imports).Assembly);
             f.AddParser(LibKeys.XmlDocs, typeof(DocumentationParser).Assembly);

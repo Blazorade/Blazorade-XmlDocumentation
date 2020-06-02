@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Blazorade.XmlDocumentation.Components\Blazorade.XmlDocumentation.Components.csproj" />
     <ProjectReference Include="..\Blazorade.XmlDocumentation\Blazorade.XmlDocumentation.csproj" />
+    <ProjectReference Include="..\TestLibrary\TestLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

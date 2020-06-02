@@ -66,11 +66,23 @@ namespace Blazorade.XmlDocumentation
             if (method is MethodInfo)
             {
                 var rt = ((MethodInfo)method).ReturnType;
-                sb.Append(rt.ToDisplayName());
-                sb.Append(" ");
+                if(rt != typeof(void))
+                {
+                    sb.Append(rt.ToDisplayName());
+                    sb.Append(" ");
+                }
             }
 
             sb.Append(method.Name);
+
+            var gArgs = method.GetGenericArguments();
+            if(gArgs?.Length > 0)
+            {
+                sb.Append("<");
+                sb.Append(string.Join(", ", from x in gArgs select x.Name));
+                sb.Append(">");
+            }
+
             sb.Append("(");
 
             var parameters = method.GetParameters();
@@ -161,6 +173,40 @@ namespace Blazorade.XmlDocumentation
         public static string ToDisplayName(this FieldInfo field)
         {
             return field?.Name;
+        }
+
+        /// <summary>
+        /// Returns the display name for <paramref name="member"/>.
+        /// </summary>
+        /// <param name="member">The member whose display name to reutrn.</param>
+        public static string ToDisplayName(this MemberInfo member)
+        {
+            var uriName = member.ToUriName();
+            return uriName.Substring(uriName.LastIndexOf('.') + 1);
+        }
+
+        /// <summary>
+        /// Returns the name of the member that is used in URIs.
+        /// </summary>
+        /// <remarks>
+        /// The URI name of a member includeds the full name of the declaring type with the actual name of the member without
+        /// any parameters or generic arguments.
+        /// </remarks>
+        /// <param name="member">The member whose URI name to return.</param>
+        public static string ToUriName(this MemberInfo member)
+        {
+            var name = $"{member.DeclaringType.FullName}.{member.Name}";
+            if(name.Contains('('))
+            {
+                name = name.Substring(0, name.IndexOf('('));
+            }
+
+            if(name.Contains('`'))
+            {
+                name = name.Substring(0, name.IndexOf('`'));
+            }
+
+            return name;
         }
 
     }

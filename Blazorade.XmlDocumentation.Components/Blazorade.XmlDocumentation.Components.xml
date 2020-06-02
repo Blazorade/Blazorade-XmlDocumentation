@@ -56,6 +56,11 @@
             The URL to the home page. If set to <c>null</c>, the home link is not shown.
             </summary>
         </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.MemberName">
+            <summary>
+            The member name of the member to use when building the breadcrumb.
+            </summary>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.Components.DocumentationBreadcrumb.Namespace">
             <summary>
             The namespace to use when building the breadcrumb.
@@ -360,6 +365,13 @@
             Returns the URI that points to the page that documents the assembly represented by the given <paramref name="key"/>.
             </summary>
             <param name="key">The key that represents the documentation for an assembly that is loaded into the current <see cref="T:Blazorade.XmlDocumentation.DocumentationParserFactory"/>.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetMemberUri(System.String,System.Reflection.MemberInfo)">
+            <summary>
+            Returns the URI for the given member.
+            </summary>
+            <param name="key">The key that specifies library the member originates from. If <c>null</c>, the given member is considered an external member.</param>
+            <param name="member">The member to return the URI for.</param>
         </member>
         <member name="M:Blazorade.XmlDocumentation.Components.Services.DocumentationUriBuilder.GetNamespaceUri(System.String,System.String)">
             <summary>

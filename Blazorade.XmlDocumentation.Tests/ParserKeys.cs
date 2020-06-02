@@ -12,6 +12,8 @@ namespace Blazorade.XmlDocumentation.Tests
 
         public const string Core = nameof(Core);
 
+        public const string TestLib = nameof(TestLib);
+
         public const string XmlDocs = nameof(XmlDocs);
 
         public const string XmlDocsComponenents = nameof(XmlDocsComponenents);

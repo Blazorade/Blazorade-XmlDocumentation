@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Blazorade.XmlDocumentation
 {
@@ -111,6 +112,11 @@ namespace Blazorade.XmlDocumentation
             return this.GetDocumentation(this.GetType(typeName));
         }
 
+        /// <summary>
+        /// Returns the fields for the given type.
+        /// </summary>
+        /// <param name="type">The type for which to return the fields.</param>
+        /// <returns></returns>
         public IEnumerable<FieldDocumentation> GetFields(TypeDocumentation type)
         {
             var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'F:{type.Member.FullName}.')]");
@@ -129,6 +135,24 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
+        /// Returns the members that match the given name.
+        /// </summary>
+        /// <remarks>
+        /// In case <paramref name="memberName"/> represents a method, this method can return several items representing overloaded methods.
+        /// Other member types return only one item.
+        /// </remarks>
+        /// <param name="memberName">The full name of the member to return.</param>
+        /// <returns></returns>
+        public IEnumerable<MemberInfo> GetMembers(string memberName)
+        {
+            var prefixes = new string[] { "F", "P", "M", "E" };
+            var xpaths = from x in prefixes select $"starts-with(@name, '')";
+            
+            yield break;
+            
+        }
+
+        /// <summary>
         /// Returns the methods for the given <paramref name="type"/>.
         /// </summary>
         /// <param name="type">The type for which to return the methods.</param>
@@ -137,6 +161,7 @@ namespace Blazorade.XmlDocumentation
             var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'M:{type.Member.FullName}.')]");
             foreach(XmlNode node in nodes)
             {
+                int genericParamCount = 0;
                 List<Type> paramTypes = new List<Type>();
                 var nameAttribute = node.Attributes["name"].Value;
                 if (nameAttribute.Contains("("))
@@ -157,6 +182,13 @@ namespace Blazorade.XmlDocumentation
                     }
                 }
 
+                if(nameAttribute.Contains("``"))
+                {
+                    var ixs = nameAttribute.Substring(nameAttribute.IndexOf("``") + 2);
+                    genericParamCount = int.Parse(ixs);
+                    nameAttribute = nameAttribute.Substring(0, nameAttribute.IndexOf("``"));
+                }
+
                 MethodBase method = null;
                 var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
                 if (name == "#ctor")
@@ -165,7 +197,8 @@ namespace Blazorade.XmlDocumentation
                 }
                 else
                 {
-                    method = type.Member.GetMethod(name, paramTypes.ToArray());
+                    var methods = type.Member.GetMethods();
+                    method = type.Member.GetMethod(name, genericParamCount, paramTypes.ToArray());
                 }
 
                 if(null != method)
@@ -174,6 +207,16 @@ namespace Blazorade.XmlDocumentation
                 }
             }
             yield break;
+        }
+
+        /// <summary>
+        /// Returns the method documentation for the methods of <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type for which to return the method documentations.</param>
+        public IEnumerable<MethodDocumentation> GetMethods(Type type)
+        {
+            var doc = this.GetDocumentation(type);
+            return this.GetMethods(doc);
         }
 
         /// <summary>

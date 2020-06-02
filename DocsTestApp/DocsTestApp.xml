@@ -41,5 +41,46 @@
             Third option.
             </summary>
         </member>
+        <member name="T:DocsTestApp.Test.Reflection.Parser">
+            <summary>
+            This is a parser, which is capable of parsing stuff.
+            </summary>
+        </member>
+        <member name="P:DocsTestApp.Test.Reflection.Parser.Precision">
+            <summary>
+            The precision of parsing where 0 is the works and 1 is the best precision.
+            </summary>
+            <remarks>
+            The value must be set to a value between 0 and 1 inclusively.
+            </remarks>
+            <example>
+            <para>
+            Just a very simple example of how this property is used.
+            </para>
+            <code>
+            var parser = new Parser();
+            parser.Precision = .5;
+            </code>
+            </example>
+            <exception cref="T:System.ArgumentException">The exception that is thrown if <see cref="P:DocsTestApp.Test.Reflection.Parser.Precision"/> is less than 0 or greater than 1.</exception>
+        </member>
+        <member name="M:DocsTestApp.Test.Reflection.Parser.Foo">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:DocsTestApp.Test.Reflection.Parser.Foo(System.String)">
+            <summary>
+            Really does nothing.
+            </summary>
+            <param name="too"></param>
+        </member>
+        <member name="M:DocsTestApp.Test.Reflection.Parser.Foo``1(``0)">
+            <summary>
+            Still does nothing.
+            </summary>
+            <typeparam name="TInput">An arbitrary input that does absolutely nothing.</typeparam>
+            <param name="what">Stuff typed as <typeparamref name="TInput"/>.</param>
+        </member>
     </members>
 </doc>

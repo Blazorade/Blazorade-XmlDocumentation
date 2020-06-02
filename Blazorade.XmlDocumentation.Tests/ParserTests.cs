@@ -61,7 +61,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetFields01()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.Bootstrap);
+            var p = Shared.GetFactory().GetParser(ParserKeys.Bootstrap);
             var doc = p.GetDocumentation(typeof(Backdrop));
             var fields = p.GetFields(doc);
 
@@ -82,7 +82,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetMethods01()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.Bootstrap);
+            var p = Shared.GetFactory().GetParser(ParserKeys.Bootstrap);
             var doc = p.GetDocumentation(typeof(Modal));
             var methods = p.GetMethods(doc);
             Assert.AreNotEqual(0, methods.Count());
@@ -91,7 +91,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetMethods02()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.XmlDocs);
+            var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocs);
             var doc = p.GetDocumentation(typeof(DocumentationParser));
             var methods = p.GetMethods(doc);
             Assert.AreNotEqual(0, methods.Count());
@@ -109,7 +109,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetMethods03()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.XmlDocs);
+            var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocs);
             var doc = p.GetDocumentation(typeof(DocumentationParser));
 
             List<string> names = new List<string>();
@@ -123,7 +123,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetMethods04()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.XmlDocs);
+            var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocs);
             var doc = p.GetDocumentation(typeof(DocumentationExtensions));
 
             var names = new List<string>();
@@ -131,6 +131,48 @@ namespace Blazorade.XmlDocumentation.Tests
             {
                 Assert.IsFalse(names.Contains(m.Member.ToDisplayName()));
                 names.Add(m.Member.ToDisplayName());
+            }
+        }
+
+        [TestMethod]
+        public void GetMethods05()
+        {
+            var expectedList = new List<string>
+            {
+                "Foo()",
+                "Foo(String what)",
+                "TOut Foo<TOut>()",
+                "Foo<TWhat>(TWhat what)",
+                "Foo<T1, T2>(T1 in1, T2 in2)",
+                "TOut Foo<TIn, TOut>(TIn input)",
+            };
+
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var methods = p.GetMethods(typeof(TestLibrary.Class1)).ToList();
+            var displayNames = from x in methods select x.Member.ToDisplayName();
+
+            foreach(var itm in expectedList)
+            {
+                Assert.IsTrue(displayNames.Contains(itm), $"There must be a method with the display name '{itm}'.");
+            }
+        }
+
+        [TestMethod]
+        public void GetMethods06()
+        {
+            var list = new List<string>
+            {
+                "Foo<TIn>(TIn)",
+                "TOut Foo<TOut>()"
+            };
+
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var methods = p.GetMethods(typeof(TestLibrary.Class2)).ToList();
+            var names = from x in methods select x.Member.ToDisplayName();
+
+            foreach(var itm in list)
+            {
+                Assert.IsTrue(names.Contains(itm), $"There must be a method with the display name '{itm}'.");
             }
         }
 
@@ -170,11 +212,20 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetTypes03()
         {
-            var parser = this.GetFactory().GetParser(ParserKeys.Bootstrap);
+            var parser = Shared.GetFactory().GetParser(ParserKeys.Bootstrap);
             var t = parser.GetType(typeof(Alert).FullName);
             Assert.IsNotNull(t);
             Assert.AreEqual(typeof(Alert), t);
         }
+
+        [TestMethod]
+        public void GetTypes04()
+        {
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var doc = p.GetDocumentation(typeof(TestLibrary.Class1));
+            Assert.IsNotNull(doc);
+        }
+
 
 
 
@@ -211,7 +262,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetProperties02()
         {
-            var f = this.GetFactory();
+            var f = Shared.GetFactory();
             var p = f.GetParser(ParserKeys.Bootstrap);
             var type = p.GetDocumentation(typeof(Card));
             var props = p.GetProperties(type);
@@ -238,7 +289,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void ReadDocs01()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.Bootstrap);
+            var p = Shared.GetFactory().GetParser(ParserKeys.Bootstrap);
             var doc = p.GetDocumentation(typeof(AlertLink));
             Assert.IsNotNull(doc);
         }
@@ -246,21 +297,10 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void ReadDocs02()
         {
-            var p = this.GetFactory().GetParser(ParserKeys.XmlDocsComponenents);
+            var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocsComponenents);
             var doc = p.GetDocumentation(typeof(Components.Xml.CNode));
             Assert.IsNotNull(doc);
         }
 
-
-        private DocumentationParserFactory GetFactory()
-        {
-            var f = new DocumentationParserFactory();
-            f.AddParser(ParserKeys.Bootstrap, typeof(Blazorade.Bootstrap.Components._Imports).Assembly);
-            f.AddParser(ParserKeys.Core, typeof(Blazorade.Core._Imports).Assembly);
-            f.AddParser(ParserKeys.XmlDocs, typeof(Blazorade.XmlDocumentation.DocumentationParser).Assembly);
-            f.AddParser(ParserKeys.XmlDocsComponenents, typeof(Blazorade.XmlDocumentation.Components._Imports).Assembly);
-
-            return f;
-        }
     }
 }

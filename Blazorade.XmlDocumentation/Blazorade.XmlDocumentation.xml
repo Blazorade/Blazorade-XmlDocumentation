@@ -74,6 +74,22 @@
             </summary>
             <param name="field">The field to return the display name for.</param>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Reflection.MemberInfo)">
+            <summary>
+            Returns the display name for <paramref name="member"/>.
+            </summary>
+            <param name="member">The member whose display name to reutrn.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToUriName(System.Reflection.MemberInfo)">
+            <summary>
+            Returns the name of the member that is used in URIs.
+            </summary>
+            <remarks>
+            The URI name of a member includeds the full name of the declaring type with the actual name of the member without
+            any parameters or generic arguments.
+            </remarks>
+            <param name="member">The member whose URI name to return.</param>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.DocumentationNodeBase.DocumentationNode">
             <summary>
             Returns the XML node representing the documentation.
@@ -143,11 +159,35 @@
             </summary>
             <param name="typeName">The full name of the type whose documentation to return.</param>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetFields(Blazorade.XmlDocumentation.TypeDocumentation)">
+            <summary>
+            Returns the fields for the given type.
+            </summary>
+            <param name="type">The type for which to return the fields.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMembers(System.String)">
+            <summary>
+            Returns the members that match the given name.
+            </summary>
+            <remarks>
+            In case <paramref name="memberName"/> represents a method, this method can return several items representing overloaded methods.
+            Other member types return only one item.
+            </remarks>
+            <param name="memberName">The full name of the member to return.</param>
+            <returns></returns>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMethods(Blazorade.XmlDocumentation.TypeDocumentation)">
             <summary>
             Returns the methods for the given <paramref name="type"/>.
             </summary>
             <param name="type">The type for which to return the methods.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMethods(System.Type)">
+            <summary>
+            Returns the method documentation for the methods of <paramref name="type"/>.
+            </summary>
+            <param name="type">The type for which to return the method documentations.</param>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetNamespaces">
             <summary>

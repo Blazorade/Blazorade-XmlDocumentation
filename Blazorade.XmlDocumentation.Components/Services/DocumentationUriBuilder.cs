@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Blazorade.XmlDocumentation.Components.Services
@@ -51,8 +52,23 @@ namespace Blazorade.XmlDocumentation.Components.Services
             return null;
         }
 
-        public virtual Uri GetCRefUri(string cref)
+        /// <summary>
+        /// Returns the URI for the given member.
+        /// </summary>
+        /// <param name="key">The key that specifies library the member originates from. If <c>null</c>, the given member is considered an external member.</param>
+        /// <param name="member">The member to return the URI for.</param>
+        public virtual Uri GetMemberUri(string key, MemberInfo member)
         {
+            var name = member?.ToUriName();
+
+            if(key?.Length > 0 && name?.Length > 0)
+            {
+                return new Uri($"/{key}/m/{name}", UriKind.Relative);
+            }
+            else if(name?.Length > 0)
+            {
+                return new Uri($"https://www.google.com/search?q={name}", UriKind.Absolute);
+            }
 
             return null;
         }
