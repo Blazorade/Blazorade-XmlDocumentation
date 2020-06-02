@@ -21,7 +21,7 @@ namespace Blazorade.XmlDocumentation.Tests
             var doc = p.GetDocumentation(t);
 
             Assert.IsNotNull(doc);
-            Assert.AreEqual(t, doc.DocumentedMember);
+            Assert.AreEqual(t, doc.Member);
         }
 
 
@@ -115,8 +115,8 @@ namespace Blazorade.XmlDocumentation.Tests
             List<string> names = new List<string>();
             foreach(var m in p.GetMethods(doc))
             {
-                Assert.IsFalse(names.Contains(m.DocumentedMember.ToDisplayName()));
-                names.Add(m.DocumentedMember.ToDisplayName());
+                Assert.IsFalse(names.Contains(m.Member.ToDisplayName()));
+                names.Add(m.Member.ToDisplayName());
             }
         }
 
@@ -129,8 +129,8 @@ namespace Blazorade.XmlDocumentation.Tests
             var names = new List<string>();
             foreach(var m in p.GetMethods(doc))
             {
-                Assert.IsFalse(names.Contains(m.DocumentedMember.ToDisplayName()));
-                names.Add(m.DocumentedMember.ToDisplayName());
+                Assert.IsFalse(names.Contains(m.Member.ToDisplayName()));
+                names.Add(m.Member.ToDisplayName());
             }
         }
 
@@ -181,18 +181,18 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetTypeDisplayName01()
         {
-            var t = typeof(MemberDocumentation<PropertyInfo>);
+            var t = typeof(List<string>);
             var name = t.ToDisplayName();
-            Assert.AreEqual("MemberDocumentation<PropertyInfo>", name);
+            Assert.AreEqual("List<String>", name);
         }
 
         [TestMethod]
         public void GetTypeDisplayName02()
         {
-            var t = typeof(DocumentationParser).Assembly.GetTypes().Where(x => x.Name.StartsWith("MemberDocumentation")).FirstOrDefault();
+            var t = typeof(IDictionary<string, object>);
             Assert.IsNotNull(t);
             var name = t.ToDisplayName();
-            Assert.AreEqual("MemberDocumentation<TMember>", name);
+            Assert.AreEqual("(IDictionary<String, Object>", name);
         }
 
 

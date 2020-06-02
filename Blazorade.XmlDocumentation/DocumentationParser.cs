@@ -113,12 +113,12 @@ namespace Blazorade.XmlDocumentation
 
         public IEnumerable<FieldDocumentation> GetFields(TypeDocumentation type)
         {
-            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'F:{type.DocumentedMember.FullName}.')]");
+            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'F:{type.Member.FullName}.')]");
             foreach(XmlNode node in nodes)
             {
                 var nameAttribute = node.Attributes["name"].Value;
                 var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
-                var fld = type.DocumentedMember.GetField(name);
+                var fld = type.Member.GetField(name);
                 if(null != fld)
                 {
                     yield return new FieldDocumentation(node, fld);
@@ -134,7 +134,7 @@ namespace Blazorade.XmlDocumentation
         /// <param name="type">The type for which to return the methods.</param>
         public IEnumerable<MethodDocumentation> GetMethods(TypeDocumentation type)
         {
-            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'M:{type.DocumentedMember.FullName}.')]");
+            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'M:{type.Member.FullName}.')]");
             foreach(XmlNode node in nodes)
             {
                 List<Type> paramTypes = new List<Type>();
@@ -161,11 +161,11 @@ namespace Blazorade.XmlDocumentation
                 var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
                 if (name == "#ctor")
                 {
-                    method = type.DocumentedMember.GetConstructor(paramTypes.ToArray());
+                    method = type.Member.GetConstructor(paramTypes.ToArray());
                 }
                 else
                 {
-                    method = type.DocumentedMember.GetMethod(name, paramTypes.ToArray());
+                    method = type.Member.GetMethod(name, paramTypes.ToArray());
                 }
 
                 if(null != method)
@@ -203,12 +203,12 @@ namespace Blazorade.XmlDocumentation
         /// <returns></returns>
         public IEnumerable<PropertyDocumentation> GetProperties(TypeDocumentation type)
         {
-            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'P:{type.DocumentedMember.FullName}.')]");
+            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'P:{type.Member.FullName}.')]");
             foreach(XmlNode node in nodes)
             {
                 var nameAttribute = node.Attributes["name"].Value;
                 var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
-                var prop = type.DocumentedMember.GetProperty(name);
+                var prop = type.Member.GetProperty(name);
                 if(null != prop)
                 {
                     yield return new PropertyDocumentation(node, prop);

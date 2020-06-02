@@ -9,11 +9,19 @@ namespace Blazorade.XmlDocumentation
     /// <summary>
     /// Represents documentation for a property, encapsulating a <see cref="PropertyInfo"/> type.
     /// </summary>
-    public class PropertyDocumentation : MemberDocumentation<PropertyInfo>
+    public class PropertyDocumentation : MemberDocumentation
     {
         /// <inheritdoc/>
-        public PropertyDocumentation(XmlNode documentation, PropertyInfo documentedMember) : base(documentation, documentedMember)
+        public PropertyDocumentation(XmlNode documentation, PropertyInfo member) : base(documentation, member)
         {
+        }
+
+
+        /// <inheritdoc/>
+        public new PropertyInfo Member
+        {
+            get => (PropertyInfo)base.Member;
+            set => base.Member = value;
         }
 
         /// <summary>

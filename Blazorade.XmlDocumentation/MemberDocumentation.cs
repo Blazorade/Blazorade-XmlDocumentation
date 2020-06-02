@@ -10,25 +10,25 @@ namespace Blazorade.XmlDocumentation
     /// <summary>
     /// Represents the base class for all kinds of member documentation nodes.
     /// </summary>
-    public abstract class MemberDocumentation<TMember> : DocumentationNodeBase where TMember : MemberInfo
+    public abstract class MemberDocumentation : DocumentationNodeBase
     {
         /// <summary>
         /// Creates a new instance of the class.
         /// </summary>
         /// <param name="documentation">The XML node representing the documentation for the member.</param>
         /// <param name="documentedMember">The member that <paramref name="documentation"/> represents.</param>
-        protected MemberDocumentation(XmlNode documentation, TMember documentedMember) : base(documentation)
+        protected MemberDocumentation(XmlNode documentation, MemberInfo documentedMember) : base(documentation)
         {
-            this.DocumentedMember = documentedMember ?? throw new ArgumentNullException(nameof(documentedMember));
+            this.Member = documentedMember ?? throw new ArgumentNullException(nameof(documentedMember));
         }
 
 
 
-        private TMember _Member;
+        private MemberInfo _Member;
         /// <summary>
         /// Returns the reflection member that the documenation represents.
         /// </summary>
-        public virtual TMember DocumentedMember
+        public virtual MemberInfo Member
         {
             get { return _Member; }
             protected set
@@ -82,9 +82,9 @@ namespace Blazorade.XmlDocumentation
         /// </summary>
         public override string ToString()
         {
-            if(null != this.DocumentedMember?.DeclaringType)
+            if(null != this.Member?.DeclaringType)
             {
-                return $"{this.DocumentedMember.MemberType}: {this.DocumentedMember.DeclaringType.FullName}.{this.DocumentedMember.Name}";
+                return $"{this.Member.MemberType}: {this.Member.DeclaringType.FullName}.{this.Member.Name}";
             }
 
             return base.ToString();

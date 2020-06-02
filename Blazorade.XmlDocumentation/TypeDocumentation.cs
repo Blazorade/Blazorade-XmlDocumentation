@@ -8,19 +8,19 @@ namespace Blazorade.XmlDocumentation
     /// <summary>
     /// Represents the documentation for a <see cref="Type"/> object.
     /// </summary>
-    public class TypeDocumentation : MemberDocumentation<Type>
+    public class TypeDocumentation : MemberDocumentation
     {
         /// <inheritdoc/>
-        public TypeDocumentation(XmlNode documentation, Type documentedType) : base(documentation, documentedType) { }
+        public TypeDocumentation(XmlNode documentation, Type member) : base(documentation, member) { }
 
         /// <inheritdoc/>
-        public override Type DocumentedMember
+        public new Type Member
         {
-            get { return base.DocumentedMember; }
+            get { return (Type)base.Member; }
             protected set
             {
-                base.DocumentedMember = value;
-                this.Namespace = this.DocumentedMember.Namespace;
+                base.Member = value;
+                this.Namespace = this.Member.Namespace;
             }
         }
 
@@ -36,7 +36,7 @@ namespace Blazorade.XmlDocumentation
         /// </summary>
         public override string ToString()
         {
-            return $"Type: {this.DocumentedMember.FullName}";
+            return $"Type: {this.Member.FullName}";
         }
 
     }

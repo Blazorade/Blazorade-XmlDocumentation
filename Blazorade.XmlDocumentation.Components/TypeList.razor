@@ -8,21 +8,13 @@
             @this.HeadingTemplate
         }
 
-        @*<Nav class="nav-pills">
-            <NavItem IsActive="true">All</NavItem>
-            <NavItem>Classes</NavItem>
-            <NavItem>Struct</NavItem>
-            <NavItem>Interfaces</NavItem>
-            <NavItem>Enums</NavItem>
-            <NavItem>Delegates</NavItem>
-        </Nav>*@
         <ListGroup IsFlush="true">
             @foreach (var t in this.Types)
             {
-                var uri = this.UriBuilder.GetTypeUri(this.LibraryKey, t.DocumentedMember);
+                var uri = this.UriBuilder.GetTypeUri(this.LibraryKey, t.Member);
 
                 <ListGroupAnchor Url="@uri?.ToString()" OpenInNewTab="@(this.UriBuilder.OpenExternalsInNewTab && uri.IsAbsoluteUri)">
-                    <Heading Level="5"><TypeIcon Type="@t.DocumentedMember" Width="24" />@t.DocumentedMember.ToDisplayName()</Heading>
+                    <Heading Level="5"><TypeIcon Type="@t.Member" Width="24" />@t.Member.ToDisplayName()</Heading>
                     <Paragraph>
                         <NodeList Nodes="@t.Summary.ChildNodes" />
                     </Paragraph>

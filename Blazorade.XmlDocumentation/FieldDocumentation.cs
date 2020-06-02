@@ -9,12 +9,16 @@ namespace Blazorade.XmlDocumentation
     /// <summary>
     /// Represents documentation for a field.
     /// </summary>
-    public class FieldDocumentation : MemberDocumentation<FieldInfo>
+    public class FieldDocumentation : MemberDocumentation
     {
         /// <inheritdoc/>
-        public FieldDocumentation(XmlNode documentation, FieldInfo documentedMember) : base(documentation, documentedMember)
+        public FieldDocumentation(XmlNode documentation, FieldInfo member) : base(documentation, member)
         {
         }
+
+
+        /// <inheritdoc/>
+        public new FieldInfo Member { get => (FieldInfo)base.Member; protected set => base.Member = value; }
 
 
         /// <summary>
@@ -22,7 +26,7 @@ namespace Blazorade.XmlDocumentation
         /// </summary>
         public override string ToString()
         {
-            return $"Field: {this.DocumentedMember.DeclaringType.FullName}.{this.DocumentedMember.Name}";
+            return $"Field: {this.Member.DeclaringType.FullName}.{this.Member.Name}";
         }
 
     }

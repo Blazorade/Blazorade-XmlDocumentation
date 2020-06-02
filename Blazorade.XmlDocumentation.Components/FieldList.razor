@@ -12,7 +12,7 @@
             @foreach (var f in this.Fields)
             {
                 <ListGroupItem>
-                    <Heading Level="5">@f.DocumentedMember.ToDisplayName()</Heading>
+                    <Heading Level="5">@f.Member.ToDisplayName()</Heading>
                     <Paragraph>
                         <NodeList Nodes="@f.Summary?.ChildNodes" />
                     </Paragraph>

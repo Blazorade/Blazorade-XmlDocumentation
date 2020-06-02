@@ -290,6 +290,11 @@
             <summary>
             </summary>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.NamespaceView">
+            <summary>
+            A view component that displays the contents of a given namespace.
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.PropertyList">
             <summary>
             A component that lists properties.

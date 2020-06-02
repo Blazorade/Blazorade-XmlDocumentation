@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -17,6 +18,10 @@ namespace Blazorade.XmlDocumentation.Components
     /// </summary>
     public class MemberDocumentationBase : DocumentationComponentBase
     {
+
+
+        [Parameter]
+        public string MemberName { get; set; }
 
     }
 }

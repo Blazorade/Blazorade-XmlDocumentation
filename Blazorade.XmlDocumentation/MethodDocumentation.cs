@@ -13,12 +13,18 @@ namespace Blazorade.XmlDocumentation
     /// <remarks>
     /// This documentation type is used for both methods and constructors.
     /// </remarks>
-    public class MethodDocumentation : MemberDocumentation<MethodBase>
+    public class MethodDocumentation : MemberDocumentation
     {
         /// <inheritdoc/>
-        public MethodDocumentation(XmlNode documentation, MethodBase documentedMember) : base(documentation, documentedMember) { }
+        public MethodDocumentation(XmlNode documentation, MethodBase member) : base(documentation, member) { }
 
 
+        /// <inheritdoc/>
+        public new MethodBase Member
+        {
+            get => (MethodBase)base.Member;
+            set => base.Member = value;
+        }
 
         /// <summary>
         /// Returns the <c>param</c> nodes from the documentation.
@@ -43,7 +49,7 @@ namespace Blazorade.XmlDocumentation
         /// </summary>
         public IEnumerable<ParameterDocumentation> GetParameters()
         {
-            foreach(var p in this.DocumentedMember.GetParameters())
+            foreach(var p in this.Member.GetParameters())
             {
                 var node = this.Parameters.FirstOrDefault(x => x.Attributes["name"].Value == p.Name);
                 if(null != node)

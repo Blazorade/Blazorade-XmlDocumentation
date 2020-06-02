@@ -274,54 +274,57 @@
         <member name="M:Blazorade.XmlDocumentation.FieldDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.FieldInfo)">
             <inheritdoc/>
         </member>
+        <member name="P:Blazorade.XmlDocumentation.FieldDocumentation.Member">
+            <inheritdoc/>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.FieldDocumentation.ToString">
             <summary>
             Returns the string representation of the object.
             </summary>
         </member>
-        <member name="T:Blazorade.XmlDocumentation.MemberDocumentation`1">
+        <member name="T:Blazorade.XmlDocumentation.MemberDocumentation">
             <summary>
             Represents the base class for all kinds of member documentation nodes.
             </summary>
         </member>
-        <member name="M:Blazorade.XmlDocumentation.MemberDocumentation`1.#ctor(System.Xml.XmlNode,`0)">
+        <member name="M:Blazorade.XmlDocumentation.MemberDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.MemberInfo)">
             <summary>
             Creates a new instance of the class.
             </summary>
             <param name="documentation">The XML node representing the documentation for the member.</param>
             <param name="documentedMember">The member that <paramref name="documentation"/> represents.</param>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.DocumentedMember">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Member">
             <summary>
             Returns the reflection member that the documenation represents.
             </summary>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Name">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Name">
             <summary>
             Returns the name of the member.
             </summary>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Summary">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Summary">
             <summary>
             Returns the <c>summary</c> node from the documentation.
             </summary>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Remarks">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Remarks">
             <summary>
             Returns the <c>remarks</c> node from the documentation.
             </summary>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Exceptions">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Exceptions">
             <summary>
             Returns the <c>exception</c> nodes from the documentation.
             </summary>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation`1.Examples">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Examples">
             <summary>
             Returns the <c>example</c> nodes from the documentation.
             </summary>
         </member>
-        <member name="M:Blazorade.XmlDocumentation.MemberDocumentation`1.ToString">
+        <member name="M:Blazorade.XmlDocumentation.MemberDocumentation.ToString">
             <summary>
             Returns the string representation of the documentation.
             </summary>
@@ -335,6 +338,9 @@
             </remarks>
         </member>
         <member name="M:Blazorade.XmlDocumentation.MethodDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.MethodBase)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.Member">
             <inheritdoc/>
         </member>
         <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.Parameters">
@@ -387,6 +393,9 @@
         <member name="M:Blazorade.XmlDocumentation.PropertyDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.PropertyInfo)">
             <inheritdoc/>
         </member>
+        <member name="P:Blazorade.XmlDocumentation.PropertyDocumentation.Member">
+            <inheritdoc/>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.PropertyDocumentation.Value">
             <summary>
             Returns the <c>value</c> node from the documentation.
@@ -403,7 +412,7 @@
         <member name="M:Blazorade.XmlDocumentation.TypeDocumentation.#ctor(System.Xml.XmlNode,System.Type)">
             <inheritdoc/>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.TypeDocumentation.DocumentedMember">
+        <member name="P:Blazorade.XmlDocumentation.TypeDocumentation.Member">
             <inheritdoc/>
         </member>
         <member name="P:Blazorade.XmlDocumentation.TypeDocumentation.Namespace">

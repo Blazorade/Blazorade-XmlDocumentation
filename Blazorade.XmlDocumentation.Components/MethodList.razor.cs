@@ -15,7 +15,7 @@ namespace Blazorade.XmlDocumentation.Components
         /// <summary>
         /// A filter expression that includes only constructor methods.
         /// </summary>
-        public static readonly Func<MethodDocumentation, bool> ConstructorFilter = (m) => m.DocumentedMember.IsConstructor;
+        public static readonly Func<MethodDocumentation, bool> ConstructorFilter = (m) => m.Member.IsConstructor;
 
         /// <summary>
         /// A filter expression that includes all other methods except for constructors.

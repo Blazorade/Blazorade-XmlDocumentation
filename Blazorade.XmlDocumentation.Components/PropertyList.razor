@@ -12,7 +12,7 @@
             @foreach (var prop in this.Properties)
             {
                 <ListGroupItem>
-                    <Heading Level="5">@prop.DocumentedMember.ToDisplayName()</Heading>
+                    <Heading Level="5">@prop.Member.ToDisplayName()</Heading>
 
                     <Paragraph>
                         <NodeList Nodes="@prop.Summary?.ChildNodes" />

@@ -50,7 +50,7 @@ namespace Blazorade.XmlDocumentation.Components
 
             this.Types = from x in this.Parser.GetTypes(this.Namespace)
                          where (null == this.Filter || this.Filter(x))
-                         orderby x.DocumentedMember.FullName
+                         orderby x.Member.FullName
                          select x;
         }
     }
