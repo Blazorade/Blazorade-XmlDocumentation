@@ -243,7 +243,7 @@ namespace Blazorade.XmlDocumentation.Tests
             var t = typeof(IDictionary<string, object>);
             Assert.IsNotNull(t);
             var name = t.ToDisplayName();
-            Assert.AreEqual("(IDictionary<String, Object>", name);
+            Assert.AreEqual("IDictionary<String, Object>", name);
         }
 
 

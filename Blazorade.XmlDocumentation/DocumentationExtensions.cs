@@ -75,7 +75,7 @@ namespace Blazorade.XmlDocumentation
 
             sb.Append(method.Name);
 
-            var gArgs = method.GetGenericArguments();
+            var gArgs = method.IsGenericMethod ? method.GetGenericArguments() : new Type[0];
             if(gArgs?.Length > 0)
             {
                 sb.Append("<");

@@ -11,7 +11,10 @@ namespace Blazorade.XmlDocumentation
     public class TypeDocumentation : MemberDocumentation
     {
         /// <inheritdoc/>
-        public TypeDocumentation(XmlNode documentation, Type member) : base(documentation, member) { }
+        public TypeDocumentation(XmlNode documentation, Type member) : base(documentation, member)
+        {
+            this.Namespace = this.Member.Namespace;
+        }
 
         /// <inheritdoc/>
         public new Type Member
