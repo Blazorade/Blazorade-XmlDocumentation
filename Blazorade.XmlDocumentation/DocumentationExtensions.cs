@@ -53,6 +53,27 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
+        /// Enumerates all of the given <paramref name="assemblies"/> until a type if found with the given <paramref name="typeName"/>.
+        /// </summary>
+        /// <param name="assemblies">The collection of assemblies to look in when searching for the given tyhpe.</param>
+        /// <param name="typeName">The full name of the type to look for.</param>
+        /// <returns>
+        /// Returns the <see cref="Type"/> found, or <c>null</c> if nothing was found.
+        /// </returns>
+        public static Type GetType(this IEnumerable<Assembly> assemblies, string typeName)
+        {
+            Type t = null;
+
+            foreach(var asm in assemblies)
+            {
+                t = asm.GetType(typeName);
+                if (null != t) break;
+            }
+
+            return t;
+        }
+
+        /// <summary>
         /// Returns the display name for the given <paramref name="method"/>.
         /// </summary>
         /// <remarks>

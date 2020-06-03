@@ -29,6 +29,12 @@ namespace Blazorade.XmlDocumentation
             {
                 throw new ArgumentException($"Cannot find assembly name in the provided XML document.");
             }
+            this.AssemblyName = assemblyNameNode.InnerText;
+            var asm = Assembly.Load(this.AssemblyName);
+            if(null == asm)
+            {
+                throw new Exception($"The assembly with the name '{this.AssemblyName}' could not be loaded. The parser will most likely not be able to function properly.");
+            }
 
             var membersNode = this.Document.SelectSingleNode("doc/members");
             if(null == membersNode)
@@ -36,7 +42,7 @@ namespace Blazorade.XmlDocumentation
                 throw new ArgumentException($"The provided XML document does not appear to be a valid XML documentation document.");
             }
 
-            this.AssemblyName = assemblyNameNode.InnerText;
+
             this.ParseAssemblyInformation();
         }
 
@@ -95,7 +101,12 @@ namespace Blazorade.XmlDocumentation
         /// </returns>
         public TypeDocumentation GetDocumentation(Type type)
         {
-            var node = this.Document.DocumentElement.SelectSingleNode($"members/member[@name = 'T:{type.FullName}']");
+            string fullName = type.FullName;
+            if (type.IsGenericType)
+            {
+                fullName = type.GetGenericTypeDefinition().FullName;
+            }
+            var node = this.Document.DocumentElement.SelectSingleNode($"members/member[@name = 'T:{fullName}']");
             if(null != node)
             {
                 return new TypeDocumentation(node, type);
@@ -158,47 +169,16 @@ namespace Blazorade.XmlDocumentation
         /// <param name="type">The type for which to return the methods.</param>
         public IEnumerable<MethodDocumentation> GetMethods(TypeDocumentation type)
         {
+            if (null == type) throw new ArgumentNullException(nameof(type));
+
             var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'M:{type.Member.FullName}.')]");
             foreach(XmlNode node in nodes)
             {
-                int genericParamCount = 0;
-                List<Type> paramTypes = new List<Type>();
-                var nameAttribute = node.Attributes["name"].Value;
-                if (nameAttribute.Contains("("))
-                {
-                    var factory = new DocumentationParserFactory();
-                    var parameters = nameAttribute.Substring(nameAttribute.IndexOf('('));
-                    nameAttribute = nameAttribute.Substring(0, nameAttribute.Length - parameters.Length);
-
-                    parameters = parameters.Substring(1, parameters.Length - 2);
-                    var pArr = parameters.Split(',');
-                    foreach(var itm in pArr)
-                    {
-                        var pType = factory.GetType(itm.Trim());
-                        if(null != pType)
-                        {
-                            paramTypes.Add(pType);
-                        }
-                    }
-                }
-
-                if(nameAttribute.Contains("``"))
-                {
-                    var ixs = nameAttribute.Substring(nameAttribute.IndexOf("``") + 2);
-                    genericParamCount = int.Parse(ixs);
-                    nameAttribute = nameAttribute.Substring(0, nameAttribute.IndexOf("``"));
-                }
-
                 MethodBase method = null;
-                var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
-                if (name == "#ctor")
+                var cref = new CRef(node.Attributes["name"].Value);
+                if (cref.IsMethod)
                 {
-                    method = type.Member.GetConstructor(paramTypes.ToArray());
-                }
-                else
-                {
-                    var methods = type.Member.GetMethods();
-                    method = type.Member.GetMethod(name, genericParamCount, paramTypes.ToArray());
+                    method = cref.ToMethod();
                 }
 
                 if(null != method)

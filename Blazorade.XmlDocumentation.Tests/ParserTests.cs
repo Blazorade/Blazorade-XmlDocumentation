@@ -5,12 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using TestLibrary;
 
 namespace Blazorade.XmlDocumentation.Tests
 {
     [TestClass]
     public class ParserTests
     {
+
+        [TestInitialize]
+        public void TestInit()
+        {
+            var f = Shared.GetFactory(); // Just make sure that all assemblies are properly loaded for each test.
+        }
+
+
 
         [TestMethod]
         public void AddParser01()
@@ -162,7 +171,7 @@ namespace Blazorade.XmlDocumentation.Tests
         {
             var list = new List<string>
             {
-                "Foo<TIn>(TIn)",
+                "Foo<TIn>(TIn inParam)",
                 "TOut Foo<TOut>()"
             };
 
@@ -174,6 +183,14 @@ namespace Blazorade.XmlDocumentation.Tests
             {
                 Assert.IsTrue(names.Contains(itm), $"There must be a method with the display name '{itm}'.");
             }
+        }
+
+        [TestMethod]
+        public void GetMethods07()
+        {
+            var t = typeof(Class3<string, object>);
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var methods = p.GetMethods(t).ToList();
         }
 
 
@@ -299,6 +316,16 @@ namespace Blazorade.XmlDocumentation.Tests
         {
             var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocsComponenents);
             var doc = p.GetDocumentation(typeof(Components.Xml.CNode));
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod]
+        public void ReadDocs03()
+        {
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var t = typeof(Class3<string, object>);
+            var doc = p.GetDocumentation(t);
+
             Assert.IsNotNull(doc);
         }
 

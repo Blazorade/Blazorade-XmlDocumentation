@@ -9,6 +9,17 @@
             Just a class for no reason.
             </summary>
         </member>
+        <member name="M:TestLibrary.Class1.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:TestLibrary.Class1.#ctor(System.String)">
+            <summary>
+            An overloaded version of the constructor.
+            </summary>
+            <param name="input"></param>
+        </member>
         <member name="M:TestLibrary.Class1.Foo">
             <summary>
             A foo method.
@@ -50,6 +61,11 @@
             <typeparam name="TOut">The type to get out from the method.</typeparam>
             <param name="input">The actual input, which is typed by <typeparamref name="TIn"/>.</param>
         </member>
+        <member name="M:TestLibrary.Class1.Foo``4(``0,``1,``2)">
+            <summary>
+            A Foo method with lots of generics.
+            </summary>
+        </member>
         <member name="T:TestLibrary.Class2">
             <summary>
             Another class.
@@ -67,6 +83,31 @@
             Method with generic output.
             </summary>
             <typeparam name="TOut">The type for the return value.</typeparam>
+        </member>
+        <member name="T:TestLibrary.Class3`2">
+            <summary>
+            A generic dictionary class.
+            </summary>
+            <typeparam name="TKey">The type for the dictionary key.</typeparam>
+            <typeparam name="TItem">The type for the values in the dictionary.</typeparam>
+        </member>
+        <member name="M:TestLibrary.Class3`2.#ctor">
+            <summary>
+            Creates an instance without loading stuff into the instance.
+            </summary>
+        </member>
+        <member name="M:TestLibrary.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Creates an instance and loads it with stuff from <paramref name="source"/>.
+            </summary>
+            <param name="source"></param>
+        </member>
+        <member name="P:TestLibrary.Class3`2.Item(`0)">
+            <summary>
+            Returns the item with the given key.
+            </summary>
+            <param name="key">The key of the item to return.</param>
+            <returns>Returns the item, or maybe not.</returns>
         </member>
     </members>
 </doc>

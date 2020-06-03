@@ -9,6 +9,19 @@ namespace TestLibrary
     {
 
         /// <summary>
+        /// The default constructor.
+        /// </summary>
+        public Class1() { }
+
+        /// <summary>
+        /// An overloaded version of the constructor.
+        /// </summary>
+        /// <param name="input"></param>
+        public Class1(string input) { }
+
+
+
+        /// <summary>
         /// A foo method.
         /// </summary>
         public void Foo() { }
@@ -49,5 +62,12 @@ namespace TestLibrary
         /// <param name="input">The actual input, which is typed by <typeparamref name="TIn"/>.</param>
         public TOut Foo<TIn, TOut>(TIn input) { return default(TOut); }
 
+        /// <summary>
+        /// A Foo method with lots of generics.
+        /// </summary>
+        public TOut Foo<T1, T2, T3, TOut>(T1 in1, T2 in2, T3 in3)
+        {
+            return default(TOut);
+        }
     }
 }

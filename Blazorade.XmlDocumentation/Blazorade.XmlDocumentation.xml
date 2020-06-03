@@ -4,6 +4,50 @@
         <name>Blazorade.XmlDocumentation</name>
     </assembly>
     <members>
+        <member name="M:Blazorade.XmlDocumentation.CRef.ToType">
+            <summary>
+            Returns the <see cref="T:System.Type"/> that the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> instance points to.
+            </summary>
+            <remarks>
+            Can only be called if <see cref="P:Blazorade.XmlDocumentation.CRef.IsType"/> returns <c>true</c>.
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">The exception that is thrown if <see cref="P:Blazorade.XmlDocumentation.CRef.IsType"/> returns <c>false</c>.</exception>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.CRefType">
+            <summary>
+            Defines different CREF types.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.CRefType.Namespace">
+            <summary>
+            Namespace (N).
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.CRefType.Type">
+            <summary>
+            Type (T). Class, interface, struct, enum or delegate.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.CRefType.Field">
+            <summary>
+            Field (F). Includes also enumeration members, which are classified as fields.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.CRefType.Property">
+            <summary>
+            A property (P). Includes indexers and other indexed properties.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.CRefType.Method">
+            <summary>
+            Method (M). Includes constructors, operators etc.
+            </summary>
+        </member>
+        <member name="F:Blazorade.XmlDocumentation.CRefType.Event">
+            <summary>
+            Event (E).
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.DocumentationExtensions">
             <summary>
             Extension methods for working with XML documentation files.
@@ -35,6 +79,16 @@
             <remarks>
             The product name is read from the <see cref="T:System.Reflection.AssemblyProductAttribute"/> attribute of the assembly.
             </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.GetType(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.String)">
+            <summary>
+            Enumerates all of the given <paramref name="assemblies"/> until a type if found with the given <paramref name="typeName"/>.
+            </summary>
+            <param name="assemblies">The collection of assemblies to look in when searching for the given tyhpe.</param>
+            <param name="typeName">The full name of the type to look for.</param>
+            <returns>
+            Returns the <see cref="T:System.Type"/> found, or <c>null</c> if nothing was found.
+            </returns>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Reflection.MethodBase)">
             <summary>
