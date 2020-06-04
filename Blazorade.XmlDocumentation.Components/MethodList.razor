@@ -1,22 +1,23 @@
 ﻿@inherits TypeDocumentationBase
 
-@if(this.Methods?.Count() > 0)
-{
-    if(null != this.HeadingTemplate)
+<Div @attributes="this.Attributes">
+    @if (this.Methods?.Count() > 0)
     {
-        @this.HeadingTemplate
-    }
-
-    <ListGroup IsFlush="true">
-        @foreach(var m in this.Methods)
+        if (null != this.HeadingTemplate)
         {
-            <ListGroupItem>
-                <Heading Level="5">@m.Member.ToDisplayName()</Heading>
-
-                <Paragraph>
-                    <NodeList Nodes="@m.Summary?.ChildNodes" />
-                </Paragraph>
-            </ListGroupItem>
+            @this.HeadingTemplate
         }
-    </ListGroup>
-}
+
+        <ListGroup IsFlush="true">
+            @foreach (var m in this.Methods)
+            {
+                <ListGroupAnchor Url="@this.UriBuilder.GetMemberUri(this.LibraryKey, m.Member).ToString()">
+                    <Heading Level="5">@m.Member.ToDisplayName()</Heading>
+                    <Paragraph>
+                        <NodeList Nodes="@m.Summary?.ChildNodes" />
+                    </Paragraph>
+                </ListGroupAnchor>
+            }
+        </ListGroup>
+    }
+</Div>

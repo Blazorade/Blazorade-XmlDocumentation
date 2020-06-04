@@ -11,12 +11,12 @@
         <ListGroup IsFlush="true">
             @foreach (var f in this.Fields)
             {
-                <ListGroupItem>
+                <ListGroupAnchor Url="@this.UriBuilder.GetMemberUri(this.LibraryKey, f.Member).ToString()">
                     <Heading Level="5">@f.Member.ToDisplayName()</Heading>
                     <Paragraph>
                         <NodeList Nodes="@f.Summary?.ChildNodes" />
                     </Paragraph>
-                </ListGroupItem>
+                </ListGroupAnchor>
             }
         </ListGroup>
     }

@@ -231,13 +231,24 @@ namespace Blazorade.XmlDocumentation
             {
                 var nameAttribute = node.Attributes["name"].Value;
                 var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
-                var prop = type.Member.GetProperty(name);
-                if(null != prop)
+                var prop = type.Member.GetProperties().Where(x => x.Name == name).Where(x => x.DeclaringType == type.Member).FirstOrDefault();
+
+                if (null != prop)
                 {
                     yield return new PropertyDocumentation(node, prop);
                 }
             }
             yield break;
+        }
+
+        /// <summary>
+        /// Returns the properties defined on the given type.
+        /// </summary>
+        /// <param name="type">The type for which to return the property documentations.</param>
+        public IEnumerable<PropertyDocumentation> GetProperties(Type type)
+        {
+            var doc = this.GetDocumentation(type);
+            return this.GetProperties(doc);
         }
 
         /// <summary>

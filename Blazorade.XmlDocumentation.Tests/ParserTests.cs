@@ -204,6 +204,8 @@ namespace Blazorade.XmlDocumentation.Tests
         }
 
 
+
+
         [TestMethod]
         public void GetTypes01()
         {
@@ -285,6 +287,15 @@ namespace Blazorade.XmlDocumentation.Tests
             var props = p.GetProperties(type);
 
             Assert.AreNotEqual(0, props.Count());
+        }
+
+        [TestMethod]
+        public void GetProperties03()
+        {
+            var t = typeof(FieldDocumentation);
+            var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocs);
+            var properties = p.GetProperties(t).ToList();
+            Assert.IsNotNull(properties.FirstOrDefault(x => x.Name == nameof(FieldDocumentation.Member)));
         }
 
 

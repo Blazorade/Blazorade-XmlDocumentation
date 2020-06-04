@@ -255,6 +255,12 @@
             <param name="type">The type for which to return the properties.</param>
             <returns></returns>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetProperties(System.Type)">
+            <summary>
+            Returns the properties defined on the given type.
+            </summary>
+            <param name="type">The type for which to return the property documentations.</param>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetType(System.String)">
             <summary>
             Returns the type represented by <paramref name="typeName"/>. The assembly that the current
