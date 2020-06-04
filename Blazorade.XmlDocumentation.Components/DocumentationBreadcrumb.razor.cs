@@ -69,11 +69,26 @@ namespace Blazorade.XmlDocumentation.Components
         [Parameter]
         public string HomeUrl { get; set; }
 
+        private string _MemberShortName;
+        private string _MemberName;
         /// <summary>
         /// The member name of the member to use when building the breadcrumb.
         /// </summary>
         [Parameter]
-        public string MemberName { get; set; }
+        public string MemberName
+        {
+            get { return _MemberName; }
+            set
+            {
+                _MemberShortName = null;
+                _MemberName = value;
+                if(_MemberName?.Length > 0)
+                {
+                    this.TypeName = _MemberName.Substring(0, _MemberName.LastIndexOf('.'));
+                    _MemberShortName = _MemberName.Substring(_MemberName.LastIndexOf('.') + 1);
+                }
+            }
+        }
 
         /// <summary>
         /// The namespace to use when building the breadcrumb.
@@ -84,11 +99,31 @@ namespace Blazorade.XmlDocumentation.Components
         [Parameter]
         public string Namespace { get; set; }
 
+        private Type _Type;
+        private string _TypeName;
         /// <summary>
         /// The type name of the type to use when building the breadcrumb.
         /// </summary>
         [Parameter]
-        public string TypeName { get; set; }
+        public string TypeName
+        {
+            get { return _TypeName; }
+            set
+            {
+                _Type = null;
+                _TypeName = value;
+                if(_TypeName?.Length > 0)
+                {
+                    _Type = this.Parser.GetType(_TypeName);
+                    if(null != _Type)
+                    {
+                        this.Namespace = _Type.Namespace;
+                    }
+                }
+            }
+        }
+
+
 
 
         private List<Link> Items = new List<Link>();
@@ -111,22 +146,19 @@ namespace Blazorade.XmlDocumentation.Components
                 this.Items.Add(new Link { Text = this.Parser.AssemblyProductName, Url = this.UriBuilder.GetAssemblyUri(this.LibraryKey)?.ToString() });
             }
 
-            if(this.MemberName?.Length > 0)
-            {
-                
-            }
-            else if (this.TypeName?.Length > 0)
-            {
-                var t = this.Parser.GetType(this.TypeName);
-                if(null != t)
-                {
-                    this.Items.Add(new Link { Text = t.Namespace, Url = this.UriBuilder.GetNamespaceUri(this.LibraryKey, t.Namespace)?.ToString() });
-                    this.Items.Add(new Link { Text = t.ToDisplayName(), Url = this.UriBuilder.GetTypeUri(this.LibraryKey, t)?.ToString() });
-                }
-            }
-            else if (this.Namespace?.Length > 0)
+            if(this.Namespace?.Length > 0)
             {
                 this.Items.Add(new Link { Text = this.Namespace, Url = this.UriBuilder.GetNamespaceUri(this.LibraryKey, this.Namespace)?.ToString() });
+            }
+
+            if(null != _Type)
+            {
+                this.Items.Add(new Link { Text = _Type.ToDisplayName(), Url = this.UriBuilder.GetTypeUri(this.LibraryKey, _Type)?.ToString() });
+            }
+
+            if(this.MemberName?.Length > 0)
+            {
+                this.Items.Add(new Link { Text = _MemberShortName });
             }
 
             this.Items.Last().IsActive = true;
