@@ -6,11 +6,11 @@
     <Company>Blazorade</Company>
     <Product>Blazorade XML Docs Core</Product>
     <Description>A .NET Standard library that is designed to help you parse XML Documentation files in order to build applications that produce documentation for your libraries.</Description>
-    <PackageLicenseExpression>mit</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Blazorade/Blazorade-XmlDocumentation</PackageProjectUrl>
     <PackageTags>XML, Documentation, XML Documentation, Comments</PackageTags>
     <PackageReleaseNotes>This is a preview release.</PackageReleaseNotes>
-    <Version>1.0.0-preview1</Version>
+    <Version>1.0.0-preview2</Version>
     <RepositoryType>GitHub</RepositoryType>
     <RepositoryUrl>https://github.com/Blazorade/Blazorade-XmlDocumentation</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
