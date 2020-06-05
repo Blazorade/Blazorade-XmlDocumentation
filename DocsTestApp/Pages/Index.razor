@@ -2,7 +2,7 @@
 
 
 @code {
-    IComponentBuilder builder = new ColumnBuilder().Col(12).OnAll().Col(6).OnMd().Col(4).OnLg().Col(3).OnXl().MarginTop(4);
+    IComponentBuilder builder = new ColumnBuilder().Col(12).OnAll().Col(6).OnMd().Col(4).OnLg().MarginTop(4);
 }
 
 <Heading Level="1">
@@ -11,7 +11,6 @@
 
 <Row>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.TestLib" Height="1" /></Column>
-    <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.LocalLib" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocs" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocsComponents" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Bootstrap" ImageUrl="/img/Bootstrap-Logo.svg" Height="1" /></Column>
