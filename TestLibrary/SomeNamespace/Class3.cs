@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace TestLibrary
+namespace TestLibrary.SomeNamespace
 {
     /// <summary>
     /// A generic dictionary class.
@@ -32,4 +32,5 @@ namespace TestLibrary
         public TItem this[TKey key] { get { return default(TItem); } }
 
     }
+
 }

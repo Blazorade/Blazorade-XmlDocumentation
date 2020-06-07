@@ -6,6 +6,7 @@ using TestLibrary;
 using System.Linq;
 using System.Reflection;
 using Blazorade.XmlDocumentation;
+using TestLibrary.SomeNamespace;
 
 namespace Blazorade.XmlDocumentation.Tests
 {
@@ -44,7 +45,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void ToMethod01()
         {
-            var cref = new CRef("M:TestLibrary.Class1.#ctor");
+            var cref = new CRef("M:TestLibrary.SomeNamespace.Class1.#ctor");
             Assert.IsTrue(cref.IsMethod);
             Assert.IsTrue(cref.IsConstructor);
 
@@ -56,7 +57,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void ToMethod02()
         {
-            var cref = new CRef("M:TestLibrary.Class1.Foo``2(``0)");
+            var cref = new CRef("M:TestLibrary.SomeNamespace.Class1.Foo``2(``0)");
             var method = cref.ToMethod();
             Assert.IsNotNull(method);
             Assert.AreEqual("Foo", method.Name);
@@ -65,7 +66,7 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void ToMethod03()
         {
-            var cref = new CRef("M:TestLibrary.Class1.Foo``4(``0,``1,``2)");
+            var cref = new CRef("M:TestLibrary.SomeNamespace.Class1.Foo``4(``0,``1,``2)");
             var method = cref.ToMethod();
             Assert.IsNotNull(method);
             Assert.AreEqual("Foo", method.Name);
@@ -76,9 +77,9 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void ToType01()
         {
-            var cref = new CRef("T:TestLibrary.Class1");
+            var cref = new CRef("T:TestLibrary.SomeNamespace.Class1");
             Assert.IsTrue(cref.IsType);
-            Assert.AreEqual("TestLibrary.Class1", cref.Value);
+            Assert.AreEqual("TestLibrary.SomeNamespace.Class1", cref.Value);
 
             var t = cref.ToType();
             Assert.AreEqual(typeof(Class1), t);

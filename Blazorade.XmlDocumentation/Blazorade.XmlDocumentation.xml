@@ -168,9 +168,24 @@
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.#ctor(System.String)">
             <summary>
-            Creates an instance of the class from the given string.
+            Creates an instance of the class from the given XML string.
             </summary>
             <param name="xml">The XML string representing the XML documentation document to parse.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.#ctor(System.Reflection.Assembly)">
+            <summary>
+            Creates a new parser instance from the given assembly.
+            </summary>
+            <remarks>
+            <para>
+            This constructor assumes that the assembly has the XML documentation file embedded as a resource in the assembly.
+            </para>
+            <para>
+            If the assembly is stored in the file <c>My.Library.dll</c>, then the XML documentation file should be embedded
+            as <c>My.Library.xml</c>.
+            </para>
+            </remarks>
+            <param name="asm">The assembly to load the documentation from.</param>
         </member>
         <member name="P:Blazorade.XmlDocumentation.DocumentationParser.AssemblyName">
             <summary>
@@ -310,6 +325,14 @@
             </remarks>
             <param name="key">The key to add the parser with. If a parser with the given key exists, it will be overwritten.</param>
             <param name="asm">The assembly to search for embedded XML documents in.</param>
+            <returns>Returns the added parser.</returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.AddParser(System.String,Blazorade.XmlDocumentation.DocumentationParser)">
+            <summary>
+            Adds a parser to the factory.
+            </summary>
+            <param name="key">The key of the parser. If a parser with the given key exists, it will be overwritten.</param>
+            <param name="parser">The parser to add.</param>
             <returns>Returns the added parser.</returns>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParserKeys">

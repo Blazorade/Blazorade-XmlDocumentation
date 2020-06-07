@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using TestLibrary;
+using TestLibrary.SomeNamespace;
 
 namespace Blazorade.XmlDocumentation.Tests
 {
@@ -157,7 +158,7 @@ namespace Blazorade.XmlDocumentation.Tests
             };
 
             var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
-            var methods = p.GetMethods(typeof(TestLibrary.Class1)).ToList();
+            var methods = p.GetMethods(typeof(TestLibrary.SomeNamespace.Class1)).ToList();
             var displayNames = from x in methods select x.Member.ToDisplayName();
 
             foreach(var itm in expectedList)
@@ -176,7 +177,7 @@ namespace Blazorade.XmlDocumentation.Tests
             };
 
             var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
-            var methods = p.GetMethods(typeof(TestLibrary.Class2)).ToList();
+            var methods = p.GetMethods(typeof(Class2)).ToList();
             var names = from x in methods select x.Member.ToDisplayName();
 
             foreach(var itm in list)
@@ -241,7 +242,7 @@ namespace Blazorade.XmlDocumentation.Tests
         public void GetTypes04()
         {
             var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
-            var doc = p.GetDocumentation(typeof(TestLibrary.Class1));
+            var doc = p.GetDocumentation(typeof(Class1));
             Assert.IsNotNull(doc);
         }
 
@@ -296,6 +297,18 @@ namespace Blazorade.XmlDocumentation.Tests
             var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocs);
             var properties = p.GetProperties(t).ToList();
             Assert.IsNotNull(properties.FirstOrDefault(x => x.Name == nameof(FieldDocumentation.Member)));
+        }
+
+        [TestMethod]
+        public void GetProperties04()
+        {
+            var t = typeof(Class4<object>).Assembly.GetTypes().Where(x => x.Name == "Class4`1").FirstOrDefault();
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var props = p.GetProperties(t).ToList();
+            Assert.AreNotEqual(0, props.Count());
+
+            var prop = props.FirstOrDefault(x => x.Name == "Item");
+            Assert.IsNotNull(prop);
         }
 
 

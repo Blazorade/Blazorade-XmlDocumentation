@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestLibrary
+namespace TestLibrary.SomeNamespace
 {
     /// <summary>
     /// Just a class for no reason.

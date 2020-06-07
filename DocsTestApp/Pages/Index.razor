@@ -3,6 +3,10 @@
 
 @code {
     IComponentBuilder builder = new ColumnBuilder().Col(12).OnAll().Col(6).OnMd().Col(4).OnLg().MarginTop(4);
+
+    [Inject]
+    protected DocumentationParserFactory Factory { get; set; }
+
 }
 
 <Heading Level="1">
@@ -10,9 +14,16 @@
 </Heading>
 
 <Row>
+    @foreach (var key in this.Factory.GetParserKeys())
+    {
+        <Column Builder="@this.builder"><LibraryCard LibraryKey="@key" Height="1" /></Column>
+    }
+
+    @*
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.TestLib" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocs" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.XmlDocsComponents" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Bootstrap" ImageUrl="/img/Bootstrap-Logo.svg" Height="1" /></Column>
     <Column Builder="@this.builder"><LibraryCard LibraryKey="@LibKeys.Core" ImageUrl="/img/Blazorade-Logo.svg" Height="1" /></Column>
+    *@
 </Row>

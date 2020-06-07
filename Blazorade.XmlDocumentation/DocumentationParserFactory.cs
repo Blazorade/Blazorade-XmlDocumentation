@@ -31,7 +31,7 @@ namespace Blazorade.XmlDocumentation
         public DocumentationParser AddParser(string key, XmlDocument xml)
         {
             var parser = new DocumentationParser(xml);
-            this.Parsers[key] = parser;
+            this.AddParser(key, parser);
             return parser;
         }
 
@@ -60,20 +60,21 @@ namespace Blazorade.XmlDocumentation
         /// <returns>Returns the added parser.</returns>
         public DocumentationParser AddParser(string key, Assembly asm)
         {
-            var name = $"{asm.ManifestModule.Name.Substring(0, asm.ManifestModule.Name.LastIndexOf('.'))}.xml";
-            var resourceName = asm.GetManifestResourceNames().FirstOrDefault(x => x.EndsWith(name));
-            if(resourceName?.Length > 0)
-            {
-                XmlDocument doc = new XmlDocument();
-                using (var reader = new StreamReader(asm.GetManifestResourceStream(resourceName)))
-                {
-                    doc.LoadXml(reader.ReadToEnd());
-                }
+            var parser = new DocumentationParser(asm);
+            this.AddParser(key, parser);
+            return parser;
+        }
 
-                return this.AddParser(key, doc);
-            }
-
-            return null;
+        /// <summary>
+        /// Adds a parser to the factory.
+        /// </summary>
+        /// <param name="key">The key of the parser. If a parser with the given key exists, it will be overwritten.</param>
+        /// <param name="parser">The parser to add.</param>
+        /// <returns>Returns the added parser.</returns>
+        public DocumentationParser AddParser(string key, DocumentationParser parser)
+        {
+            this.Parsers[key] = parser ?? throw new ArgumentNullException(nameof(parser));
+            return parser;
         }
 
         /// <summary>

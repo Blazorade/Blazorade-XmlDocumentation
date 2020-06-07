@@ -14,7 +14,7 @@ namespace Blazorade.XmlDocumentation.Tests
             f.AddParser(ParserKeys.Core, typeof(Blazorade.Core._Imports).Assembly);
             f.AddParser(ParserKeys.XmlDocs, typeof(Blazorade.XmlDocumentation.DocumentationParser).Assembly);
             f.AddParser(ParserKeys.XmlDocsComponenents, typeof(Blazorade.XmlDocumentation.Components._Imports).Assembly);
-            f.AddParser(ParserKeys.TestLib, typeof(TestLibrary.Class1).Assembly);
+            f.AddParser(ParserKeys.TestLib, typeof(TestLibrary.SomeNamespace.Class1).Assembly);
             return f;
         }
 

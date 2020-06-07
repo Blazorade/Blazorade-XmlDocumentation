@@ -5,6 +5,7 @@ using System.Xml;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Blazorade.XmlDocumentation
 {
@@ -47,16 +48,50 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
-        /// Creates an instance of the class from the given string.
+        /// Creates an instance of the class from the given XML string.
         /// </summary>
         /// <param name="xml">The XML string representing the XML documentation document to parse.</param>
         public DocumentationParser(string xml) : this(LoadDocument(xml)) { }
+
+        /// <summary>
+        /// Creates a new parser instance from the given assembly.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This constructor assumes that the assembly has the XML documentation file embedded as a resource in the assembly.
+        /// </para>
+        /// <para>
+        /// If the assembly is stored in the file <c>My.Library.dll</c>, then the XML documentation file should be embedded
+        /// as <c>My.Library.xml</c>.
+        /// </para>
+        /// </remarks>
+        /// <param name="asm">The assembly to load the documentation from.</param>
+        public DocumentationParser(Assembly asm) : this(LoadDocument(asm)) { }
+
 
         private static XmlDocument LoadDocument(string xml)
         {
             var doc = new XmlDocument();
             doc.LoadXml(xml);
             return doc;
+        }
+
+        private static XmlDocument LoadDocument(Assembly asm)
+        {
+            var name = $"{asm.ManifestModule.Name.Substring(0, asm.ManifestModule.Name.LastIndexOf('.'))}.xml";
+            var resourceName = asm.GetManifestResourceNames().FirstOrDefault(x => x.EndsWith(name));
+            if (resourceName?.Length > 0)
+            {
+                XmlDocument doc = new XmlDocument();
+                using (var reader = new StreamReader(asm.GetManifestResourceStream(resourceName)))
+                {
+                    doc.LoadXml(reader.ReadToEnd());
+                }
+
+                return doc;
+            }
+
+            return null;
         }
 
         #endregion
@@ -226,11 +261,16 @@ namespace Blazorade.XmlDocumentation
         /// <returns></returns>
         public IEnumerable<PropertyDocumentation> GetProperties(TypeDocumentation type)
         {
-            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'P:{type.Member.FullName}.')]");
+            var fullName = type.Member.FullName;
+            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'P:{fullName}.')]");
             foreach(XmlNode node in nodes)
             {
                 var nameAttribute = node.Attributes["name"].Value;
-                var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
+                
+                var name = nameAttribute;
+                if (name.Contains('(')) name = name.Substring(0, name.IndexOf('('));
+                name = name.Substring(name.LastIndexOf('.') + 1);
+
                 var prop = type.Member.GetProperties().Where(x => x.Name == name).Where(x => x.DeclaringType == type.Member).FirstOrDefault();
 
                 if (null != prop)

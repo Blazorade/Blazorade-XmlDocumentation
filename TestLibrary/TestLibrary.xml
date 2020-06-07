@@ -4,47 +4,47 @@
         <name>TestLibrary</name>
     </assembly>
     <members>
-        <member name="T:TestLibrary.Class1">
+        <member name="T:TestLibrary.SomeNamespace.Class1">
             <summary>
             Just a class for no reason.
             </summary>
         </member>
-        <member name="M:TestLibrary.Class1.#ctor">
+        <member name="M:TestLibrary.SomeNamespace.Class1.#ctor">
             <summary>
             The default constructor.
             </summary>
         </member>
-        <member name="M:TestLibrary.Class1.#ctor(System.String)">
+        <member name="M:TestLibrary.SomeNamespace.Class1.#ctor(System.String)">
             <summary>
             An overloaded version of the constructor.
             </summary>
             <param name="input"></param>
         </member>
-        <member name="M:TestLibrary.Class1.Foo">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo">
             <summary>
             A foo method.
             </summary>
         </member>
-        <member name="M:TestLibrary.Class1.Foo(System.String)">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo(System.String)">
             <summary>
             A foo method with a parameter.
             </summary>
             <param name="what">A simple string parameter with some <c>fancy</c> docs.</param>
         </member>
-        <member name="M:TestLibrary.Class1.Foo``1">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo``1">
             <summary>
             A generic method with no parameters.
             </summary>
             <typeparam name="TOut">The type for the return value.</typeparam>
         </member>
-        <member name="M:TestLibrary.Class1.Foo``1(``0)">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo``1(``0)">
             <summary>
             A foo method with a generic parameter.
             </summary>
             <typeparam name="TWhat">The type for the <paramref name="what"/> parameter. Currently, this can be anything.</typeparam>
             <param name="what">The parameter documentation.</param>
         </member>
-        <member name="M:TestLibrary.Class1.Foo``2(``0,``1)">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo``2(``0,``1)">
             <summary>
             Yet another foo method without a reason.
             </summary>
@@ -53,7 +53,7 @@
             <param name="in1">The type for <paramref name="in1"/>.</param>
             <param name="in2">The type for <paramref name="in2"/>.</param>
         </member>
-        <member name="M:TestLibrary.Class1.Foo``2(``0)">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo``2(``0)">
             <summary>
             A generic foo method with both input and output being defined as generic types.
             </summary>
@@ -61,53 +61,65 @@
             <typeparam name="TOut">The type to get out from the method.</typeparam>
             <param name="input">The actual input, which is typed by <typeparamref name="TIn"/>.</param>
         </member>
-        <member name="M:TestLibrary.Class1.Foo``4(``0,``1,``2)">
+        <member name="M:TestLibrary.SomeNamespace.Class1.Foo``4(``0,``1,``2)">
             <summary>
             A Foo method with lots of generics.
             </summary>
         </member>
-        <member name="T:TestLibrary.Class2">
+        <member name="T:TestLibrary.SomeNamespace.Class2">
             <summary>
             Another class.
             </summary>
         </member>
-        <member name="M:TestLibrary.Class2.Foo``1(``0)">
+        <member name="M:TestLibrary.SomeNamespace.Class2.Foo``1(``0)">
             <summary>
             Method with generic input.
             </summary>
             <typeparam name="TIn">Type for <paramref name="inParam"/>.</typeparam>
             <param name="inParam">The parameter, which is typed by <typeparamref name="TIn"/>.</param>
         </member>
-        <member name="M:TestLibrary.Class2.Foo``1">
+        <member name="M:TestLibrary.SomeNamespace.Class2.Foo``1">
             <summary>
             Method with generic output.
             </summary>
             <typeparam name="TOut">The type for the return value.</typeparam>
         </member>
-        <member name="T:TestLibrary.Class3`2">
+        <member name="T:TestLibrary.SomeNamespace.Class3`2">
             <summary>
             A generic dictionary class.
             </summary>
             <typeparam name="TKey">The type for the dictionary key.</typeparam>
             <typeparam name="TItem">The type for the values in the dictionary.</typeparam>
         </member>
-        <member name="M:TestLibrary.Class3`2.#ctor">
+        <member name="M:TestLibrary.SomeNamespace.Class3`2.#ctor">
             <summary>
             Creates an instance without loading stuff into the instance.
             </summary>
         </member>
-        <member name="M:TestLibrary.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+        <member name="M:TestLibrary.SomeNamespace.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
             <summary>
             Creates an instance and loads it with stuff from <paramref name="source"/>.
             </summary>
             <param name="source"></param>
         </member>
-        <member name="P:TestLibrary.Class3`2.Item(`0)">
+        <member name="P:TestLibrary.SomeNamespace.Class3`2.Item(`0)">
             <summary>
             Returns the item with the given key.
             </summary>
             <param name="key">The key of the item to return.</param>
             <returns>Returns the item, or maybe not.</returns>
+        </member>
+        <member name="T:TestLibrary.SomeNamespace.Class4`1">
+            <summary>
+            Just a <c>class</c>...
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class4`1.Item(System.Int32)">
+            <summary>
+            A read-only indexed property.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

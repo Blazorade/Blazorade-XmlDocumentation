@@ -32,15 +32,13 @@ namespace DocsTestApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            var f = new DocumentationParserFactory();
-            f.AddParser(LibKeys.TestLib, typeof(TestLibrary.Class1).Assembly);
-            f.AddParser(LibKeys.Bootstrap, typeof(Blazorade.Bootstrap.Components._Imports).Assembly);
-            f.AddParser(LibKeys.Core, typeof(Blazorade.Core._Imports).Assembly);
-            f.AddParser(LibKeys.XmlDocs, typeof(DocumentationParser).Assembly);
-            f.AddParser(LibKeys.XmlDocsComponents, typeof(Blazorade.XmlDocumentation.Components._Imports).Assembly);
-            services.AddSingleton(f);
+            services.AddBlazoradeXmlDocumentation((options) =>
+            {
+                options.Parsers.Add(LibKeys.TestLib, new DocumentationParser(typeof(TestLibrary.SomeNamespace.Class1).Assembly));
+                options.Parsers.Add(LibKeys.XmlDocs, new DocumentationParser(typeof(DocumentationParser).Assembly));
+                options.Parsers.Add(LibKeys.XmlDocsComponents, new DocumentationParser(typeof(Blazorade.XmlDocumentation.Components._Imports).Assembly));
+            });
 
-            services.AddSingleton<DocumentationUriBuilder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

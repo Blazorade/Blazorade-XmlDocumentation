@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestLibrary
+namespace TestLibrary.SomeNamespace
 {
     /// <summary>
     /// Another class.
