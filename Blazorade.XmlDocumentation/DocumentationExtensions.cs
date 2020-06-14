@@ -303,14 +303,14 @@ namespace Blazorade.XmlDocumentation
         };
 
         /// <summary>
-        /// Returns the name of the member that is used in URIs.
+        /// Returns the full name of the member.
         /// </summary>
         /// <remarks>
-        /// The URI name of a member includeds the full name of the declaring type with the actual name of the member without
+        /// The full name includes the full name of the declaring type with the actual name of the member without
         /// any parameters or generic arguments.
         /// </remarks>
-        /// <param name="member">The member whose URI name to return.</param>
-        public static string ToUriName(this MemberInfo member)
+        /// <param name="member">The member whose full name to return.</param>
+        public static string ToFullName(this MemberInfo member)
         {
             var name = member.Name;
             var prefix = MemberNamePrefixes.FirstOrDefault(x => name.StartsWith(x));

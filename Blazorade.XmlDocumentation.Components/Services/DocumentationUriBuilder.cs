@@ -59,7 +59,7 @@ namespace Blazorade.XmlDocumentation.Components.Services
         /// <param name="member">The member to return the URI for.</param>
         public virtual Uri GetMemberUri(string key, MemberInfo member)
         {
-            var name = member?.ToUriName();
+            var name = member?.ToFullName();
 
             if(key?.Length > 0 && name?.Length > 0)
             {

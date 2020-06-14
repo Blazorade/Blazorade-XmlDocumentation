@@ -29,7 +29,7 @@ namespace Blazorade.XmlDocumentation.Tests
             var t = typeof(Class1).Assembly.GetTypes().Where(x => x.Name.Contains("Class3")).First();
             var itemProp = t.GetProperties().Where(x => x.Name == "Item").First();
 
-            var uriName = itemProp.ToUriName();
+            var uriName = itemProp.ToFullName();
             Assert.AreEqual("TestLibrary.SomeNamespace.Class3`2.Item", uriName);
         }
 

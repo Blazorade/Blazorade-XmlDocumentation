@@ -113,7 +113,7 @@ namespace Blazorade.XmlDocumentation.Tests
             
             foreach(var m in members)
             {
-                var uriName = m.ToUriName();
+                var uriName = m.ToFullName();
                 var memberDocs = p.GetMembers(uriName).ToList();
                 Assert.AreNotEqual(0, memberDocs.Count(), $"The name '{uriName}' must return at least one member.");
             }
@@ -138,7 +138,7 @@ namespace Blazorade.XmlDocumentation.Tests
 
             foreach(var m in members)
             {
-                var name = m.ToUriName();
+                var name = m.ToFullName();
                 Assert.IsTrue(expectedNames.Contains(name), $"The name '{name}' must be contained in the collection of expected values.");
             }
         }
@@ -321,6 +321,24 @@ namespace Blazorade.XmlDocumentation.Tests
             var methods = p.GetMethods(t).ToList();
         }
 
+        [TestMethod]
+        public void GetMethod08()
+        {
+            var expected = new string[]
+            {
+                ".ctor()",
+                ".ctor(IDictionary<TKey, TItem> source)"
+            };
+            var t = typeof(Class1).Assembly.GetTypes().First(x => x.Name == "Class3`2");
+            var p = Shared.GetFactory().GetParserByType(t).Item2;
+
+            var names = p.GetMembers("TestLibrary.SomeNamespace.Class3`2..ctor").Select(x => x.Member.ToDisplayName()).ToList();
+
+            foreach(var name in expected)
+            {
+                Assert.IsTrue(names.Contains(name), $"The name '{name}' must exist in the generated constructor display names.");
+            }
+        }
 
 
         [TestMethod]
