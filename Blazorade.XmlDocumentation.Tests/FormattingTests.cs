@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Blazorade.XmlDocumentation;
 using TestLibrary.SomeNamespace;
+using Blazorade.XmlDocumentation.Components.Services;
 
 namespace Blazorade.XmlDocumentation.Tests
 {
@@ -19,6 +20,19 @@ namespace Blazorade.XmlDocumentation.Tests
         {
             var f = Shared.GetFactory(); // Just make sure the proper assemblies are loaded for all tests.
         }
+
+
+
+        [TestMethod]
+        public void MemberUriName01()
+        {
+            var t = typeof(Class1).Assembly.GetTypes().Where(x => x.Name.Contains("Class3")).First();
+            var itemProp = t.GetProperties().Where(x => x.Name == "Item").First();
+
+            var uriName = itemProp.ToUriName();
+            Assert.AreEqual("TestLibrary.SomeNamespace.Class3`2.Item", uriName);
+        }
+
 
 
 

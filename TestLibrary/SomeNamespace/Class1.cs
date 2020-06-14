@@ -20,6 +20,28 @@ namespace TestLibrary.SomeNamespace
         public Class1(string input) { }
 
 
+        /// <summary>
+        /// Just a field.
+        /// </summary>
+        public string Field1;
+
+        /// <summary>
+        /// A timestamp that can be used for various purposes.
+        /// </summary>
+        public DateTimeOffset DefaultTimestamp;
+
+
+        /// <summary>
+        /// A <see cref="string"/> property.
+        /// </summary>
+        public string Prop1 { get; set; }
+
+        /// <summary>
+        /// This property is typed as <see cref="bool"/>.
+        /// </summary>
+        public bool IsProp2 { get; set; }
+
+
 
         /// <summary>
         /// A foo method.

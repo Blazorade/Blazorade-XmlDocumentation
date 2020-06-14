@@ -20,6 +20,26 @@
             </summary>
             <param name="input"></param>
         </member>
+        <member name="F:TestLibrary.SomeNamespace.Class1.Field1">
+            <summary>
+            Just a field.
+            </summary>
+        </member>
+        <member name="F:TestLibrary.SomeNamespace.Class1.DefaultTimestamp">
+            <summary>
+            A timestamp that can be used for various purposes.
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class1.Prop1">
+            <summary>
+            A <see cref="T:System.String"/> property.
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class1.IsProp2">
+            <summary>
+            This property is typed as <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
         <member name="M:TestLibrary.SomeNamespace.Class1.Foo">
             <summary>
             A foo method.

@@ -40,7 +40,25 @@ namespace Blazorade.XmlDocumentation.Components
     /// <item>
     /// <term>Type</term>
     /// <description>
+    /// <para>
     /// The type specified in <see cref="TypeName"/>.
+    /// </para>
+    /// <para>
+    /// If you specify <see cref="TypeName"/> then you don't have to specify <see cref="Namespace"/>, because that is resolved
+    /// from <see cref="TypeName"/>.
+    /// </para>
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Member</term>
+    /// <description>
+    /// <para>
+    /// The member specified in <see cref="MemberName"/>.
+    /// </para>
+    /// <para>
+    /// If you specify <see cref="MemberName"/>, then you don't have to specify <see cref="TypeName"/> nor <see cref="Namespace"/>, because
+    /// they are resolved from <see cref="MemberName"/>.
+    /// </para>
     /// </description>
     /// </item>
     /// </list>
@@ -86,6 +104,10 @@ namespace Blazorade.XmlDocumentation.Components
                 {
                     this.TypeName = _MemberName.Substring(0, _MemberName.LastIndexOf('.'));
                     _MemberShortName = _MemberName.Substring(_MemberName.LastIndexOf('.') + 1);
+                    if (this.TypeName.EndsWith('.'))
+                    {
+                        this.TypeName = this.TypeName.Substring(0, this.TypeName.Length - 1);
+                    }
                 }
             }
         }

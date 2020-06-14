@@ -139,12 +139,7 @@ namespace Blazorade.XmlDocumentation
         /// <param name="property">The property whose display name to return.</param>
         public static string ToDisplayName(this PropertyInfo property)
         {
-            var sb = new StringBuilder();
-            sb.Append(property.PropertyType.ToDisplayName());
-            sb.Append(" ");
-            sb.Append(property.Name);
-
-            return sb.ToString();
+            return $"{property?.PropertyType?.ToDisplayName()} {property?.Name}";
         }
 
         /// <summary>
@@ -193,7 +188,7 @@ namespace Blazorade.XmlDocumentation
         /// <param name="field">The field to return the display name for.</param>
         public static string ToDisplayName(this FieldInfo field)
         {
-            return field?.Name;
+            return $"{field?.FieldType?.ToDisplayName()} {field?.Name}";
         }
 
         /// <summary>
@@ -222,7 +217,7 @@ namespace Blazorade.XmlDocumentation
                 name = name.Substring(0, name.IndexOf('('));
             }
 
-            if(name.Contains('`'))
+            if(name.Contains('`') && name.LastIndexOf('.') < name.LastIndexOf('`'))
             {
                 name = name.Substring(0, name.IndexOf('`'));
             }
