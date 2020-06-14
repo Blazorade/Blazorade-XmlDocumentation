@@ -91,4 +91,13 @@ namespace Blazorade.XmlDocumentation
         }
 
     }
+
+    public abstract class MemberDocumentation<TMember> : MemberDocumentation where TMember : MemberInfo
+    {
+        protected MemberDocumentation(XmlNode documentation, TMember member) : base(documentation, member)
+        {
+        }
+
+        public new TMember Member { get => (TMember)base.Member; protected set => base.Member = value; }
+    }
 }

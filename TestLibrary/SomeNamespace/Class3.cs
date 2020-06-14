@@ -31,6 +31,12 @@ namespace TestLibrary.SomeNamespace
         /// <returns>Returns the item, or maybe not.</returns>
         public TItem this[TKey key] { get { return default(TItem); } }
 
+        /// <summary>
+        /// Returns the item at the specified <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index">The zero-based index for the item to return.</param>
+        public TItem this[int index] { get { return default(TItem); } }
+
     }
 
 }

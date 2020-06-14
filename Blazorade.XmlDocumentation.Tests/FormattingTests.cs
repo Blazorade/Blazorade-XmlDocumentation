@@ -44,7 +44,7 @@ namespace Blazorade.XmlDocumentation.Tests
 
             var expectedNames = new string[]
             {
-                "Foo<TIn>(TIn inParam)",
+                "void Foo<TIn>(TIn inParam)",
                 "TOut Foo<TOut>()"
             };
 

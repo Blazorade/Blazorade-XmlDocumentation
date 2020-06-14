@@ -9,7 +9,7 @@ namespace Blazorade.XmlDocumentation
     /// <summary>
     /// Represents documentation for an event.
     /// </summary>
-    public class EventDocumentation : MemberDocumentation
+    public class EventDocumentation : MemberDocumentation<EventInfo>
     {
         /// <inheritdoc/>
         public EventDocumentation(XmlNode documentation, EventInfo member) : base(documentation, member)
@@ -18,11 +18,9 @@ namespace Blazorade.XmlDocumentation
 
 
         /// <inheritdoc/>
-        public new EventInfo Member
+        public override string ToString()
         {
-            get => (EventInfo)base.Member;
-            set => base.Member = value;
+            return $"Event: {this.Member.ToDisplayName()}";
         }
-
     }
 }

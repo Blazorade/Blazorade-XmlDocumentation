@@ -153,7 +153,67 @@ namespace Blazorade.XmlDocumentation.Tests
             var members = p.GetMembers("TestLibrary.SomeNamespace.Class1..ctor").ToList();
             Assert.AreNotEqual(0, members.Count());
         }
-                
+
+        [TestMethod]
+        public void GetMembers05()
+        {
+            var expected = new string[]
+            {
+                "void Foo()",
+                "void Foo(string what)",
+                "TOut Foo<TOut>()",
+                "void Foo<TWhat>(TWhat what)",
+                "void Foo<T1, T2>(T1 in1, T2 in2)",
+                "TOut Foo<TIn, TOut>(TIn input)",
+                "TOut Foo<T1, T2, T3, TOut>(T1 in1, T2 in2, T3 in3)"
+            };
+
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var members = p.GetMembers("TestLibrary.SomeNamespace.Class1.Foo");
+            foreach(var m in members)
+            {
+                var name = m.Member.ToDisplayName();
+                Assert.IsTrue(expected.Contains(name), $"The display name '{name}' must exist in the expected collection.");
+            }
+        }
+
+        [TestMethod]
+        public void GetMembers06()
+        {
+            var expected = new string[]
+            {
+                ".ctor()",
+                ".ctor(string input)"
+            };
+
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var members = p.GetMembers("TestLibrary.SomeNamespace.Class1..ctor");
+            foreach(var m in members)
+            {
+                var name = m.Member.ToDisplayName();
+                Assert.IsTrue(expected.Contains(name), $"The display name '{name}' must exist in the expected collection.");
+            }
+        }
+
+        [TestMethod]
+        public void GetMembers07()
+        {
+            var expected = new string[]
+            {
+                "TItem Item[TKey key]",
+                "TItem Item[int index]"
+            };
+
+            var t = typeof(Class1).Assembly.GetTypes().First(x => x.Name == "Class3`2");
+            var p = Shared.GetFactory().GetParserByType(t).Item2;
+            var members = p.GetMembers("TestLibrary.SomeNamespace.Class3`2.Item");
+            foreach (var m in members)
+            {
+                var name = m.Member.ToDisplayName();
+                Assert.IsTrue(expected.Contains(name), $"The display name '{name}' must exist in the expected collection.");
+            }
+        }
+
 
 
         [TestMethod]
@@ -216,11 +276,11 @@ namespace Blazorade.XmlDocumentation.Tests
         {
             var expectedList = new List<string>
             {
-                "Foo()",
-                "Foo(String what)",
+                "void Foo()",
+                "void Foo(string what)",
                 "TOut Foo<TOut>()",
-                "Foo<TWhat>(TWhat what)",
-                "Foo<T1, T2>(T1 in1, T2 in2)",
+                "void Foo<TWhat>(TWhat what)",
+                "void Foo<T1, T2>(T1 in1, T2 in2)",
                 "TOut Foo<TIn, TOut>(TIn input)",
             };
 
@@ -239,7 +299,7 @@ namespace Blazorade.XmlDocumentation.Tests
         {
             var list = new List<string>
             {
-                "Foo<TIn>(TIn inParam)",
+                "void Foo<TIn>(TIn inParam)",
                 "TOut Foo<TOut>()"
             };
 
@@ -321,7 +381,7 @@ namespace Blazorade.XmlDocumentation.Tests
         {
             var t = typeof(List<string>);
             var name = t.ToDisplayName();
-            Assert.AreEqual("List<String>", name);
+            Assert.AreEqual("List<string>", name);
         }
 
         [TestMethod]
@@ -330,7 +390,7 @@ namespace Blazorade.XmlDocumentation.Tests
             var t = typeof(IDictionary<string, object>);
             Assert.IsNotNull(t);
             var name = t.ToDisplayName();
-            Assert.AreEqual("IDictionary<String, Object>", name);
+            Assert.AreEqual("IDictionary<string, object>", name);
         }
 
 
@@ -360,10 +420,10 @@ namespace Blazorade.XmlDocumentation.Tests
         [TestMethod]
         public void GetProperties03()
         {
-            var t = typeof(FieldDocumentation);
+            var t = typeof(MemberDocumentation);
             var p = Shared.GetFactory().GetParser(ParserKeys.XmlDocs);
             var properties = p.GetProperties(t).ToList();
-            Assert.IsNotNull(properties.FirstOrDefault(x => x.Name == nameof(FieldDocumentation.Member)));
+            Assert.IsNotNull(properties.FirstOrDefault(x => x.Name == nameof(MemberDocumentation.Member)));
         }
 
         [TestMethod]

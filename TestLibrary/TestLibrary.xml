@@ -139,6 +139,12 @@
             <param name="key">The key of the item to return.</param>
             <returns>Returns the item, or maybe not.</returns>
         </member>
+        <member name="P:TestLibrary.SomeNamespace.Class3`2.Item(System.Int32)">
+            <summary>
+            Returns the item at the specified <paramref name="index"/>.
+            </summary>
+            <param name="index">The zero-based index for the item to return.</param>
+        </member>
         <member name="T:TestLibrary.SomeNamespace.Class4`1">
             <summary>
             Just a <c>class</c>...

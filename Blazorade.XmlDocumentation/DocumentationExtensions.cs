@@ -13,6 +13,39 @@ namespace Blazorade.XmlDocumentation
     public static class DocumentationExtensions
     {
 
+        private static readonly IDictionary<Type, string> TypeAliases = new Dictionary<Type, string>
+        {
+            { typeof(byte), "byte" },
+            { typeof(sbyte), "sbyte" },
+            { typeof(short), "short" },
+            { typeof(ushort), "ushort" },
+            { typeof(int), "int" },
+            { typeof(uint), "uint" },
+            { typeof(long), "long" },
+            { typeof(ulong), "ulong" },
+            { typeof(float), "float" },
+            { typeof(double), "double" },
+            { typeof(decimal), "decimal" },
+            { typeof(object), "object" },
+            { typeof(bool), "bool" },
+            { typeof(char), "char" },
+            { typeof(string), "string" },
+            { typeof(void), "void" },
+            { typeof(byte?), "byte?" },
+            { typeof(sbyte?), "sbyte?" },
+            { typeof(short?), "short?" },
+            { typeof(ushort?), "ushort?" },
+            { typeof(int?), "int?" },
+            { typeof(uint?), "uint?" },
+            { typeof(long?), "long?" },
+            { typeof(ulong?), "ulong?" },
+            { typeof(float?), "float?" },
+            { typeof(double?), "double?" },
+            { typeof(decimal?), "decimal?" },
+            { typeof(bool?), "bool?" },
+            { typeof(char?), "char?" }
+        };
+
         /// <summary>
         /// Returns the description for the assembly.
         /// </summary>
@@ -87,7 +120,7 @@ namespace Blazorade.XmlDocumentation
             if (method is MethodInfo)
             {
                 var rt = ((MethodInfo)method).ReturnType;
-                if(rt != typeof(void))
+                if(null != rt)
                 {
                     sb.Append(rt.ToDisplayName());
                     sb.Append(" ");
@@ -139,7 +172,20 @@ namespace Blazorade.XmlDocumentation
         /// <param name="property">The property whose display name to return.</param>
         public static string ToDisplayName(this PropertyInfo property)
         {
-            return $"{property?.PropertyType?.ToDisplayName()} {property?.Name}";
+            StringBuilder builder = new StringBuilder();
+            builder.Append(property.PropertyType.ToDisplayName());
+            builder.Append(" ");
+            builder.Append(property.Name);
+
+            var indexParams = property.GetIndexParameters();
+            if(indexParams.Length > 0)
+            {
+                builder.Append("[");
+                builder.Append(string.Join(", ", from x in indexParams select x.ToDisplayName()));
+                builder.Append("]");
+            }
+
+            return builder.ToString();
         }
 
         /// <summary>
@@ -153,7 +199,11 @@ namespace Blazorade.XmlDocumentation
         public static string ToDisplayName(this Type type)
         {
             string displayName = null;
-            if (type.IsGenericType)
+            if(TypeAliases.ContainsKey(type))
+            {
+                displayName = TypeAliases[type];
+            }
+            else if (type.IsGenericType)
             {
                 StringBuilder builder = new StringBuilder();
                 builder.Append(type.Name.Substring(0, type.Name.LastIndexOf('`')));
@@ -197,6 +247,24 @@ namespace Blazorade.XmlDocumentation
         /// <param name="member">The member whose display name to reutrn.</param>
         public static string ToDisplayName(this MemberInfo member)
         {
+            if(member is MethodBase)
+            {
+                return ((MethodBase)member).ToDisplayName();
+            }
+            else if(member is FieldInfo)
+            {
+                return ((FieldInfo)member).ToDisplayName();
+            }
+            else if(member is PropertyInfo)
+            {
+                return ((PropertyInfo)member).ToDisplayName();
+            }
+            else if(member is EventInfo)
+            {
+                return ((EventInfo)member).ToDisplayName();
+            }
+
+
             var name = member?.Name?.Replace('#', '.');
 
             if (name.Contains('('))
@@ -217,6 +285,24 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
+        /// Returns the display name for <paramref name="member"/>.
+        /// </summary>
+        /// <param name="member">The event member to return the name for.</param>
+        /// <returns></returns>
+        public static string ToDisplayName(this EventInfo member)
+        {
+            return $"{member.EventHandlerType.ToDisplayName()} {member.Name}";
+        }
+
+        private static readonly IEnumerable<string> MemberNamePrefixes = new string[]
+        {
+            "add_",
+            "remove_",
+            "get_",
+            "set_"
+        };
+
+        /// <summary>
         /// Returns the name of the member that is used in URIs.
         /// </summary>
         /// <remarks>
@@ -226,9 +312,16 @@ namespace Blazorade.XmlDocumentation
         /// <param name="member">The member whose URI name to return.</param>
         public static string ToUriName(this MemberInfo member)
         {
-            var name = $"{member.DeclaringType.FullName}.{member.ToDisplayName()}";
+            var name = member.Name;
+            var prefix = MemberNamePrefixes.FirstOrDefault(x => name.StartsWith(x));
+            if(null != prefix)
+            {
+                name = name.Substring(prefix.Length);
+            }
 
-            return name;
+            var fullName = $"{member.DeclaringType.FullName}.{name}";
+
+            return fullName;
         }
 
     }

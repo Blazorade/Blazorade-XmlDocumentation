@@ -10,12 +10,6 @@ namespace Blazorade.XmlDocumentation.Components
     partial class MemberView
     {
 
-        /// <summary>
-        /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
 
-        }
     }
 }

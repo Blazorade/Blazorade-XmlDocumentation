@@ -272,13 +272,34 @@
         </member>
         <member name="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.MemberName">
             <summary>
-            The name of the member.
+            The full name of the member.
             </summary>
         </member>
         <member name="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.Documentation">
             <summary>
             The documentation associated with the member specified in <see cref="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.MemberName"/>.
             </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.MemberDisplayName">
+            <summary>
+            The display name of the member.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.MemberTypeName">
+            <summary>
+            The type name of the member.
+            </summary>
+            <remarks>
+            <para>
+            Can be one of the following.
+            </para>
+            <list type="bullet">
+            <item>Field</item>
+            <item>Property</item>
+            <item>Method</item>
+            <item>Event</item>
+            </list>
+            </remarks>
         </member>
         <member name="M:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.OnParametersSet">
             <summary>
@@ -287,10 +308,6 @@
         <member name="T:Blazorade.XmlDocumentation.Components.MemberView">
             <summary>
             A component that is used to display details of one member.
-            </summary>
-        </member>
-        <member name="M:Blazorade.XmlDocumentation.Components.MemberView.OnParametersSet">
-            <summary>
             </summary>
         </member>
         <member name="T:Blazorade.XmlDocumentation.Components.MethodList">

@@ -134,6 +134,13 @@
             </summary>
             <param name="member">The member whose display name to reutrn.</param>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToDisplayName(System.Reflection.EventInfo)">
+            <summary>
+            Returns the display name for <paramref name="member"/>.
+            </summary>
+            <param name="member">The event member to return the name for.</param>
+            <returns></returns>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToUriName(System.Reflection.MemberInfo)">
             <summary>
             Returns the name of the member that is used in URIs.
@@ -430,7 +437,7 @@
         <member name="M:Blazorade.XmlDocumentation.EventDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.EventInfo)">
             <inheritdoc/>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.EventDocumentation.Member">
+        <member name="M:Blazorade.XmlDocumentation.EventDocumentation.ToString">
             <inheritdoc/>
         </member>
         <member name="T:Blazorade.XmlDocumentation.FieldDocumentation">
@@ -441,13 +448,8 @@
         <member name="M:Blazorade.XmlDocumentation.FieldDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.FieldInfo)">
             <inheritdoc/>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.FieldDocumentation.Member">
-            <inheritdoc/>
-        </member>
         <member name="M:Blazorade.XmlDocumentation.FieldDocumentation.ToString">
-            <summary>
-            Returns the string representation of the object.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="T:Blazorade.XmlDocumentation.MemberDocumentation">
             <summary>
@@ -507,9 +509,6 @@
         <member name="M:Blazorade.XmlDocumentation.MethodDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.MethodBase)">
             <inheritdoc/>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.Member">
-            <inheritdoc/>
-        </member>
         <member name="P:Blazorade.XmlDocumentation.MethodDocumentation.Parameters">
             <summary>
             Returns the <c>param</c> nodes from the documentation.
@@ -524,6 +523,9 @@
             <summary>
             Returns the parameters for the current method.
             </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.MethodDocumentation.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Blazorade.XmlDocumentation.ParameterDocumentation">
             <summary>
@@ -560,9 +562,6 @@
         <member name="M:Blazorade.XmlDocumentation.PropertyDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.PropertyInfo)">
             <inheritdoc/>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.PropertyDocumentation.Member">
-            <inheritdoc/>
-        </member>
         <member name="P:Blazorade.XmlDocumentation.PropertyDocumentation.Value">
             <summary>
             Returns the <c>value</c> node from the documentation.
@@ -570,6 +569,9 @@
             <remarks>
             For details on the <c>value</c> node, see https://docs.microsoft.com/dotnet/csharp/programming-guide/xmldoc/value.
             </remarks>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.PropertyDocumentation.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Blazorade.XmlDocumentation.TypeDocumentation">
             <summary>
