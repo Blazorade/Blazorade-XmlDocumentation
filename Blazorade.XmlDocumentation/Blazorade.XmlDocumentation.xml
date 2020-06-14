@@ -228,12 +228,23 @@
             </summary>
             <param name="typeName">The full name of the type whose documentation to return.</param>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetEvents(Blazorade.XmlDocumentation.TypeDocumentation)">
+            <summary>
+            Returns the events for the given type.
+            </summary>
+            <param name="type">The type to return the events for.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetEvents(System.Type)">
+            <summary>
+            Returns the events for the given type.
+            </summary>
+            <param name="type">The type to return the events for.</param>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetFields(Blazorade.XmlDocumentation.TypeDocumentation)">
             <summary>
             Returns the fields for the given type.
             </summary>
             <param name="type">The type for which to return the fields.</param>
-            <returns></returns>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMembers(System.String)">
             <summary>
@@ -388,6 +399,17 @@
             <see cref="T:System.AppDomain"/> are enumerated and used to complete the given <paramref name="typeName"/>.
             </remarks>
             <param name="typeName">The full name of the type to return.</param>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.EventDocumentation">
+            <summary>
+            Represents documentation for an event.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.EventDocumentation.#ctor(System.Xml.XmlNode,System.Reflection.EventInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.EventDocumentation.Member">
+            <inheritdoc/>
         </member>
         <member name="T:Blazorade.XmlDocumentation.FieldDocumentation">
             <summary>

@@ -1,0 +1,23 @@
+﻿@inherits TypeDocumentationBase
+
+<Div @attributes="this.Attributes">
+    @if (this.Events?.Count() > 0)
+    {
+        if (null != this.HeadingTemplate)
+        {
+            @this.HeadingTemplate
+        }
+
+        <ListGroup IsFlush="true">
+            @foreach (var m in this.Events)
+            {
+                <ListGroupAnchor Url="@this.UriBuilder.GetMemberUri(this.LibraryKey, m.Member).ToString()">
+                    <Heading Level="5">@m.Member.ToDisplayName()</Heading>
+                    <Paragraph>
+                        <NodeList Nodes="@m.Summary?.ChildNodes" />
+                    </Paragraph>
+                </ListGroupAnchor>
+            }
+        </ListGroup>
+    }
+</Div>

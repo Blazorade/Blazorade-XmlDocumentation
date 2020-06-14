@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace TestLibrary.SomeNamespace
 {
@@ -18,6 +19,18 @@ namespace TestLibrary.SomeNamespace
         /// </summary>
         /// <param name="input"></param>
         public Class1(string input) { }
+
+
+        /// <summary>
+        /// The event that is fired before the actual event.
+        /// </summary>
+        public event EventHandler<CancelEventArgs> BeforeEvent;
+
+        /// <summary>
+        /// The event that is fired after the actual event.
+        /// </summary>
+        public event EventHandler AfterEvent;
+
 
 
         /// <summary>

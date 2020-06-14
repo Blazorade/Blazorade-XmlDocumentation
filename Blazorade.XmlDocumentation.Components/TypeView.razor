@@ -25,11 +25,18 @@
         <Heading Id="constructors" IsAnchor="true" Level="2">Constructors</Heading>
     </HeadingTemplate>
 </MethodList>
+
 <MethodList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName" Filter="MethodList.NonConstructorFilter">
     <HeadingTemplate>
         <Heading Id="methods" IsAnchor="true" Level="2">Methods</Heading>
     </HeadingTemplate>
 </MethodList>
+
+<EventList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
+    <HeadingTemplate>
+        <Heading Id="events" IsAnchor="true" Level="2">Events</Heading>
+    </HeadingTemplate>
+</EventList>
 
 @* Operators *@
 

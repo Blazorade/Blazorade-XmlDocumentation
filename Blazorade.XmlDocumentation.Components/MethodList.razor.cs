@@ -34,7 +34,7 @@ namespace Blazorade.XmlDocumentation.Components
         public RenderFragment HeadingTemplate { get; set; }
 
         /// <summary>
-        /// A filter that is used to filter the properties shown in the list.
+        /// A filter that is used to filter the methods shown in the list.
         /// </summary>
         /// <remarks>
         /// If set to <c>null</c>, all methods are shown.

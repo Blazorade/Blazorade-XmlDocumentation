@@ -159,10 +159,40 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
+        /// Returns the events for the given type.
+        /// </summary>
+        /// <param name="type">The type to return the events for.</param>
+        public IEnumerable<EventDocumentation> GetEvents(TypeDocumentation type)
+        {
+            var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'E:{type.Member.FullName}.')]");
+            foreach(XmlNode node in nodes)
+            {
+                var nameAttribute = node.Attributes["name"].Value;
+                var name = nameAttribute.Substring(nameAttribute.LastIndexOf('.') + 1);
+                var eInfo = type.Member.GetEvent(name);
+                if(null != eInfo)
+                {
+                    yield return new EventDocumentation(node, eInfo);
+                }
+            }
+            yield break;
+        }
+
+        /// <summary>
+        /// Returns the events for the given type.
+        /// </summary>
+        /// <param name="type">The type to return the events for.</param>
+        public IEnumerable<EventDocumentation> GetEvents(Type type)
+        {
+            var doc = this.GetDocumentation(type);
+            return this.GetEvents(doc);
+        }
+
+
+        /// <summary>
         /// Returns the fields for the given type.
         /// </summary>
         /// <param name="type">The type for which to return the fields.</param>
-        /// <returns></returns>
         public IEnumerable<FieldDocumentation> GetFields(TypeDocumentation type)
         {
             var nodes = this.Document.DocumentElement.SelectNodes($"members/member[starts-with(@name, 'F:{type.Member.FullName}.')]");
@@ -189,13 +219,23 @@ namespace Blazorade.XmlDocumentation
         /// </remarks>
         /// <param name="memberName">The full name of the member to return.</param>
         /// <returns></returns>
-        public IEnumerable<MemberInfo> GetMembers(string memberName)
+        public IEnumerable<MemberDocumentation> GetMembers(string memberName)
         {
+            var typeName = memberName?.Substring(0, (memberName?.LastIndexOf('.')).GetValueOrDefault());
+            var typeDoc = this.GetDocumentation(typeName);
+
+
             var prefixes = new string[] { "F", "P", "M", "E" };
-            var xpaths = from x in prefixes select $"starts-with(@name, '')";
-            
+            var xpaths = from x in prefixes select $"members/member[@name = '{x}:{memberName}']";
+            var xquery = $"({string.Join(") | (", xpaths)})";
+            var nodes = this.Document.DocumentElement.SelectNodes(xquery);
+
+            foreach(var n in nodes)
+            {
+
+            }
+
             yield break;
-            
         }
 
         /// <summary>

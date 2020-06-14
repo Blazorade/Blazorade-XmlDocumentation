@@ -20,6 +20,16 @@
             </summary>
             <param name="input"></param>
         </member>
+        <member name="E:TestLibrary.SomeNamespace.Class1.BeforeEvent">
+            <summary>
+            The event that is fired before the actual event.
+            </summary>
+        </member>
+        <member name="E:TestLibrary.SomeNamespace.Class1.AfterEvent">
+            <summary>
+            The event that is fired after the actual event.
+            </summary>
+        </member>
         <member name="F:TestLibrary.SomeNamespace.Class1.Field1">
             <summary>
             Just a field.
@@ -140,6 +150,45 @@
             </summary>
             <param name="index"></param>
             <returns></returns>
+        </member>
+        <member name="T:TestLibrary.SomeNamespace.Class5">
+            <summary>
+            A class with different types of properties.
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class5.Item(System.String)">
+            <summary>
+            Just an indexed property.
+            </summary>
+            <param name="key">The key of the item to return.</param>
+            <returns>Retrns the item that matches the given key.</returns>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class5.Item(System.Int32)">
+            <summary>
+            A indexed property with different type of indexer.
+            </summary>
+            <param name="index">The zero-based index of the item to return.</param>
+            <returns>Returns the item at the given index.</returns>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class5.ReadWriteProperty">
+            <summary>
+            A read-write property.
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class5.ReadOnlyProperty">
+            <summary>
+            A read-only property.
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class5.WriteOnlyProperty">
+            <summary>
+            A write-only property.
+            </summary>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Class5.ImplementedProperty">
+            <summary>
+            A property with actual implementation.
+            </summary>
         </member>
     </members>
 </doc>

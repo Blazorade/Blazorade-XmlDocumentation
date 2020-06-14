@@ -131,6 +131,31 @@
             <summary>
             </summary>
         </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.EventList.HeadingTemplate">
+            <summary>
+            Allows you to provide a heading for the list.
+            </summary>
+            <remarks>
+            This template is rendered only if the list has methods to show.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.EventList.Filter">
+            <summary>
+            A filter that is used to filter the events shown in the list.
+            </summary>
+            <remarks>
+            If set to <c>null</c>, all events are shown.
+            </remarks>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.EventList.Events">
+            <summary>
+            A collection of events to show in the list.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.EventList.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.FieldList">
             <summary>
             
@@ -233,12 +258,34 @@
             <summary>
             A base class for creating documentation for different types of members, such as:
             <list type="bullet">
-            <item><c>Class</c></item>
-            <item><c>Struct</c></item>
-            <item><c>Interface</c></item>
-            <item><c>Enum</c></item>
-            <item><c>Delegate</c></item>
+            <item><c>Method</c></item>
+            <item><c>Property</c></item>
+            <item><c>Field</c></item>
+            <item><c>Event</c></item>
             </list>
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.MemberName">
+            <summary>
+            The name of the member.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.Documentation">
+            <summary>
+            The documentation associated with the member specified in <see cref="P:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.MemberName"/>.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.MemberDocumentationBase.OnParametersSet">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.MemberView">
+            <summary>
+            A component that is used to display details of one member.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.Components.MemberView.OnParametersSet">
+            <summary>
             </summary>
         </member>
         <member name="T:Blazorade.XmlDocumentation.Components.MethodList">
@@ -266,7 +313,7 @@
         </member>
         <member name="P:Blazorade.XmlDocumentation.Components.MethodList.Filter">
             <summary>
-            A filter that is used to filter the properties shown in the list.
+            A filter that is used to filter the methods shown in the list.
             </summary>
             <remarks>
             If set to <c>null</c>, all methods are shown.

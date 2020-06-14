@@ -88,7 +88,63 @@ namespace Blazorade.XmlDocumentation.Tests
         }
 
 
-        
+
+        [TestMethod]
+        public void GetMembers01()
+        {
+            var name = "TestLibrary.SomeNamespace.Class1.Foo";
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var members = p.GetMembers(name).ToList();
+            Assert.AreNotEqual(0, members.Count());
+            foreach(var m in members)
+            {
+                Assert.AreEqual("Foo", m.Name);
+            }
+        }
+
+        [TestMethod]
+        public void GetMembers02()
+        {
+            var t = typeof(Class1);
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var doc = p.GetDocumentation(t);
+            
+            var members = t.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
+            
+            foreach(var m in members)
+            {
+                var uriName = m.ToUriName();
+                var memberDocs = p.GetMembers(uriName).ToList();
+                Assert.AreNotEqual(0, memberDocs.Count(), $"The name '{uriName}' must return at least one member.");
+            }
+        }
+
+        [TestMethod]
+        public void GetMembers03()
+        {
+            var t = typeof(Class5);
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var expectedNames = new string[] {
+                "TestLibrary.SomeNamespace.Class5..ctor",
+                "TestLibrary.SomeNamespace.Class5.Item",
+                "TestLibrary.SomeNamespace.Class5.ReadWriteProperty",
+                "TestLibrary.SomeNamespace.Class5.ReadOnlyProperty",
+                "TestLibrary.SomeNamespace.Class5.WriteOnlyProperty",
+                "TestLibrary.SomeNamespace.Class5.ImplementedProperty"
+            };
+
+            var members = t.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
+            Assert.AreNotEqual(0, members.Count());
+
+            foreach(var m in members)
+            {
+                var name = m.ToUriName();
+                Assert.IsTrue(expectedNames.Contains(name), $"The name '{name}' must be contained in the collection of expected values.");
+            }
+        }
+                
+
+
         [TestMethod]
         public void GetMethods01()
         {

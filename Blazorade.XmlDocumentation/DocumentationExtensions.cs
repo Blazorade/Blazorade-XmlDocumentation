@@ -197,8 +197,23 @@ namespace Blazorade.XmlDocumentation
         /// <param name="member">The member whose display name to reutrn.</param>
         public static string ToDisplayName(this MemberInfo member)
         {
-            var uriName = member.ToUriName();
-            return uriName.Substring(uriName.LastIndexOf('.') + 1);
+            var name = member?.Name?.Replace('#', '.');
+
+            if (name.Contains('('))
+            {
+                name = name.Substring(0, name.IndexOf('('));
+            }
+
+            if (name.Contains('`') && name.LastIndexOf('.') < name.LastIndexOf('`'))
+            {
+                name = name.Substring(0, name.IndexOf('`'));
+            }
+
+            var prefixes = new string[] { "get_", "set_", "add_", "remove_" };
+            var prefix = from x in prefixes where name.StartsWith(x) select x;
+            if (prefix.Count() > 0) name = name.Substring(prefix.First().Length);
+
+            return name;
         }
 
         /// <summary>
@@ -211,16 +226,7 @@ namespace Blazorade.XmlDocumentation
         /// <param name="member">The member whose URI name to return.</param>
         public static string ToUriName(this MemberInfo member)
         {
-            var name = $"{member.DeclaringType.FullName}.{member.Name}";
-            if(name.Contains('('))
-            {
-                name = name.Substring(0, name.IndexOf('('));
-            }
-
-            if(name.Contains('`') && name.LastIndexOf('.') < name.LastIndexOf('`'))
-            {
-                name = name.Substring(0, name.IndexOf('`'));
-            }
+            var name = $"{member.DeclaringType.FullName}.{member.ToDisplayName()}";
 
             return name;
         }

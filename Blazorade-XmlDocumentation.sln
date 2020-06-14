@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocsTestApp", "DocsTestApp\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3AFA6F31-E2CC-4830-9E83-FA5D90F46A87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{4EFAA8FC-9C56-4777-91E2-00261FFDA742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{4EFAA8FC-9C56-4777-91E2-00261FFDA742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

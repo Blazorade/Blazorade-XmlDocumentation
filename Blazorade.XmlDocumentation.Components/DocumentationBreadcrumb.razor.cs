@@ -107,6 +107,7 @@ namespace Blazorade.XmlDocumentation.Components
                     if (this.TypeName.EndsWith('.'))
                     {
                         this.TypeName = this.TypeName.Substring(0, this.TypeName.Length - 1);
+                        _MemberShortName = "." + _MemberShortName;
                     }
                 }
             }
