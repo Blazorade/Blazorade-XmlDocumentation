@@ -131,6 +131,11 @@
             <summary>
             </summary>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.EventList">
+            <summary>
+            Displays a list of events.
+            </summary>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.Components.EventList.HeadingTemplate">
             <summary>
             Allows you to provide a heading for the list.

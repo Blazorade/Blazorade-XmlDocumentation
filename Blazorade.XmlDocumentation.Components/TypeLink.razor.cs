@@ -46,7 +46,7 @@ namespace Blazorade.XmlDocumentation.Components
 
             if(null != this.Type)
             {
-                string key = this.Factory.GetParserByTypeName(this.Type.FullName)?.Item1;
+                string key = this.Factory.GetParserByType(this.Type.FullName)?.Item1;
                 this.Url = this.UriBuilder.GetTypeUri(key, this.Type);
                 
                 if(this.Type.GenericTypeArguments?.Length > 0)

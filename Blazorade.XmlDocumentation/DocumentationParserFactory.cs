@@ -146,7 +146,7 @@ namespace Blazorade.XmlDocumentation
         /// the key for the parser, <c>Item2</c> contains the actual parser, and <c>Item3</c> contains the type
         /// that was resolved by the parser.
         /// </returns>
-        public Tuple<string, DocumentationParser, Type> GetParserByTypeName(string typeName)
+        public Tuple<string, DocumentationParser, Type> GetParserByType(string typeName)
         {
             foreach(var key in this.Parsers.Keys)
             {
@@ -156,6 +156,25 @@ namespace Blazorade.XmlDocumentation
                 {
                     return new Tuple<string, DocumentationParser, Type>(key, p, t);
                 }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds the parser that can resolve the specified <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to use when searching for a parser.</param>
+        /// <returns>
+        /// The method returns a <see cref="Tuple{T1, T2}"/> where <c>Item1</c> contains the key for the parser
+        /// and <c>Item2</c> contains the actual parser.
+        /// </returns>
+        public Tuple<string, DocumentationParser> GetParserByType(Type type)
+        {
+            var result = this.GetParserByType(type.FullName);
+            if(null != result)
+            {
+                return new Tuple<string, DocumentationParser>(result.Item1, result.Item2);
             }
 
             return null;

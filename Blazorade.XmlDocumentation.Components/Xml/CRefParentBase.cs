@@ -53,7 +53,7 @@ namespace Blazorade.XmlDocumentation.Components.Xml
 
                 if(refType == "T")
                 {
-                    var parserRef = this.Factory.GetParserByTypeName(refName);
+                    var parserRef = this.Factory.GetParserByType(refName);
                     Type t = parserRef?.Item3 ?? this.Factory.GetType(refName);
 
                     this.LinkUrl = this.UriBuilder.GetTypeUri(parserRef?.Item1, t);

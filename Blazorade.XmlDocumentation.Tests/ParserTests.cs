@@ -123,7 +123,7 @@ namespace Blazorade.XmlDocumentation.Tests
         public void GetMembers03()
         {
             var t = typeof(Class5);
-            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            var p = Shared.GetFactory().GetParserByType("");// .GetParser(ParserKeys.TestLib);
             var expectedNames = new string[] {
                 "TestLibrary.SomeNamespace.Class5..ctor",
                 "TestLibrary.SomeNamespace.Class5.Item",
@@ -141,6 +141,17 @@ namespace Blazorade.XmlDocumentation.Tests
                 var name = m.ToUriName();
                 Assert.IsTrue(expectedNames.Contains(name), $"The name '{name}' must be contained in the collection of expected values.");
             }
+        }
+
+        [TestMethod]
+        public void GetMembers04()
+        {
+            var t = typeof(Class1);
+            var p = Shared.GetFactory().GetParserByType(t).Item2;
+            Assert.IsNotNull(p);
+
+            var members = p.GetMembers("TestLibrary.SomeNamespace.Class1..ctor").ToList();
+            Assert.AreNotEqual(0, members.Count());
         }
                 
 

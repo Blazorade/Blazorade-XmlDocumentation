@@ -221,21 +221,58 @@ namespace Blazorade.XmlDocumentation
         /// <returns></returns>
         public IEnumerable<MemberDocumentation> GetMembers(string memberName)
         {
-            var typeName = memberName?.Substring(0, (memberName?.LastIndexOf('.')).GetValueOrDefault());
-            var typeDoc = this.GetDocumentation(typeName);
-
-
-            var prefixes = new string[] { "F", "P", "M", "E" };
-            var xpaths = from x in prefixes select $"members/member[@name = '{x}:{memberName}']";
-            var xquery = $"({string.Join(") | (", xpaths)})";
-            var nodes = this.Document.DocumentElement.SelectNodes(xquery);
-
-            foreach(var n in nodes)
+            string typeName, name;
+            if(memberName.Contains(".."))
             {
-
+                typeName = memberName.Substring(0, memberName.IndexOf(".."));
+                name = memberName.Substring(memberName.LastIndexOf('.'));
+            }
+            else
+            {
+                typeName = memberName.Substring(0, memberName.LastIndexOf('.'));
+                name = memberName.Substring(memberName.LastIndexOf('.') + 1);
             }
 
-            yield break;
+            var typeDoc = this.GetDocumentation(typeName);
+
+            foreach(var m in from x in this.GetMembers(typeDoc) where x.Name == name select x)
+            {
+                yield return m;
+            }
+        }
+
+        /// <summary>
+        /// Returns the member documentation for the given type.
+        /// </summary>
+        /// <param name="type">The type to return the members for.</param>
+        public IEnumerable<MemberDocumentation> GetMembers(TypeDocumentation type)
+        {
+            foreach(var m in this.GetFields(type))
+            {
+                yield return m;
+            }
+            foreach(var m in this.GetProperties(type))
+            {
+                yield return m;
+            }
+            foreach(var m in this.GetMethods(type))
+            {
+                yield return m;
+            }
+            foreach(var m in this.GetEvents(type))
+            {
+                yield return m;
+            }
+        }
+
+        /// <summary>
+        /// Returns the member documentation for the given type.
+        /// </summary>
+        /// <param name="type">The type to return the members for.</param>
+        public IEnumerable<MemberDocumentation> GetMembers(Type type)
+        {
+            var doc = this.GetDocumentation(type);
+            return this.GetMembers(doc);
         }
 
         /// <summary>

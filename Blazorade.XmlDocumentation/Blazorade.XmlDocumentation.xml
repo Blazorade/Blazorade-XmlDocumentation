@@ -257,6 +257,18 @@
             <param name="memberName">The full name of the member to return.</param>
             <returns></returns>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMembers(Blazorade.XmlDocumentation.TypeDocumentation)">
+            <summary>
+            Returns the member documentation for the given type.
+            </summary>
+            <param name="type">The type to return the members for.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMembers(System.Type)">
+            <summary>
+            Returns the member documentation for the given type.
+            </summary>
+            <param name="type">The type to return the members for.</param>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParser.GetMethods(Blazorade.XmlDocumentation.TypeDocumentation)">
             <summary>
             Returns the methods for the given <paramref name="type"/>.
@@ -379,7 +391,7 @@
             <param name="key">The key representing the parser to return.</param>
             <param name="xml">Optional. The XML document to create a parser from in case a parser does not exist with the specified <paramref name="key"/>.</param>
         </member>
-        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParserByTypeName(System.String)">
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParserByType(System.String)">
             <summary>
             Finds the parser that can resolve the type specified in <paramref name="typeName"/>.
             </summary>
@@ -388,6 +400,16 @@
             The method returns a <see cref="T:System.Tuple`3"/> where <c>Item1</c> contains
             the key for the parser, <c>Item2</c> contains the actual parser, and <c>Item3</c> contains the type
             that was resolved by the parser.
+            </returns>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetParserByType(System.Type)">
+            <summary>
+            Finds the parser that can resolve the specified <paramref name="type"/>.
+            </summary>
+            <param name="type">The type to use when searching for a parser.</param>
+            <returns>
+            The method returns a <see cref="T:System.Tuple`2"/> where <c>Item1</c> contains the key for the parser
+            and <c>Item2</c> contains the actual parser.
             </returns>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationParserFactory.GetType(System.String)">
