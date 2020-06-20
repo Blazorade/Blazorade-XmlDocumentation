@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Blazorade.XmlDocumentation
 {
@@ -47,6 +50,14 @@ namespace Blazorade.XmlDocumentation
         };
 
         /// <summary>
+        /// Returns only the types where <see cref="Type.IsGenericParameter"/> returns <c>true</c>.
+        /// </summary>
+        public static IEnumerable<Type> GenericParameters(this IEnumerable<Type> types)
+        {
+            return from x in types where x.IsGenericParameter select x;
+        }
+
+        /// <summary>
         /// Returns the description for the assembly.
         /// </summary>
         /// <remarks>
@@ -86,6 +97,17 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
+        /// Searches the current app domain for a type that matches <paramref name="typeName"/> and returns it.
+        /// </summary>
+        /// <param name="domain">The current app domain.</param>
+        /// <param name="typeName">The type to attempt to resolve into a <see cref="Type"/> objcet.</param>
+        /// <returns>Returns the resolved <see cref="Type"/> or <c>null</c>if no type was found.</returns>
+        public static Type GetType(this AppDomain domain, string typeName)
+        {
+            return domain.GetAssemblies().GetType(typeName);
+        }
+
+        /// <summary>
         /// Enumerates all of the given <paramref name="assemblies"/> until a type if found with the given <paramref name="typeName"/>.
         /// </summary>
         /// <param name="assemblies">The collection of assemblies to look in when searching for the given tyhpe.</param>
@@ -104,6 +126,24 @@ namespace Blazorade.XmlDocumentation
             }
 
             return t;
+        }
+
+        /// <summary>
+        /// Assumes that <paramref name="input"/> is a string containing a comma-separated
+        /// list of type definitions that can also be generic type definitions.
+        /// </summary>
+        public static IEnumerable<string> SplitTypeDefinitions(this string input)
+        {
+            if(!string.IsNullOrEmpty(input))
+            {
+                var rx = new Regex("[^,^{^}]+\\{[^}]+\\}|[^,]+");
+                foreach(Match m in rx.Matches(input))
+                {
+                    yield return m.Value;
+                }
+            }
+
+            yield break;
         }
 
         /// <summary>
@@ -293,6 +333,133 @@ namespace Blazorade.XmlDocumentation
         {
             return $"{member.EventHandlerType.ToDisplayName()} {member.Name}";
         }
+
+        /// <summary>
+        /// Returns the method that <paramref name="methodString"/> represents.
+        /// </summary>
+        public static MethodBase ToMethod(this string methodString)
+        {
+            if (string.IsNullOrEmpty(methodString)) throw new ArgumentNullException(nameof(methodString));
+            if (!(methodString.IndexOf('.') > 0)) throw new ArgumentException("The given string does not appear to be a full method definition.");
+
+            MethodBase method = null;
+            int genericParamCount = 0;
+            List<Type> paramTypes = new List<Type>();
+
+            if (methodString.Contains('('))
+            {
+                var paramsString = methodString.Substring(methodString.IndexOf('(') + 1, methodString.IndexOf(')') - methodString.IndexOf('(') - 1);
+                var arr = paramsString.SplitTypeDefinitions();
+                foreach(var s in arr)
+                {
+                    var pt = s.ToType();
+                    if(null != pt)
+                    {
+                        if (pt.IsGenericParameter) genericParamCount++;
+                        paramTypes.Add(pt);
+                    }
+                }
+                methodString = methodString.Substring(0, methodString.IndexOf('('));
+            }
+
+            var methodName = methodString.Substring(methodString.LastIndexOf('.') + 1).Replace('#', '.');
+            if(methodName.Contains("``"))
+            {
+                genericParamCount = int.Parse(methodName.Substring(methodName.LastIndexOf('`') + 1));
+                methodName = methodName.Substring(0, methodName.IndexOf("``"));
+            }
+
+            var declaringTypeString = methodString.Substring(0, methodString.LastIndexOf('.'));
+            var declaringType = declaringTypeString.ToType();
+
+            if(declaringType.IsGenericType)
+            {
+                var genArgs = declaringType.GetGenericArguments();
+                for(int i = 0; i < paramTypes.Count; i++)
+                {
+                    var p = paramTypes[i];
+                    if(p.IsGenericParameter)
+                    {
+                        p = genArgs[p.GenericParameterPosition];
+                        paramTypes[i] = p;
+                    }
+                }
+            }
+
+            if(methodName == ".ctor")
+            {
+                var constructors = declaringType.GetConstructors();
+                foreach(var c in constructors)
+                {
+                    var pArr = c.GetParameters();
+                }
+                method = declaringType.GetConstructor(paramTypes.ToArray());
+            }
+            else
+            {
+                method = declaringType.GetMethod(methodName, genericParamCount, paramTypes.ToArray());
+            }
+
+            return method;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Type"/> that the current string represents.
+        /// </summary>
+        public static Type ToType(this string typeString)
+        {
+            Type pt = null;
+            if (typeString.StartsWith("`"))
+            {
+                var pString = typeString.Substring(typeString.LastIndexOf('`') + 1);
+                int position = int.Parse(pString);
+                pt = Type.MakeGenericMethodParameter(position);
+            }
+            else if (typeString.Contains('{'))
+            {
+                StringBuilder builder = new StringBuilder();
+
+                var paramsString = typeString.Substring(typeString.IndexOf('{') + 1, typeString.IndexOf('}') - typeString.IndexOf('{') - 1);
+                typeString = typeString.Substring(0, typeString.IndexOf('{'));
+
+                var arr = paramsString.SplitTypeDefinitions();
+                builder
+                    .Append(typeString)
+                    .Append("`")
+                    .Append(arr.Count());
+
+                var typeList = new List<Type>();
+                foreach (var s in arr)
+                {
+                    var t = s.ToType();
+                    if (null != t) typeList.Add(t);
+                }
+
+                var firstParam = typeList.FirstOrDefault();
+                if(null != firstParam && !firstParam.IsGenericParameter)
+                {
+                    var isFirst = true;
+                    builder.Append("[");
+                    foreach(var p in typeList)
+                    {
+                        if (!isFirst) builder.Append(",");
+                        builder.Append("[").Append(p.FullName).Append("]");
+                        isFirst = false;
+                    }
+
+                    builder.Append("]");
+                }
+                
+                pt = AppDomain.CurrentDomain.GetType(builder.ToString());
+            }
+            else
+            {
+                pt = AppDomain.CurrentDomain.GetType(typeString);
+            }
+
+            return pt;
+        }
+
 
         private static readonly IEnumerable<string> MemberNamePrefixes = new string[]
         {

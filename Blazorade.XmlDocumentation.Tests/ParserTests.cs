@@ -69,6 +69,52 @@ namespace Blazorade.XmlDocumentation.Tests
 
 
         [TestMethod]
+        public void Cref01()
+        {
+            var cref = new CRef("M:TestLibrary.SomeNamespace.Class6`1.#ctor(`0)");
+            var m = cref.ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void Cref02()
+        {
+            var crefs = new string[]
+            {
+                "M:TestLibrary.SomeNamespace.Class1.Foo``4(``0,``1,``2)",
+                "M:TestLibrary.SomeNamespace.Class6`1.#ctor(`0)",
+            };
+
+            foreach(var c in crefs)
+            {
+                var cref = new CRef(c);
+                var m = cref.ToMethod();
+                Assert.IsNotNull(m, $"The string '{c}' must be a valid method reference.");
+            }
+        }
+
+        [TestMethod]
+        public void Cref03()
+        {
+            var cref = new CRef("M:TestLibrary.SomeNamespace.Class7`2.#ctor(`0,`1)");
+            var m = cref.ToMethod();
+            Assert.IsNotNull(m);
+            var paramArr = m.GetParameters();
+            Assert.AreEqual(2, paramArr.Length);
+        }
+
+        [TestMethod]
+        public void Cref04()
+        {
+            var cref = new CRef("M:TestLibrary.SomeNamespace.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})");
+            Assert.IsTrue(cref.IsMethod);
+            var m = cref.ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+
+
+        [TestMethod]
         public void GetFields01()
         {
             var p = Shared.GetFactory().GetParser(ParserKeys.Bootstrap);
@@ -322,14 +368,14 @@ namespace Blazorade.XmlDocumentation.Tests
         }
 
         [TestMethod]
-        public void GetMethod08()
+        public void GetMethods08()
         {
             var expected = new string[]
             {
                 ".ctor()",
                 ".ctor(IDictionary<TKey, TItem> source)"
             };
-            var t = typeof(Class1).Assembly.GetTypes().First(x => x.Name == "Class3`2");
+            var t = typeof(Class3<,>);
             var p = Shared.GetFactory().GetParserByType(t).Item2;
 
             var names = p.GetMembers("TestLibrary.SomeNamespace.Class3`2..ctor").Select(x => x.Member.ToDisplayName()).ToList();
@@ -339,6 +385,17 @@ namespace Blazorade.XmlDocumentation.Tests
                 Assert.IsTrue(names.Contains(name), $"The name '{name}' must exist in the generated constructor display names.");
             }
         }
+
+        [TestMethod]
+        public void GetMethods09()
+        {
+            var t = typeof(Class6<>);
+            var p = Shared.GetFactory().GetParserByType(t).Item2;
+
+            var constructors = from x in p.GetMethods(t) where x.Member.IsConstructor select x;
+            Assert.AreNotEqual(0, constructors.Count());
+        }
+
 
 
         [TestMethod]

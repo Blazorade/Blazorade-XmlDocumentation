@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Runtime;
 using System.Text;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Blazorade.XmlDocumentation
 {
@@ -70,64 +71,18 @@ namespace Blazorade.XmlDocumentation
 
 
 
+        /// <summary>
+        /// Returns the method defined by the current <see cref="CRef"/> instance.
+        /// </summary>
+        /// <returns>Returns the method or <c>null</c> if <see cref="IsMethod"/> returns <c>false</c>.</returns>
         public MethodBase ToMethod()
         {
-            MethodBase m = null;
-            List<Type> paramTypes = new List<Type>();
-            List<string> paramTypeNames = new List<string>();
-            int genericParamsCount = 0;
-
-            var baseName = this.Value;
-            if (baseName.Contains("("))
+            if (this.IsMethod)
             {
-                var paramsPart = baseName.Substring(baseName.IndexOf('(') + 1, baseName.IndexOf(')') - baseName.IndexOf('(') - 1);
-                baseName = baseName.Substring(0, baseName.IndexOf('('));
-
-                paramTypeNames = new List<string>(paramsPart.Split(','));
-
-                foreach(var n in paramTypeNames)
-                {
-                    Type pt = null;
-                    if(n.StartsWith("``"))
-                    {
-                        int position = int.Parse(n.Substring(2));
-                        pt = Type.MakeGenericMethodParameter(position);
-                    }
-                    else
-                    {
-                        pt = AppDomain.CurrentDomain.GetAssemblies().GetType(n);
-                    }
-
-                    if(null != pt)
-                    {
-                        paramTypes.Add(pt);
-                    }
-                }
+                return this.Value.ToMethod();
             }
 
-            if(baseName.Contains("``"))
-            {
-                var countString = baseName.Substring(baseName.IndexOf("``") + 2);
-                genericParamsCount = int.Parse(countString);
-                baseName = baseName.Substring(0, baseName.IndexOf("``"));
-            }
-
-            var methodName = baseName.Substring(baseName.LastIndexOf('.') + 1).Replace('#', '.');
-
-            var parentName = baseName.Substring(0, baseName.LastIndexOf('.'));
-            var parentCref = new CRef($"T:{parentName}");
-            var parentType = parentCref.ToType();
-
-            if(methodName == ".ctor")
-            {
-                m = parentType.GetConstructor(paramTypes.ToArray());
-            }
-            else
-            {
-                m = parentType.GetMethod(methodName, genericParamsCount, paramTypes.ToArray());
-            }
-            
-            return m;
+            return null;
         }
 
         /// <summary>
@@ -149,6 +104,12 @@ namespace Blazorade.XmlDocumentation
             }
 
             return t;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return this.RawValue ?? base.ToString();
         }
 
     }

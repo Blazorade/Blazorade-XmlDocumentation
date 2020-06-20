@@ -92,12 +92,19 @@ namespace Blazorade.XmlDocumentation
 
     }
 
+    /// <summary>
+    /// A base class for documentation for various kinds of members.
+    /// </summary>
+    /// <typeparam name="TMember">The type of member to document.</typeparam>
     public abstract class MemberDocumentation<TMember> : MemberDocumentation where TMember : MemberInfo
     {
+        /// <inheritdoc/>
         protected MemberDocumentation(XmlNode documentation, TMember member) : base(documentation, member)
         {
         }
 
+        /// <inheritdoc/>
         public new TMember Member { get => (TMember)base.Member; protected set => base.Member = value; }
+
     }
 }

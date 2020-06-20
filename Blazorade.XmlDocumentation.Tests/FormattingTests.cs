@@ -8,6 +8,7 @@ using System.Reflection;
 using Blazorade.XmlDocumentation;
 using TestLibrary.SomeNamespace;
 using Blazorade.XmlDocumentation.Components.Services;
+using System.Xml;
 
 namespace Blazorade.XmlDocumentation.Tests
 {
@@ -57,6 +58,28 @@ namespace Blazorade.XmlDocumentation.Tests
 
 
         [TestMethod]
+        public void Split01()
+        {
+            var input = "System.Collections.Generic.IDictionary{`0,`1},System.String";
+            var arr = input.SplitTypeDefinitions().ToList();
+            Assert.AreEqual(2, arr.Count());
+            Assert.AreEqual("System.Collections.Generic.IDictionary{`0,`1}", arr.ElementAt(0));
+            Assert.AreEqual("System.String", arr.ElementAt(1));
+        }
+
+        [TestMethod]
+        public void Split02()
+        {
+            var input = "System.String,System.Collections.Generic.IDictionary{`0,`1}";
+            var arr = input.SplitTypeDefinitions();
+            Assert.AreEqual(2, arr.Count());
+            Assert.AreEqual("System.String", arr.ElementAt(0));
+            Assert.AreEqual("System.Collections.Generic.IDictionary{`0,`1}", arr.ElementAt(1));
+        }
+
+
+
+        [TestMethod]
         public void ToMethod01()
         {
             var cref = new CRef("M:TestLibrary.SomeNamespace.Class1.#ctor");
@@ -86,6 +109,81 @@ namespace Blazorade.XmlDocumentation.Tests
             Assert.AreEqual("Foo", method.Name);
         }
 
+        [TestMethod]
+        public void ToMethod04()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.#ctor".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod05()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.Foo".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod06()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.Foo(System.String)".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod07()
+        {
+            var m = "TestLibrary.SomeNamespace.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod08()
+        {
+            var m = "TestLibrary.SomeNamespace.Class7`2.#ctor(`0,`1)".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod09()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.Foo``1".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod10()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.Foo``2(``0,``1)".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod11()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.Foo``4(``0,``1,``2)".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod12()
+        {
+            var m = "TestLibrary.SomeNamespace.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod99()
+        {
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            foreach(XmlNode node in p.Document.DocumentElement.SelectNodes("members/member[starts-with(@name, 'M:')]"))
+            {
+                var methodString = node.Attributes["name"].Value.Substring(2); // Skipping M: from the start.
+                var method = methodString.ToMethod();
+                Assert.IsNotNull(method, $"The method definition '{methodString}' must produce a method instance.");
+            }
+        }
+
 
 
         [TestMethod]
@@ -98,5 +196,27 @@ namespace Blazorade.XmlDocumentation.Tests
             var t = cref.ToType();
             Assert.AreEqual(typeof(Class1), t);
         }
+
+        [TestMethod]
+        public void ToType02()
+        {
+            var t = "System.String".ToType();
+            Assert.AreEqual(typeof(string), t);
+        }
+
+        [TestMethod]
+        public void ToType03()
+        {
+            var t = "System.Collections.Generic.IDictionary{System.Int32,System.Boolean}".ToType();
+            Assert.AreEqual(typeof(IDictionary<int, bool>), t);
+        }
+
+        [TestMethod]
+        public void ToType04()
+        {
+            var t = "System.Collections.Generic.IDictionary{`0,`1}".ToType();
+            Assert.AreEqual(typeof(IDictionary<,>), t);
+        }
+
     }
 }

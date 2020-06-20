@@ -196,5 +196,51 @@
             A property with actual implementation.
             </summary>
         </member>
+        <member name="T:TestLibrary.SomeNamespace.Class6`1">
+            <summary>
+            A generic class with one constructor taking a generic parameter.
+            </summary>
+            <typeparam name="T">The generic type.</typeparam>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Class6`1.#ctor(`0)">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+            <param name="input">The input for the constructor.</param>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Class6`1.#ctor(System.String,`0)">
+            <summary>
+            A constructor with one normal parameter and one generic.
+            </summary>
+            <param name="text">Just some text.</param>
+            <param name="input">The generic parameter.</param>
+        </member>
+        <member name="T:TestLibrary.SomeNamespace.Class7`2">
+            <summary>
+            A generic class with two generic type arguments and two different constructors using
+            these generic arguments as parameters.
+            </summary>
+            <typeparam name="T1">Type #1</typeparam>
+            <typeparam name="T2">Type #2</typeparam>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Class7`2.#ctor(`0)">
+            <summary>
+            Constructor with the first generic parameter.
+            </summary>
+            <param name="t1">Parameter #1</param>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Class7`2.#ctor(`1)">
+            <summary>
+            Constructor with the second generic parameter.
+            </summary>
+            <param name="t2">Type #2</param>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Class7`2.#ctor(`0,`1)">
+            <summary>
+            Constructor with two generic parameters.
+            </summary>
+            <param name="t1">Parameter #1</param>
+            <param name="t2">Parameter #2</param>
+        </member>
     </members>
 </doc>
