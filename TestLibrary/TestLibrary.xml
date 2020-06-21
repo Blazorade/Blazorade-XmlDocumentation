@@ -145,6 +145,12 @@
             </summary>
             <param name="index">The zero-based index for the item to return.</param>
         </member>
+        <member name="M:TestLibrary.SomeNamespace.Class3`2.Foo(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            A function with a generic dictionary as parameter.
+            </summary>
+            <param name="dictionary">A dictionary that uses the generic type parameters specified on the class.</param>
+        </member>
         <member name="T:TestLibrary.SomeNamespace.Class4`1">
             <summary>
             Just a <c>class</c>...

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -15,6 +17,14 @@ namespace Blazorade.XmlDocumentation
     /// </summary>
     public static class DocumentationExtensions
     {
+
+        private static readonly IEnumerable<string> MemberNamePrefixes = new string[]
+        {
+            "add_",
+            "remove_",
+            "get_",
+            "set_"
+        };
 
         private static readonly IDictionary<Type, string> TypeAliases = new Dictionary<Type, string>
         {
@@ -49,6 +59,38 @@ namespace Blazorade.XmlDocumentation
             { typeof(char?), "char?" }
         };
 
+
+
+        /// <summary>
+        /// Searches the current <paramref name="declaringType"/> for a method, both constructor and regular, whose name and
+        /// parameter types match <paramref name="methodName"/> and <paramref name="parameterTypes"/>.
+        /// </summary>
+        /// <param name="declaringType">The type to search in.</param>
+        /// <param name="methodName">The name of the method.</param>
+        /// <param name="parameterTypes">The parameter types.</param>
+        /// <param name="returns">
+        /// If <c>true</c> searches only methods that return a value. If <c>false</c> searches only methods that return 
+        /// <see cref="void"/>. If <c>null</c> searches within any method.
+        /// </param>
+        public static MethodBase FindMethod(this Type declaringType, string methodName, IEnumerable<Type> parameterTypes, bool? returns = null)
+        {
+            IEnumerable<MethodBase> source = methodName == ".ctor"
+                ? declaringType.GetConstructors().Cast<MethodBase>().Where(x => returns.GetValueOrDefault() == false) // Constructors never return a value.
+                : declaringType.GetMethods().Where(x => x.Name == methodName).Where(x => null == returns || (returns == false && x.ReturnType == typeof(void)) || (returns == true && x.ReturnType != typeof(void)));
+
+            foreach(var m in from x in source select x)
+            {
+                var mParams = from x in m.GetParameters() select x;
+                var mParamTypes = from x in mParams select x.ParameterType;
+                if(mParamTypes.Matches(parameterTypes))
+                {
+                    return m;
+                }
+            }
+
+            return null;
+        }
+        
         /// <summary>
         /// Returns only the types where <see cref="Type.IsGenericParameter"/> returns <c>true</c>.
         /// </summary>
@@ -343,7 +385,7 @@ namespace Blazorade.XmlDocumentation
             if (!(methodString.IndexOf('.') > 0)) throw new ArgumentException("The given string does not appear to be a full method definition.");
 
             MethodBase method = null;
-            int genericParamCount = 0;
+            int paramCount = 0, genericParamCount = 0;
             List<Type> paramTypes = new List<Type>();
 
             if (methodString.Contains('('))
@@ -360,12 +402,13 @@ namespace Blazorade.XmlDocumentation
                     }
                 }
                 methodString = methodString.Substring(0, methodString.IndexOf('('));
+                paramCount = paramTypes.Count;
             }
 
             var methodName = methodString.Substring(methodString.LastIndexOf('.') + 1).Replace('#', '.');
             if(methodName.Contains("``"))
             {
-                genericParamCount = int.Parse(methodName.Substring(methodName.LastIndexOf('`') + 1));
+                paramCount = int.Parse(methodName.Substring(methodName.LastIndexOf('`') + 1));
                 methodName = methodName.Substring(0, methodName.IndexOf("``"));
             }
 
@@ -386,20 +429,7 @@ namespace Blazorade.XmlDocumentation
                 }
             }
 
-            if(methodName == ".ctor")
-            {
-                var constructors = declaringType.GetConstructors();
-                foreach(var c in constructors)
-                {
-                    var pArr = c.GetParameters();
-                }
-                method = declaringType.GetConstructor(paramTypes.ToArray());
-            }
-            else
-            {
-                method = declaringType.GetMethod(methodName, genericParamCount, paramTypes.ToArray());
-            }
-
+            method = declaringType.FindMethod(methodName, paramTypes, paramCount != paramTypes.Count);
             return method;
         }
 
@@ -460,15 +490,6 @@ namespace Blazorade.XmlDocumentation
             return pt;
         }
 
-
-        private static readonly IEnumerable<string> MemberNamePrefixes = new string[]
-        {
-            "add_",
-            "remove_",
-            "get_",
-            "set_"
-        };
-
         /// <summary>
         /// Returns the full name of the member.
         /// </summary>
@@ -491,5 +512,48 @@ namespace Blazorade.XmlDocumentation
             return fullName;
         }
 
+
+
+
+        private static string CreateFullName(this Type type)
+        {
+            if(!type.IsSignatureType)
+            {
+                return $"{type.Namespace}.{type.Name},{type.Assembly.FullName}";
+            }
+            else
+            {
+                return type.Name;
+            }
+        }
+
+        private static bool Matches(this IEnumerable<Type> source, IEnumerable<Type> target)
+        {
+            if (null == source || null == target) return false;
+            if (source.Count() != target.Count()) return false;
+
+            for(int i = 0; i < source.Count(); i++)
+            {
+                var sourceType = source.ElementAt(i);
+                var targetType = target.ElementAt(i);
+
+                if (!sourceType.Matches(targetType)) return false;
+            }
+
+            return true;
+        }
+
+        private static bool Matches(this Type source, Type target)
+        {
+            if (null == source || null == target) return false;
+            if (source.IsGenericParameter && target.IsGenericParameter && source.GenericParameterPosition == target.GenericParameterPosition) return true;
+            return source.CreateFullName() == target.CreateFullName();
+        }
+
+        //private static bool Matches(this ParameterInfo source, Type target)
+        //{
+        //    if (null == source || null == target) return false;
+        //    return true;
+        //}
     }
 }

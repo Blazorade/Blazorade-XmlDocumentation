@@ -37,6 +37,14 @@ namespace TestLibrary.SomeNamespace
         /// <param name="index">The zero-based index for the item to return.</param>
         public TItem this[int index] { get { return default(TItem); } }
 
+
+
+        /// <summary>
+        /// A function with a generic dictionary as parameter.
+        /// </summary>
+        /// <param name="dictionary">A dictionary that uses the generic type parameters specified on the class.</param>
+        public void Foo(IDictionary<TKey, TItem> dictionary) { }
+
     }
 
 }

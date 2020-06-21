@@ -62,6 +62,19 @@
             Extension methods for working with XML documentation files.
             </summary>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.FindMethod(System.Type,System.String,System.Collections.Generic.IEnumerable{System.Type},System.Nullable{System.Boolean})">
+            <summary>
+            Searches the current <paramref name="declaringType"/> for a method, both constructor and regular, whose name and
+            parameter types match <paramref name="methodName"/> and <paramref name="parameterTypes"/>.
+            </summary>
+            <param name="declaringType">The type to search in.</param>
+            <param name="methodName">The name of the method.</param>
+            <param name="parameterTypes">The parameter types.</param>
+            <param name="returns">
+            If <c>true</c> searches only methods that return a value. If <c>false</c> searches only methods that return 
+            <see cref="T:System.Void"/>. If <c>null</c> searches within any method.
+            </param>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.GenericParameters(System.Collections.Generic.IEnumerable{System.Type})">
             <summary>
             Returns only the types where <see cref="P:System.Type.IsGenericParameter"/> returns <c>true</c>.

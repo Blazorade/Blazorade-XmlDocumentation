@@ -80,6 +80,36 @@ namespace Blazorade.XmlDocumentation.Tests
 
 
         [TestMethod]
+        public void FindMethod01()
+        {
+            var name = "Foo";
+            var t = typeof(Class3<,>);
+            var pt = typeof(IDictionary<,>);
+            var expected = t.GetMethods().First(x => x.Name == name);
+            var actual = t.FindMethod(name, new Type[] { pt });
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FindMethod02()
+        {
+            var name = ".ctor";
+            var t = typeof(Class1);
+            var m1 = t.FindMethod(name, new Type[0]);
+            var m2 = t.FindMethod(name, new Type[0], false);
+            var m3 = t.FindMethod(name, new Type[0], true);
+
+            Assert.IsNotNull(m1);
+            Assert.IsNotNull(m2);
+            Assert.AreEqual(m1, m2);
+            Assert.IsNull(m3);
+        }
+
+
+
+
+        [TestMethod]
         public void ToMethod01()
         {
             var cref = new CRef("M:TestLibrary.SomeNamespace.Class1.#ctor");
@@ -169,6 +199,29 @@ namespace Blazorade.XmlDocumentation.Tests
         public void ToMethod12()
         {
             var m = "TestLibrary.SomeNamespace.Class3`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod13()
+        {
+            var m = "TestLibrary.SomeNamespace.Class3`2.Foo(System.Collections.Generic.IDictionary{`0,`1})".ToMethod();
+            Assert.IsNotNull(m);
+        }
+
+        [TestMethod]
+        public void ToMethod14()
+        {
+            var m1 = "TestLibrary.SomeNamespace.Class1.Foo``1".ToMethod();
+            var m2 = "TestLibrary.SomeNamespace.Class1.Foo".ToMethod();
+
+            Assert.AreNotEqual(m1, m2);
+        }
+
+        [TestMethod]
+        public void ToMethod15()
+        {
+            var m = "TestLibrary.SomeNamespace.Class1.Foo``1(``0)".ToMethod();
             Assert.IsNotNull(m);
         }
 
