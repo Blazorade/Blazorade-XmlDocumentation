@@ -8,11 +8,42 @@
             <summary>
             Just a class for no reason.
             </summary>
+            <example>
+            <para>
+            This example shows you how you create an instance of this class without specifying a parameter.
+            </para>
+            <code>
+            <![CDATA[
+            var c = new Class1();
+            ]]>
+            </code>
+            <para>
+            The following example shows you how you create an instance of the <c>Class1</c> class by using a constructor parameter.
+            </para>
+            <code>
+            <![CDATA[
+            var c = new Class1("My input parameter");
+            ]]>
+            </code>
+            </example>
+            <remarks>
+            Please note that this class is strictly for demonstration purposes. Not to be used in production.
+            </remarks>
         </member>
         <member name="M:TestLibrary.SomeNamespace.Class1.#ctor">
             <summary>
             The default constructor.
             </summary>
+            <example>
+            <para>
+            This example shows you how you create an instance of the class.
+            </para>
+            <code>
+            <![CDATA[
+            Class1 c = new Class1();
+            ]]>
+            </code>
+            </example>
         </member>
         <member name="M:TestLibrary.SomeNamespace.Class1.#ctor(System.String)">
             <summary>
@@ -247,6 +278,52 @@
             </summary>
             <param name="t1">Parameter #1</param>
             <param name="t2">Parameter #2</param>
+        </member>
+        <member name="T:TestLibrary.SomeNamespace.Singleton">
+            <summary>
+            A class that implements the singleton pattern.
+            </summary>
+            <example>
+            <para>
+            This example demonstrates how to use the <c>Singleton</c> class. Note that the code below has a lot of unnecessary rows.
+            They are there just to try out multiple lines of code.
+            </para>
+            <code>
+            <![CDATA[
+            var s = Singleton.GetInstance();
+            if(s.HasStuff)
+            {
+                for(int i = 0; i < 10; i++)
+                {
+                    s.Write(i);
+                }
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Singleton.GetInstance">
+            <summary>
+            Returns the singleton instance for the <see cref="T:TestLibrary.SomeNamespace.Singleton"/> class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:TestLibrary.SomeNamespace.Singleton.HasStuff">
+            <summary>
+            Just a boolean read-only property.
+            </summary>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Singleton.Write(System.String)">
+            <summary>
+            Pretends that you can write stuff using this method.
+            </summary>
+            <param name="text">The text to write.</param>
+        </member>
+        <member name="M:TestLibrary.SomeNamespace.Singleton.Write(System.Object)">
+            <summary>
+            The same as <see cref="M:TestLibrary.SomeNamespace.Singleton.Write(System.String)"/> but with an object.
+            </summary>
+            <param name="data">The data to write.</param>
         </member>
     </members>
 </doc>

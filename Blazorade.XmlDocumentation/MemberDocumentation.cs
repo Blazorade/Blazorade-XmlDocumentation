@@ -68,11 +68,11 @@ namespace Blazorade.XmlDocumentation
         }
 
         /// <summary>
-        /// Returns the <c>example</c> nodes from the documentation.
+        /// Returns the <c>example</c> node from the documentation.
         /// </summary>
-        public IEnumerable<XmlNode> Examples
+        public XmlNode Example
         {
-            get { return this.ChildNodes("example"); }
+            get { return this.ChildNodes("example").FirstOrDefault(); }
         }
 
 

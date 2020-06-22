@@ -10,9 +10,15 @@ using System.Security.Cryptography;
 namespace Blazorade.XmlDocumentation
 {
 
+    /// <summary>
+    /// Represents a <c>cref</c> attribute value in an XML documentation node.
+    /// </summary>
     public class CRef
     {
-
+        /// <summary>
+        /// Creates an instance using the given <paramref name="rawValue"/>.
+        /// </summary>
+        /// <param name="rawValue">The raw value of the <c>cref</c> attribute. The raw value always contains the member type prefix.</param>
         public CRef(string rawValue)
         {
             if(!(rawValue?.Length > 0))
@@ -43,33 +49,96 @@ namespace Blazorade.XmlDocumentation
             this.Value = this.RawValue.Substring(2);
         }
 
+        /// <summary>
+        /// Converts <paramref name="cref"/> to its string representation.
+        /// </summary>
         public static implicit operator string(CRef cref)
         {
             return cref.ToString();
         }
 
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is a namespace.
+        /// </summary>
         public bool IsNamespace { get { return this.CRefType == CRefType.Namespace; } }
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is a type.
+        /// </summary>
         public bool IsType { get { return this.CRefType == CRefType.Type; } }
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is a field.
+        /// </summary>
         public bool IsField { get { return this.CRefType == CRefType.Field; } }
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is a property.
+        /// </summary>
         public bool IsProperty { get { return this.CRefType == CRefType.Property; } }
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is a method.
+        /// </summary>
         public bool IsMethod { get { return this.CRefType == CRefType.Method; } }
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is a constructor.
+        /// </summary>
         public bool IsConstructor { get { return this.IsMethod && this.Value.Contains(".#ctor"); } }
 
+        /// <summary>
+        /// Returns <c>true</c> if the current <see cref="CRef"/> is an event.
+        /// </summary>
         public bool IsEvent { get { return this.CRefType == CRefType.Event; } }
 
+        /// <summary>
+        /// Returns the raw value the <see cref="CRef"/> was created from.
+        /// </summary>
         public string RawValue { get; private set; }
 
+        /// <summary>
+        /// Returns the type the <see cref="CRef"/> represents.
+        /// </summary>
         public CRefType CRefType { get; private set; }
 
+        /// <summary>
+        /// Returns the trimmed value.
+        /// </summary>
         public string Value { get; private set; }
 
 
+
+        /// <summary>
+        /// Returns the member defined by the current <see cref="CRef"/> instance.
+        /// </summary>
+        public MemberInfo ToMember()
+        {
+            MemberInfo mi = null;
+
+            switch(this.CRefType)
+            {
+                case CRefType.Method:
+                    mi = this.ToMethod();
+                    break;
+
+                case CRefType.Type:
+                    mi = this.ToType();
+                    break;
+            }
+
+            return mi;
+        }
+
+        /// <summary>
+        /// Returns the property defined by the current <see cref="CRef"/> instance.
+        /// </summary>
+        public PropertyInfo ToProperty()
+        {
+            if (!this.IsProperty) throw new InvalidOperationException("The current object does not represent a property.");
+            return null;
+        }
 
         /// <summary>
         /// Returns the method defined by the current <see cref="CRef"/> instance.
@@ -77,12 +146,8 @@ namespace Blazorade.XmlDocumentation
         /// <returns>Returns the method or <c>null</c> if <see cref="IsMethod"/> returns <c>false</c>.</returns>
         public MethodBase ToMethod()
         {
-            if (this.IsMethod)
-            {
-                return this.Value.ToMethod();
-            }
-
-            return null;
+            if (!this.IsMethod) throw new InvalidOperationException("The current object does not represent a method.");
+            return this.Value.ToMethod();
         }
 
         /// <summary>
@@ -94,16 +159,8 @@ namespace Blazorade.XmlDocumentation
         /// <exception cref="InvalidOperationException">The exception that is thrown if <see cref="IsType"/> returns <c>false</c>.</exception>
         public Type ToType()
         {
-            Type t = null;
             if(!this.IsType) throw new InvalidOperationException("The current object does not represent a Type.");
-
-            t = Type.GetType(this.Value);
-            if(null == t)
-            {
-                t = AppDomain.CurrentDomain.GetAssemblies().GetType(this.Value);
-            }
-
-            return t;
+            return this.Value.ToType();
         }
 
         /// <inheritdoc/>

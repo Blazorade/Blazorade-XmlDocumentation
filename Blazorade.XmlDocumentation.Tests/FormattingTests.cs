@@ -240,6 +240,33 @@ namespace Blazorade.XmlDocumentation.Tests
 
 
         [TestMethod]
+        public void ToProperty01()
+        {
+            var p = "TestLibrary.SomeNamespace.Class1.Prop1".ToProperty();
+            Assert.IsNotNull(p);
+        }
+
+        [TestMethod]
+        public void ToProperty02()
+        {
+            var p = "TestLibrary.SomeNamespace.Class3`2.Item(`0)".ToProperty();
+            Assert.IsNotNull(p);
+        }
+
+        [TestMethod]
+        public void ToProperty99()
+        {
+            var p = Shared.GetFactory().GetParser(ParserKeys.TestLib);
+            foreach (XmlNode node in p.Document.DocumentElement.SelectNodes("members/member[starts-with(@name, 'P:')]"))
+            {
+                var propertyString = node.Attributes["name"].Value.Substring(2); // Skipping P: from the start.
+                var property = propertyString.ToProperty();
+                Assert.IsNotNull(property, $"The method definition '{propertyString}' must produce a property instance.");
+            }
+        }
+
+
+        [TestMethod]
         public void ToType01()
         {
             var cref = new CRef("T:TestLibrary.SomeNamespace.Class1");

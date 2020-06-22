@@ -90,6 +90,28 @@ namespace Blazorade.XmlDocumentation
 
             return null;
         }
+
+        /// <summary>
+        /// Searches the current <paramref name="declaringType"/> for a property that matches the given parameters.
+        /// </summary>
+        /// <param name="declaringType">The type to search in.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="parameterTypes">The parameter types.</param>
+        public static PropertyInfo FindProperty(this Type declaringType, string propertyName, IEnumerable<Type> parameterTypes)
+        {
+            IEnumerable<PropertyInfo> source = from x in declaringType.GetProperties() where x.Name == propertyName select x;
+            foreach(var p in from x in source select x)
+            {
+                var pParams = p.GetIndexParameters();
+                var pParamTypes = from x in pParams select x.ParameterType;
+                if(pParamTypes.Matches(parameterTypes))
+                {
+                    return p;
+                }
+            }
+
+            return null;
+        }
         
         /// <summary>
         /// Returns only the types where <see cref="Type.IsGenericParameter"/> returns <c>true</c>.
@@ -431,6 +453,31 @@ namespace Blazorade.XmlDocumentation
 
             method = declaringType.FindMethod(methodName, paramTypes, paramCount != paramTypes.Count);
             return method;
+        }
+
+        /// <summary>
+        /// Returns the property that <paramref name="propertyString"/> represents.
+        /// </summary>
+        public static PropertyInfo ToProperty(this string propertyString)
+        {
+            PropertyInfo pi = null;
+            List<Type> paramTypes = new List<Type>();
+            if(propertyString.Contains('('))
+            {
+                var paramTypesString = propertyString.Substring(propertyString.IndexOf('(') + 1, propertyString.IndexOf(')') - propertyString.IndexOf('(') - 1);
+                propertyString = propertyString.Substring(0, propertyString.IndexOf('('));
+                var arr = paramTypesString.SplitTypeDefinitions();
+                foreach(var item in arr)
+                {
+                    var t = item.ToType();
+                    if (null != t) paramTypes.Add(t);
+                }
+            }
+            var propertyName = propertyString.Substring(propertyString.LastIndexOf('.') + 1);
+            var typeRef = new CRef($"T:{propertyString.Substring(0, propertyString.LastIndexOf('.'))}");
+            var declaringType = typeRef.ToType();
+            pi = declaringType.FindProperty(propertyName, paramTypes);
+            return pi;
         }
 
         /// <summary>

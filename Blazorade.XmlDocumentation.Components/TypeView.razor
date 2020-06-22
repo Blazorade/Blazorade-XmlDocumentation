@@ -2,11 +2,11 @@
 
 <Heading Level="1">@this.Documentation.Member.ToDisplayName() <TypeDeclaration Type="@this.Documentation.Member" /></Heading>
 
-<Paragraph IsLead="true"><NodeList Nodes="@this.Documentation.Summary.ChildNodes" /></Paragraph>
+<SummaryNode Node="this.Documentation.Summary" />
 
 <RemarksNode Node="@this.Documentation.Remarks" />
 
-@* Examples *@
+<ExampleNode Node="@this.Documentation.Example" />
 
 <FieldList LibraryKey="@this.LibraryKey" TypeName="@this.TypeName">
     <HeadingTemplate>

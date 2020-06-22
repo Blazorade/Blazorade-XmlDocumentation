@@ -4,6 +4,7 @@
     switch(this.Node?.Name?.ToLower())
     {
         case "c":<CNode Node="this.Node" />break;
+        case "code":<CodeNode Node="this.Node" />break;
         case "see":<SeeNode Node="this.Node" />break;
         case "para":<ParaNode Node="this.Node" />break;
         case "summary":<SummaryNode Node="this.Node" />break;
@@ -11,6 +12,7 @@
         case "seealso":break;
         case "exception":break;
         case "list":break;
+        case "example":<ExampleNode Node="this.Node" />break;
         default:<NodeList Nodes="this.Node.ChildNodes" />break;
     }
 }

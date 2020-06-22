@@ -1,0 +1,7 @@
+﻿@inherits NodeComponentBase
+
+@if(null != this.Node)
+{
+    <Heading Id="example" IsAnchor="true" Level="2">Example</Heading>
+    <NodeList Nodes="this.Node.ChildNodes" />
+}

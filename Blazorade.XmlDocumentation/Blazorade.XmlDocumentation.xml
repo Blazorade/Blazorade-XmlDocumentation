@@ -4,6 +4,82 @@
         <name>Blazorade.XmlDocumentation</name>
     </assembly>
     <members>
+        <member name="T:Blazorade.XmlDocumentation.CRef">
+            <summary>
+            Represents a <c>cref</c> attribute value in an XML documentation node.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.CRef.#ctor(System.String)">
+            <summary>
+            Creates an instance using the given <paramref name="rawValue"/>.
+            </summary>
+            <param name="rawValue">The raw value of the <c>cref</c> attribute. The raw value always contains the member type prefix.</param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.CRef.op_Implicit(Blazorade.XmlDocumentation.CRef)~System.String">
+            <summary>
+            Converts <paramref name="cref"/> to its string representation.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsNamespace">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is a namespace.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsType">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is a type.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsField">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is a field.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsProperty">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is a property.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsMethod">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is a method.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsConstructor">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is a constructor.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.IsEvent">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> is an event.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.RawValue">
+            <summary>
+            Returns the raw value the <see cref="T:Blazorade.XmlDocumentation.CRef"/> was created from.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.CRefType">
+            <summary>
+            Returns the type the <see cref="T:Blazorade.XmlDocumentation.CRef"/> represents.
+            </summary>
+        </member>
+        <member name="P:Blazorade.XmlDocumentation.CRef.Value">
+            <summary>
+            Returns the trimmed value.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.CRef.ToMember">
+            <summary>
+            Returns the member defined by the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> instance.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.CRef.ToProperty">
+            <summary>
+            Returns the property defined by the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> instance.
+            </summary>
+        </member>
         <member name="M:Blazorade.XmlDocumentation.CRef.ToMethod">
             <summary>
             Returns the method defined by the current <see cref="T:Blazorade.XmlDocumentation.CRef"/> instance.
@@ -74,6 +150,14 @@
             If <c>true</c> searches only methods that return a value. If <c>false</c> searches only methods that return 
             <see cref="T:System.Void"/>. If <c>null</c> searches within any method.
             </param>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.FindProperty(System.Type,System.String,System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Searches the current <paramref name="declaringType"/> for a property that matches the given parameters.
+            </summary>
+            <param name="declaringType">The type to search in.</param>
+            <param name="propertyName">The name of the property.</param>
+            <param name="parameterTypes">The parameter types.</param>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.GenericParameters(System.Collections.Generic.IEnumerable{System.Type})">
             <summary>
@@ -185,6 +269,11 @@
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToMethod(System.String)">
             <summary>
             Returns the method that <paramref name="methodString"/> represents.
+            </summary>
+        </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToProperty(System.String)">
+            <summary>
+            Returns the property that <paramref name="propertyString"/> represents.
             </summary>
         </member>
         <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.ToType(System.String)">
@@ -539,9 +628,9 @@
             Returns the <c>exception</c> nodes from the documentation.
             </summary>
         </member>
-        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Examples">
+        <member name="P:Blazorade.XmlDocumentation.MemberDocumentation.Example">
             <summary>
-            Returns the <c>example</c> nodes from the documentation.
+            Returns the <c>example</c> node from the documentation.
             </summary>
         </member>
         <member name="M:Blazorade.XmlDocumentation.MemberDocumentation.ToString">

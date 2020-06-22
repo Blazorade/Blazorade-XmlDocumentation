@@ -6,12 +6,43 @@ namespace TestLibrary.SomeNamespace
     /// <summary>
     /// Just a class for no reason.
     /// </summary>
+    /// <example>
+    /// <para>
+    /// This example shows you how you create an instance of this class without specifying a parameter.
+    /// </para>
+    /// <code>
+    /// <![CDATA[
+    /// var c = new Class1();
+    /// ]]>
+    /// </code>
+    /// <para>
+    /// The following example shows you how you create an instance of the <c>Class1</c> class by using a constructor parameter.
+    /// </para>
+    /// <code>
+    /// <![CDATA[
+    /// var c = new Class1("My input parameter");
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// <remarks>
+    /// Please note that this class is strictly for demonstration purposes. Not to be used in production.
+    /// </remarks>
     public class Class1
     {
 
         /// <summary>
         /// The default constructor.
         /// </summary>
+        /// <example>
+        /// <para>
+        /// This example shows you how you create an instance of the class.
+        /// </para>
+        /// <code>
+        /// <![CDATA[
+        /// Class1 c = new Class1();
+        /// ]]>
+        /// </code>
+        /// </example>
         public Class1() { }
 
         /// <summary>

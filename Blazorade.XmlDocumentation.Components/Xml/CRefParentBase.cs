@@ -45,23 +45,17 @@ namespace Blazorade.XmlDocumentation.Components.Xml
         {
             base.OnParametersSet();
 
-            var cref = this.Node?.Attributes["cref"]?.Value;
-            if(null != cref)
+            var crefValue = this.Node?.Attributes["cref"]?.Value;
+            if(null != crefValue)
             {
-                var refType = cref.Substring(0, 1);
-                var refName = cref.Substring(2);
-
-                if(refType == "T")
+                
+                CRef cref = new CRef(crefValue);
+                
+                switch(cref.CRefType)
                 {
-                    var parserRef = this.Factory.GetParserByType(refName);
-                    Type t = parserRef?.Item3 ?? this.Factory.GetType(refName);
-
-                    this.LinkUrl = this.UriBuilder.GetTypeUri(parserRef?.Item1, t);
-                    this.LinkText = parserRef?.Item3?.Name ?? refName;
-                }
-                else if(refType == "P")
-                {
-                    
+                    case CRefType.Type:
+                        
+                        break;
                 }
             }
         }

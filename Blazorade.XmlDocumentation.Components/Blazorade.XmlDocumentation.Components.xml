@@ -673,6 +673,11 @@
             For a list of elements that this component supports, see https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/xmldoc/recommended-tags-for-documentation-comments#tags
             </remarks>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.ExampleNode">
+            <summary>
+            Represents an &lt;example /&gt; node.
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList">
             <summary>
             Builds a list of exception documentation from the <see cref="P:Blazorade.XmlDocumentation.Components.Xml.ExceptionsList.SourceNodes"/> node list.
