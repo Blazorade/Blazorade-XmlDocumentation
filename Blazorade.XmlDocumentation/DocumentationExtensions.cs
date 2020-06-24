@@ -559,6 +559,44 @@ namespace Blazorade.XmlDocumentation
             return fullName;
         }
 
+        /// <summary>
+        /// Scans each line in <paramref name="input"/> and searches for the minimum number of leading spaces on a single line.
+        /// Then that amount of spaces is removed from each line at the beginning.
+        /// </summary>
+        /// <returns>
+        /// Returns the string where the indent spaces have been minimized.
+        /// </returns>
+        public static string MinimizeIndentSpaces(this string input)
+        {
+            if(!string.IsNullOrEmpty(input))
+            {
+                int? minSpaceCount = null;
+                var lines = input.Split(Environment.NewLine);
+                foreach(var line in lines)
+                {
+                    if(line.Length > 0)
+                    {
+                        var spaceCount = line.Length - line.TrimStart().Length;
+                        if (!minSpaceCount.HasValue || spaceCount < minSpaceCount) minSpaceCount = spaceCount;
+                    }
+                }
+
+                if(minSpaceCount.HasValue)
+                {
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Length >= minSpaceCount)
+                        {
+                            lines[i] = lines[i].Substring(minSpaceCount.Value);
+                        }
+                    }
+                }
+
+                return string.Join(Environment.NewLine, lines);
+            }
+
+            return input;
+        }
 
 
 

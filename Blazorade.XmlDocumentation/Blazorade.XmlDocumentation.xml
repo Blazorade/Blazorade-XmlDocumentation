@@ -291,6 +291,15 @@
             </remarks>
             <param name="member">The member whose full name to return.</param>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.MinimizeIndentSpaces(System.String)">
+            <summary>
+            Scans each line in <paramref name="input"/> and searches for the minimum number of leading spaces on a single line.
+            Then that amount of spaces is removed from each line at the beginning.
+            </summary>
+            <returns>
+            Returns the string where the indent spaces have been minimized.
+            </returns>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.DocumentationNodeBase.DocumentationNode">
             <summary>
             Returns the XML node representing the documentation.

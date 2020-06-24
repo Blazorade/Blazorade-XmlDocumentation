@@ -25,6 +25,21 @@ namespace Blazorade.XmlDocumentation.Tests
 
 
         [TestMethod]
+        public void GetCode01()
+        {
+            var t = typeof(Singleton);
+            var p = Shared.GetFactory().GetParserByType(t).Item2;
+            var doc = p.GetDocumentation(t);
+            var codeNode = doc.Example.SelectSingleNode("code");
+            var codeText = codeNode.InnerText;
+            var trimmedCode = codeText.MinimizeIndentSpaces();
+
+            Assert.AreNotEqual(codeText, trimmedCode);
+        }
+
+
+
+        [TestMethod]
         public void MemberUriName01()
         {
             var t = typeof(Class1).Assembly.GetTypes().Where(x => x.Name.Contains("Class3")).First();
