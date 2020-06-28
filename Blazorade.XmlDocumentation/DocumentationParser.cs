@@ -68,7 +68,23 @@ namespace Blazorade.XmlDocumentation
         /// <param name="asm">The assembly to load the documentation from.</param>
         public DocumentationParser(Assembly asm) : this(LoadDocument(asm)) { }
 
+        /// <summary>
+        /// Creates an instance of the parser using the given XML documentation file specified in <paramref name="documentFile"/>.
+        /// </summary>
+        /// <param name="documentFile">The <see cref="FileInfo"/> object that points to the XML documentation file to load into the parser.</param>
+        public DocumentationParser(FileInfo documentFile) : this(LoadDocument(ReadFile(documentFile))) { }
 
+        private static string ReadFile(FileInfo file)
+        {
+            using (var strm = file.OpenRead())
+            {
+                using (var reader = new StreamReader(strm))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+
+        }
         private static XmlDocument LoadDocument(string xml)
         {
             var doc = new XmlDocument();
