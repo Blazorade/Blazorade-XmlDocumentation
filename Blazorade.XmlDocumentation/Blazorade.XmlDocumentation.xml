@@ -343,6 +343,12 @@
             </remarks>
             <param name="asm">The assembly to load the documentation from.</param>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationParser.#ctor(System.IO.FileInfo)">
+            <summary>
+            Creates an instance of the parser using the given XML documentation file specified in <paramref name="documentFile"/>.
+            </summary>
+            <param name="documentFile">The <see cref="T:System.IO.FileInfo"/> object that points to the XML documentation file to load into the parser.</param>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.DocumentationParser.AssemblyName">
             <summary>
             Returns the name of the assembly whose XML documentation is loaded into the parser.
