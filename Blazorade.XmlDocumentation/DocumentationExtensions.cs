@@ -598,6 +598,27 @@ namespace Blazorade.XmlDocumentation
             return input;
         }
 
+        /// <summary>
+        /// Removes all leading and traling empty lines from the given string.
+        /// </summary>
+        /// <returns>Returns the string where empty lines have been removed from the beginning and end.</returns>
+        public static string TrimEmptyLines(this string input)
+        {
+            var lines = new List<string>(input?.Split(Environment.NewLine) ?? new string[0]);
+
+            while(lines.Count > 0 && string.IsNullOrEmpty(lines.First()?.Trim()))
+            {
+                lines.RemoveAt(0);
+            }
+
+            while(lines.Count > 0 && string.IsNullOrEmpty(lines.Last()?.Trim()))
+            {
+                lines.RemoveAt(lines.Count - 1);
+            }
+
+            return string.Join(Environment.NewLine, lines);
+        }
+
 
 
         private static string CreateFullName(this Type type)

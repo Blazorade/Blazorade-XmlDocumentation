@@ -14,14 +14,20 @@ namespace TestLibrary.SomeNamespace
     /// </para>
     /// <code>
     /// <![CDATA[
+    ///     
+    ///     
     /// var s = Singleton.GetInstance();
     /// if(s.HasStuff)
     /// {
     ///     for(int i = 0; i < 10; i++)
     ///     {
+    ///         // Add some empty lines here as well
+    ///         
     ///         s.Write(i);
     ///     }
     /// }
+    ///     
+    ///     
     /// ]]>
     /// </code>
     /// </example>

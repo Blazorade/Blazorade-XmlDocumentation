@@ -1,8 +1,10 @@
 ﻿@inherits NodeComponentBase
 @if (null != this.Node)
 {
-    <Heading Id="remarks" IsAnchor="true" Level="2">Remarks</Heading>
-    <Paragraph>
-        <NodeList Nodes="@this.Node?.ChildNodes" />
-    </Paragraph>
+    <Div class="xml-remarks">
+        <Heading Id="remarks" IsAnchor="true" Level="2">Remarks</Heading>
+        <Paragraph>
+            <NodeList Nodes="@this.Node?.ChildNodes" />
+        </Paragraph>
+    </Div>
 }

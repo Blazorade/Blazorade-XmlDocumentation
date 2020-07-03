@@ -300,6 +300,12 @@
             Returns the string where the indent spaces have been minimized.
             </returns>
         </member>
+        <member name="M:Blazorade.XmlDocumentation.DocumentationExtensions.TrimEmptyLines(System.String)">
+            <summary>
+            Removes all leading and traling empty lines from the given string.
+            </summary>
+            <returns>Returns the string where empty lines have been removed from the beginning and end.</returns>
+        </member>
         <member name="P:Blazorade.XmlDocumentation.DocumentationNodeBase.DocumentationNode">
             <summary>
             Returns the XML node representing the documentation.

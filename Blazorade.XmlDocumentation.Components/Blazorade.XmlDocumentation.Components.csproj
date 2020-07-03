@@ -47,11 +47,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\Blazorade.XmlDocumentation\Blazorade.XmlDocumentation.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿@inherits NodeComponentBase
 @if (null != this.Node)
 {
-    <Paragraph IsLead="true">
+    <Paragraph IsLead="true" class="xml-summary">
         <NodeList Nodes="@this.Node?.ChildNodes" />
     </Paragraph>
 }
