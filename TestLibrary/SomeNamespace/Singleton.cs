@@ -7,6 +7,7 @@ namespace TestLibrary.SomeNamespace
     /// <summary>
     /// A class that implements the singleton pattern.
     /// </summary>
+    /// <remarks>This class has nothing to do with <see cref="Class1"/> or <see cref="Class2"/>, just so that you know.</remarks>
     /// <example>
     /// <para>
     /// This example demonstrates how to use the <c>Singleton</c> class. Note that the code below has a lot of unnecessary rows.
