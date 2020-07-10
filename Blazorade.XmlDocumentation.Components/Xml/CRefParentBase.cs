@@ -48,13 +48,14 @@ namespace Blazorade.XmlDocumentation.Components.Xml
             var crefValue = this.Node?.Attributes["cref"]?.Value;
             if(null != crefValue)
             {
-                
                 CRef cref = new CRef(crefValue);
-                
                 switch(cref.CRefType)
                 {
                     case CRefType.Type:
-                        
+                        var t = cref.ToType();
+                        this.LinkText = t.Name;
+                        var result = this.Factory.GetParserByType(t);
+                        this.LinkUrl = this.UriBuilder.GetTypeUri(result?.Item1, t);
                         break;
                 }
             }
