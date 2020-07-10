@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/Blazorade/Blazorade-XmlDocumentation</PackageProjectUrl>
     <PackageTags>XML, Documentation, XML Documentation, Comments</PackageTags>
     <PackageReleaseNotes>This is a preview release.</PackageReleaseNotes>
-    <Version>1.0.0-preview3</Version>
+    <Version>1.0.0-preview4</Version>
     <RepositoryType>GitHub</RepositoryType>
     <RepositoryUrl>https://github.com/Blazorade/Blazorade-XmlDocumentation</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
