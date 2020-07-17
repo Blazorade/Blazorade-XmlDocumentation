@@ -4,6 +4,16 @@
         <name>TestLibrary</name>
     </assembly>
     <members>
+        <member name="T:TestLibrary.SomeNamespace.AClass">
+            <summary>
+            This is just a class, as the name implies.
+            </summary>
+            <seealso cref="T:TestLibrary.SomeNamespace.Singleton"/>
+            <seealso cref="T:TestLibrary.SomeNamespace.Class1"/>
+            <seealso cref="T:TestLibrary.SomeNamespace.Class2"/>
+            <seealso cref="T:TestLibrary.SomeNamespace.Class3`2"/>
+            <seealso cref="T:TestLibrary.SomeNamespace.Class4`1"/>
+        </member>
         <member name="T:TestLibrary.SomeNamespace.Class1">
             <summary>
             Just a class for no reason.

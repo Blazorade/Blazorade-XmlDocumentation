@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Blazorade.XmlDocumentation.Tests.Properties {
+namespace DocsTestApp.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Blazorade.XmlDocumentation.Tests.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Blazorade.XmlDocumentation.Tests.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Blazorade.XmlDocumentation.Tests.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DocsTestApp.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Blazorade.XmlDocumentation.Tests.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,34 +61,11 @@ namespace Blazorade.XmlDocumentation.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
-        ///&lt;doc&gt;
-        ///    &lt;assembly&gt;
-        ///        &lt;name&gt;Blazorade.Bootstrap.Components&lt;/name&gt;
-        ///    &lt;/assembly&gt;
-        ///    &lt;members&gt;
-        ///        &lt;member name=&quot;T:Blazorade.Bootstrap.Components.Alert&quot;&gt;
-        ///            &lt;summary&gt;
-        ///            The Alert component is used to provide feedback messages, typically in response to user actions.
-        ///            &lt;/summary&gt;
-        ///            &lt;remarks&gt;
-        ///            For details see https://github.com/Blazorade/Blazorade-Bootstrap/wiki/Alert
-        ///            &lt;/remarks&gt;
-        ///        &lt;/member&gt;
-        ///      [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Blazorade_Bootstrap_Components {
-            get {
-                return ResourceManager.GetString("Blazorade_Bootstrap_Components", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] Blazorade_Bootstrap_Components_Preview_Asm {
+        internal static byte[] Blazorade_Bootstrap_Components_Asm {
             get {
-                object obj = ResourceManager.GetObject("Blazorade_Bootstrap_Components_Preview_Asm", resourceCulture);
+                object obj = ResourceManager.GetObject("Blazorade_Bootstrap_Components_Asm", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -108,34 +85,9 @@ namespace Blazorade.XmlDocumentation.Tests.Properties {
         ///        &lt;/member&gt;
         ///        &lt;member name=&quot;F:Blazorade.Bootstrap.C [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Blazorade_Bootstrap_Components_Preview_Xml {
+        internal static string Blazorade_Bootstrap_Components_Xml {
             get {
-                return ResourceManager.GetString("Blazorade_Bootstrap_Components_Preview_Xml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
-        ///&lt;doc&gt;
-        ///    &lt;assembly&gt;
-        ///        &lt;name&gt;Blazorade.Core&lt;/name&gt;
-        ///    &lt;/assembly&gt;
-        ///    &lt;members&gt;
-        ///        &lt;member name=&quot;T:Blazorade.Core.Components.BlazoradeComponentBase&quot;&gt;
-        ///            &lt;summary&gt;
-        ///            A base class for Blazor components.
-        ///            &lt;/summary&gt;
-        ///        &lt;/member&gt;
-        ///        &lt;member name=&quot;M:Blazorade.Core.Components.BlazoradeComponentBase.#ctor&quot;&gt;
-        ///            &lt;summary&gt;
-        ///            Creates an instance of the class.
-        ///            &lt;/summary&gt;
-        ///        &lt;/member&gt;
-        ///        &lt;me [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Blazorade_Core {
-            get {
-                return ResourceManager.GetString("Blazorade_Core", resourceCulture);
+                return ResourceManager.GetString("Blazorade_Bootstrap_Components_Xml", resourceCulture);
             }
         }
     }

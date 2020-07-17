@@ -118,16 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Blazorade_Bootstrap_Components" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blazorade.Bootstrap.Components.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Blazorade_Bootstrap_Components_Preview_Asm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Blazorade_Bootstrap_Components_Asm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\previewlibraries\blazorade.bootstrap.components.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Blazorade_Bootstrap_Components_Preview_Xml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Blazorade_Bootstrap_Components_Xml" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\previewlibraries\blazorade.bootstrap.components.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Blazorade_Core" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blazorade.Core.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

@@ -54,6 +54,20 @@ namespace Blazorade.XmlDocumentation
         public DocumentationParser(string xml) : this(LoadDocument(xml)) { }
 
         /// <summary>
+        /// Creates an instance of the class from the given XML string representing the documentation and byte array representing the assembly.
+        /// </summary>
+        /// <remarks>
+        /// This constructor allows you to load in any assembly, also multiple different versions of the same assembly, and produce
+        /// documentation on all of them.
+        /// </remarks>
+        /// <param name="xml">The XML documentation to load in the parser.</param>
+        /// <param name="rawAssembly">The assembly data representing the assembly documented in <paramref name="xml"/>.</param>
+        public DocumentationParser(string xml, byte[] rawAssembly) : this(LoadDocument(xml))
+        {
+            var asm = Assembly.ReflectionOnlyLoad(rawAssembly);
+        }
+
+        /// <summary>
         /// Creates a new parser instance from the given assembly.
         /// </summary>
         /// <remarks>

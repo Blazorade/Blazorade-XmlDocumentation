@@ -741,6 +741,11 @@
             Represents a <c>&lt;remarks&gt;</c> element in XML documentation.
             </summary>
         </member>
+        <member name="T:Blazorade.XmlDocumentation.Components.Xml.SeeAlsoNode">
+            <summary>
+            Represents the <c>&lt;seealso cref="..." /&gt;</c> element in XML documentation.
+            </summary>
+        </member>
         <member name="T:Blazorade.XmlDocumentation.Components.Xml.SeeNode">
             <summary>
             Represents the <c>&lt;see cref="..." /&gt;</c> element in XML documentation.
